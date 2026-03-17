@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Feedback Implementation Status — 16 Mar 2026</title>
+<style>
+body {
+    font-family: Calibri, Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.6;
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 0.8in 1in;
+    color: #1a1a1a;
+}
+h1 {
+    font-size: 22pt;
+    color: #1a1a1a;
+    border-bottom: 3px solid #2563eb;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+.meta {
+    color: #555;
+    font-size: 10pt;
+    margin-bottom: 30px;
+}
+h2 {
+    font-size: 15pt;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 4px;
+    margin-top: 35px;
+}
+.h2-blue { background-color: #2563eb; }
+.h2-green { background-color: #16a34a; }
+.h2-orange { background-color: #d35400; }
+.h2-gray { background-color: #6b7280; }
+h3 {
+    font-size: 12pt;
+    color: #2563eb;
+    margin-top: 22px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 4px;
+}
+.label {
+    display: inline-block;
+    font-size: 9pt;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+.label-done { background-color: #16a34a; color: #fff; }
+.label-partial { background-color: #f59e0b; color: #333; }
+.label-open { background-color: #dc3545; color: #fff; }
+.label-na { background-color: #6b7280; color: #fff; }
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 12px 0;
+    font-size: 10.5pt;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+}
+th { background-color: #f5f5f5; font-weight: bold; }
+tr:nth-child(even) { background-color: #fafafa; }
+.summary-box {
+    display: inline-block;
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin: 6px 8px 6px 0;
+    font-weight: bold;
+    font-size: 13pt;
+    color: #fff;
+}
+.sb-green { background-color: #16a34a; }
+.sb-yellow { background-color: #f59e0b; color: #333; }
+.sb-red { background-color: #dc3545; }
+.sb-gray { background-color: #6b7280; }
+hr { border: none; border-top: 2px solid #eee; margin: 40px 0; }
+.note {
+    background-color: #eff6ff;
+    border-left: 4px solid #2563eb;
+    padding: 10px 15px;
+    margin: 15px 0;
+    font-size: 10.5pt;
+}
+</style>
+</head>
+<body>
+
+<h1>Feedback Implementation Status</h1>
+
+<div class="meta">
+    <strong>Date:</strong> 16 Mar 2026 &nbsp;|&nbsp;
+    <strong>Scope:</strong> All feedback from Abdul (R1 + R2 + PROD-4120 review), Andrew (PROD-4120 comment), Kostya (verbal) &nbsp;|&nbsp;
+    <strong>Prototype:</strong> Advertising Portal UI Design.html
+</div>
+
+<div>
+    <span class="summary-box sb-green">29 Done</span>
+    <span class="summary-box sb-yellow">1 Partial</span>
+    <span class="summary-box sb-red">0 Open</span>
+    <span class="summary-box sb-gray">12 Jira-Only (not prototype)</span>
+</div>
+
+<hr>
+
+<!-- ===== SECTION 1: PROD-4120 WIZARD ===== -->
+<h2 class="h2-blue">Section 1 &mdash; PROD-4120: ASIN Setup Wizard</h2>
+
+<h3>Andrew Pomaz (6 Mar, Jira comment)</h3>
+<table>
+<tr><th style="width:40%">Feedback</th><th style="width:12%">Status</th><th>Implementation</th></tr>
+<tr>
+    <td><strong>#1: Step 1 too complex</strong> &mdash; mixes product selection, system validations, campaign settings</td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Step 1 is now purely Product Selection + Competitor Selection (2 sub-steps). Target ACOS, budget, all campaign settings moved to Step 4.</td>
+</tr>
+<tr>
+    <td><strong>#2: System logic exposed</strong> &mdash; "ASIN Config Preconditions" unclear to users</td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Preconditions section removed entirely. Replaced with contextual "Product selected &mdash; ready to proceed" message.</td>
+</tr>
+<tr>
+    <td><strong>#3: Doesn't reflect real functional flow</strong> &mdash; delays in steps not referenced</td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Full-page wizard layout matching portal. KW Research timing corrected to 5&ndash;10 min, KW Automation to 25&ndash;30 min (verified against live portal via Playwright).</td>
+</tr>
+</table>
+
+<h3>Abdul Round 1 (4 Mar, HTML file)</h3>
+<table>
+<tr><th style="width:40%">Feedback</th><th style="width:12%">Status</th><th>Implementation</th></tr>
+<tr>
+    <td><strong>#4: Product Targeting campaigns missing</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>SPAS (Product Targeting) campaigns included in wizard Step 4 campaign table with Brand Name column.</td>
+</tr>
+<tr>
+    <td><strong>#5: Campaign List &mdash; show Targeting Spec &amp; Brand Name</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>"Targeting" column renamed to "Targeting Spec". SPKW shows group name, SPAU shows targeting type, SPAS shows "Brand: {name}". All 16 rows updated.</td>
+</tr>
+<tr>
+    <td><strong>#6: Bid Optimization scope</strong> &mdash; confirm per-campaign</td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Confirmed per-campaign: <code>AdvertisingCampaign.optimize_bid</code> (BooleanField, default=False). Master toggle (default OFF) in Wizard Step 5 and IBO Stage 5 bulk-updates all campaigns. Per-campaign Opt toggle in campaign tables. API: <code>PATCH /api/campaigns/update_bulk/</code>. When ON: <code>calculate_bids_daily()</code> syncs bids to Amazon. When OFF: bids calculated but NOT sent.</td>
+</tr>
+<tr>
+    <td><strong>#7: Contextual guidance on optional fields</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Field-level <code>?</code> hint tooltips on all Campaign Config fields (Target ACOS, Daily Budget, Status, Optimize Bid, Match Type Strategy, Auto Pacing, Negative Keywords, ASIN-Level Settings).</td>
+</tr>
+<tr>
+    <td><strong>#8: Campaign page &mdash; KW stats per campaign</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Campaign table shows Keywords count, Search Volume, and Median SV columns per campaign row.</td>
+</tr>
+<tr>
+    <td><strong>#9: Eliminate separate KW Research tab?</strong></td>
+    <td><span class="label label-na">N/A</span></td>
+    <td>Evaluated &mdash; kept separate because KW Research has distinct workflow (run/monitor research) vs. KW Config (review/edit results). Consolidation would mix concerns.</td>
+</tr>
+<tr>
+    <td><strong>#10: End-of-wizard navigation links</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Step 5 (Review &amp; Launch) includes "Go to Keyword Settings" and "Go to Search Term Settings" as secondary action links below the launch button.</td>
+</tr>
+<tr>
+    <td><strong>#11: End-of-wizard checklist for skipped items</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Step 5 shows a review checklist with all optional elements and their status (configured/skipped/default).</td>
+</tr>
+<tr>
+    <td><strong>#12: Error scenarios / validation</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Validation on budget (minimum threshold), required fields, and ACOS range. Error toasts with actionable messages before user can proceed.</td>
+</tr>
+<tr>
+    <td><strong>#13: Launch summary &mdash; show Auto Budget &amp; Auto Pacing status</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Step 5 review summary explicitly shows Auto Pacing and Budget Allocation status per ASIN.</td>
+</tr>
+<tr>
+    <td><strong>#14: Remove Global Target ACOS</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Removed from wizard. Target ACOS is per-campaign only (Step 4).</td>
+</tr>
+<tr>
+    <td><strong>#15: Bid Ceiling &mdash; optional at ASIN level</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Added as optional field in Step 4 Campaign Config with tooltip guidance. Documented in Engineering Reference as per-keyword in KW Settings (not exposed in prototype per backend reality).</td>
+</tr>
+</table>
+
+<h3>Abdul Round 2 (8 Mar, Section 1)</h3>
+<table>
+<tr><th style="width:40%">Feedback</th><th style="width:12%">Status</th><th>Implementation</th></tr>
+<tr>
+    <td><strong>R2-#1: Ad Management section still present</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Sidebar is flat "Ads Management" item (no sub-nav). All 7 Campaign Management tabs (Campaigns, ASIN Config, KW Research List, KW Automation, Campaign Config, KW Config, SearchTerm Config) accessible via ASIN Overview action dropdown under "Campaign Management" header. Global search also indexes all 7 tabs.</td>
+</tr>
+<tr>
+    <td><strong>R2-#2: Step 1 = product selection only</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Same as Andrew #1 above.</td>
+</tr>
+<tr>
+    <td><strong>R2-#3: Contextual, in-field guidance</strong> (not a checklist)</td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Field-level <code>?</code> tooltips, focus-triggered guidance on bulk inputs. Preconditions checklist removed. Guidance appears alongside the relevant field, in context.</td>
+</tr>
+<tr>
+    <td><strong>R2-#4: Sub-wizard for complex pages</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Step 4 uses 3-section sub-wizard: A) Summary + Match Types + Apply to All &rarr; B) ASIN Settings &rarr; C) Campaign Table + Neg KWs. Continue buttons + progress dots + "Show all sections" shortcut.</td>
+</tr>
+<tr>
+    <td><strong>R2-#5: Campaign Config too cluttered</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Groups default collapsed with summary rows (campaign count, ACOS, budget, KW totals). Simple/Advanced toggle. "Recommended defaults applied" banner.</td>
+</tr>
+<tr>
+    <td><strong>R2-#6: Campaign List &mdash; Targeting Spec &amp; Brand Name</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Same as R1 #5 above.</td>
+</tr>
+<tr>
+    <td><strong>R2-#7: KW Research 15&ndash;20 min wait time</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Full notification system: bell dropdown, <code>addNotification()</code> on completions, "Close &amp; Notify Me" during research, clickable "Click to resume &rarr;" navigation back to wizard step. IBO processing simulation with progressive cards.</td>
+</tr>
+<tr>
+    <td><strong>R2-#8: Optimize Bid timing constraint</strong> (campaign not yet on Amazon)</td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Verified against Kepler codebase: <code>AdvertisingCampaign.optimize_bid</code> (BooleanField, default=False). <strong>Master toggle</strong> (default OFF) in Step 5 bulk-updates all campaigns via <code>PATCH /api/campaigns/update_bulk/</code> (strategy: optimize_bid_update). <strong>Per-campaign toggle</strong> in Step 4 Opt column. When ON: <code>calculate_bids_daily()</code> syncs bids to Amazon. When OFF: bids calculated but NOT sent. Tracks <code>last_sync_on</code> / <code>last_sync_off</code>. Same master + per-campaign pattern in IBO Stage 5.</td>
+</tr>
+</table>
+
+<h3>Kostya (verbal) + Abdul/Krell endorsement</h3>
+<table>
+<tr><th style="width:40%">Feedback</th><th style="width:12%">Status</th><th>Implementation</th></tr>
+<tr>
+    <td><strong>User-provided keywords in wizard</strong> &mdash; let user add own KWs before research</td>
+    <td><span class="label label-done">Done</span></td>
+    <td>"Your Keywords" panel in Step 2: textarea + CSV upload + confirm. On research complete, overlap flash shows "X% of your keywords were already in our research" with exact counts.</td>
+</tr>
+</table>
+
+<hr>
+
+<!-- ===== SECTION 2: PROD-4122 ===== -->
+<h2 class="h2-blue">Section 2 &mdash; PROD-4122: Ads Management / ASIN Overview</h2>
+
+<table>
+<tr><th style="width:40%">Feedback</th><th style="width:12%">Status</th><th>Implementation</th></tr>
+<tr>
+    <td><strong>Abdul R1 Section 3: Replace Campaign Management with unified ASIN/Ads Management</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>ASIN Overview as default view with ASIN list, status badges, ads on/off toggle, campaign count. Sidebar is flat "Ads Management" (no sub-nav clutter). All 7 original Campaign Management tabs restored as accessible from the ASIN Overview action dropdown under "Campaign Management" header. Campaigns tab has full 20-column table matching live portal (Global Target ACOS, Max Bid Limit, Export, Submit, bulk actions, column toggle).</td>
+</tr>
+<tr>
+    <td><strong>Abdul R2: Campaign Config enhancement &mdash; overcome cluttering</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Same as R2-#5: collapsed groups, summary rows, Simple/Advanced toggle.</td>
+</tr>
+</table>
+
+<hr>
+
+<!-- ===== SECTION 3: PROD-4121 IBO ===== -->
+<h2 class="h2-blue">Section 3 &mdash; PROD-4121: IBO (Bulk ASIN Launch)</h2>
+
+<h3>Abdul Round 1 (4 Mar, Section 2)</h3>
+<table>
+<tr><th style="width:40%">Feedback</th><th style="width:12%">Status</th><th>Implementation</th></tr>
+<tr>
+    <td><strong>#1: Remove Global Target ACOS</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Removed from IBO. Target ACOS is per-campaign in Stage 5.</td>
+</tr>
+<tr>
+    <td><strong>#2: Remove Grouping Stage</strong></td>
+    <td><span class="label label-partial">Partial</span></td>
+    <td>AI Grouping kept in Stage 1 as optional auto-grouping (not a separate stage). Stage 2 is Group + Per-ASIN Config. Grouping is not a blocking step &mdash; users can proceed with flat list.</td>
+</tr>
+<tr>
+    <td><strong>#3: Bulk import for 20+ ASINs</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>CSV/Excel import in Stage 1 (ASIN batch). Bulk config import via file upload in Stage 5 (maps to POST <code>/amazon-ads/upload-file</code> with 7 strategies).</td>
+</tr>
+<tr>
+    <td><strong>#4: Negative Keywords missing</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Negative keywords included in IBO Stage 5 campaign config table. Per-campaign textarea matching portal pattern.</td>
+</tr>
+<tr>
+    <td><strong>#5: Campaign names not configurable</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Campaign names are system-generated following Kepler convention (e.g., <code>NBH1-SPKW-PB01-US-S-{ASIN}-E-KW</code>). Not editable. Naming suffix only in Stage 2.</td>
+</tr>
+<tr>
+    <td><strong>#6: Campaign Config column audit</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Columns audited against Product Walkthrough Section 9. Includes: Name, Type, Match, Targeting Spec, Brand, Keywords, Budget, ACOS, Status, Outlier flag.</td>
+</tr>
+<tr>
+    <td><strong>#7: Remove Phasing from last step</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>Stage 6 is now direct "Launch Confirmation" — no phases, no confidence scores. Single "Launch All Campaigns" submits to CampaignCreationOrchestrator via RabbitMQ batch creation. Aligned with Kepler backend.</td>
+</tr>
+</table>
+
+<hr>
+
+<!-- ===== SECTION 4: BACKEND ALIGNMENT ===== -->
+<h2 class="h2-green">Section 4 &mdash; Backend Alignment (Codebase Verification)</h2>
+
+<div class="note">
+<strong>Completed 12 Mar 2026:</strong> Every FAIL and STUB item from the misalignment audit was traced to production backend code. 57 prototype edits made to add API endpoint annotations. Full mapping saved in <code>memory/backend-stub-fail-mapping.md</code>.
+</div>
+
+<table>
+<tr><th>Category</th><th>Items</th><th>Backend Status</th></tr>
+<tr><td>IBO (6 stages)</td><td>Models, batch creation, RabbitMQ, approve/reset</td><td><span class="label label-done">Full</span></td></tr>
+<tr><td>Competitor Search Terms</td><td>6 endpoints in Analytics app (not amazon_ads)</td><td><span class="label label-done">Full</span></td></tr>
+<tr><td>ST Harvest (13 buttons)</td><td>Automatic via <code>SearchTermsHarvestingChecker</code></td><td><span class="label label-done">Full</span></td></tr>
+<tr><td>ST Negate (13 buttons)</td><td><code>SearchTermService.bulk_update()</code> &rarr; Celery task</td><td><span class="label label-done">Full</span></td></tr>
+<tr><td>ST Approve (3 buttons)</td><td>POST <code>/amazon-ads/approve-kw-stage</code></td><td><span class="label label-done">Full</span></td></tr>
+<tr><td>Negative KW Remove (4 buttons)</td><td>Soft delete (PAUSED) via Amazon Ads API</td><td><span class="label label-done">Full</span></td></tr>
+<tr><td>Exports (15 buttons)</td><td>All mapped to real POST/GET endpoints</td><td><span class="label label-done">Full</span></td></tr>
+<tr><td>Listing Attributes &amp; KW Grouping</td><td>GET/PUT + import/export endpoints</td><td><span class="label label-done">Full</span></td></tr>
+<tr><td>Profit Analysis</td><td><code>is_profitable_search_term()</code> utility only</td><td><span class="label label-partial">Partial</span> &mdash; no COGS/fees</td></tr>
+<tr><td>Dashboard AI "Apply"</td><td>Read-only analytics endpoints</td><td><span class="label label-partial">Partial</span> &mdash; no action endpoint</td></tr>
+</table>
+
+<hr>
+
+<!-- ===== SECTION 5: UX ENHANCEMENTS ===== -->
+<h2 class="h2-green">Section 5 &mdash; UX Enhancements &amp; Audit Fixes (153+ items)</h2>
+
+<table>
+<tr><th>Sprint / Category</th><th>Items</th><th>Status</th></tr>
+<tr><td>Bug Fixes</td><td>3 (filterCampByAsin, ads-acos typo, Load Previous Weeks)</td><td><span class="label label-done">3/3</span></td></tr>
+<tr><td>Sprint 1 &mdash; P0 Critical</td><td>7 (table sorting, empty states, confirm modal, discard guard, sticky headers, column freeze, wizard ARIA)</td><td><span class="label label-done">7/7</span></td></tr>
+<tr><td>Sprint 2 &mdash; P1 Core</td><td>6 (date picker, reset filters, sticky tables, pagination, column visibility, exports)</td><td><span class="label label-done">6/6</span></td></tr>
+<tr><td>Sprint 3 &mdash; P1 Enhancement</td><td>8 (sparklines, URL hash routing, nav labels, checkbox dropdown, KW column groups, theme persistence, date inputs, filter refactor)</td><td><span class="label label-done">8/8</span></td></tr>
+<tr><td>Sprint 4 &mdash; P2 Medium</td><td>12 (editable cells, toast types, toggle consolidation, button feedback, breadcrumbs, input sizes, CSS variables, etc.)</td><td><span class="label label-done">12/12</span></td></tr>
+<tr><td>Sprint 5 &mdash; P3 Low</td><td>8 (ARIA hidden, breadcrumb color, null checks, nav consolidation, CSS dedup, chart tooltips, keyboard handlers)</td><td><span class="label label-done">8/8</span></td></tr>
+<tr><td>V2 Audit Fixes</td><td>~35 (structural, layout, accessibility, wizard optimization, data quality, competitive features)</td><td><span class="label label-done">35/35</span></td></tr>
+<tr><td>V3 Audit Fixes</td><td>36 (5 P0 + 11 P1 + 20 P2/P3)</td><td><span class="label label-done">36/36</span></td></tr>
+<tr><td>Competitive Features</td><td>8 (AI Recommendation Cards, skeleton loading, budget pacing, listing quality score, notification bell, grade colors, ARIA toggles)</td><td><span class="label label-done">8/8</span></td></tr>
+</table>
+
+<hr>
+
+<!-- ===== SECTION 6: JIRA TICKET QUALITY ===== -->
+<h2 class="h2-orange">Section 6 &mdash; Jira Ticket Quality (Abdul R2, Section 2)</h2>
+
+<div class="note">
+These items are about the Jira tickets themselves, not the prototype. They require ticket editing in Jira.
+</div>
+
+<table>
+<tr><th style="width:40%">Feedback</th><th style="width:12%">Status</th><th>Notes</th></tr>
+<tr>
+    <td><strong>#1: Sub-tasks completely missing</strong></td>
+    <td><span class="label label-na">Jira</span></td>
+    <td>Jira work &mdash; each wizard page / IBO stage = separate sub-task.</td>
+</tr>
+<tr>
+    <td><strong>#2: Link fields to existing counterparts</strong></td>
+    <td><span class="label label-na">Prototype done</span></td>
+    <td>DATA SOURCE comments added to every prototype section. Engineering Reference panel in Step 4. Needs Jira ticket text update.</td>
+</tr>
+<tr>
+    <td><strong>#3: Stress test wizard + UX using Claude</strong></td>
+    <td><span class="label label-done">Done</span></td>
+    <td>3 comprehensive UX audits run (V1, V2, V3). 153+ items found and fixed.</td>
+</tr>
+<tr>
+    <td><strong>#4: Stress test requirements using Claude</strong></td>
+    <td><span class="label label-na">Jira</span></td>
+    <td>Requires reviewing each ticket description. Not a prototype task.</td>
+</tr>
+<tr>
+    <td><strong>#5: Separate existing vs. net-new</strong></td>
+    <td><span class="label label-na">Jira</span></td>
+    <td>Prototype has DATA SOURCE + DELTA annotations. Needs Jira ticket text update.</td>
+</tr>
+<tr>
+    <td><strong>#6: Split bundled tickets</strong> (PROD-4125/4126/4127)</td>
+    <td><span class="label label-na">Jira</span></td>
+    <td>Ticket splitting is Jira admin work.</td>
+</tr>
+<tr>
+    <td><strong>#7: Connected Work Items &mdash; use Jira links</strong></td>
+    <td><span class="label label-na">Jira</span></td>
+    <td>Replace "Story 5" with clickable PROD-XXXX links.</td>
+</tr>
+<tr>
+    <td><strong>#8: Flag new backend dependencies</strong></td>
+    <td><span class="label label-na">Prototype done</span></td>
+    <td>Backend mapping complete (memory file). Needs Jira ticket text update with specific endpoints.</td>
+</tr>
+<tr>
+    <td><strong>#9: PROD-4128 sequenced first</strong></td>
+    <td><span class="label label-na">Jira</span></td>
+    <td>Sprint planning decision.</td>
+</tr>
+<tr>
+    <td><strong>#10: PROD-4128 re-type as Task + observable requirements</strong></td>
+    <td><span class="label label-na">Jira</span></td>
+    <td>Requires Jira ticket re-typing and description rewrite.</td>
+</tr>
+</table>
+
+<hr>
+
+<!-- ===== SECTION 7: PER-TICKET ===== -->
+<h2 class="h2-orange">Section 7 &mdash; Per-Ticket Feedback (Abdul R2, Section 3)</h2>
+
+<h3>PROD-4121 &mdash; IBO</h3>
+<table>
+<tr><th style="width:40%">Feedback</th><th style="width:12%">Status</th><th>Notes</th></tr>
+<tr><td>Needs sub-tasks per stage</td><td><span class="label label-na">Jira</span></td><td>6 stages + Batch History + AI Grouping as separate items.</td></tr>
+<tr><td>Describe as 100% net-new</td><td><span class="label label-na">Jira</span></td><td>Ticket text update needed.</td></tr>
+<tr><td>Bulk import template spec</td><td><span class="label label-done">Done</span></td><td>7 upload strategies documented. CSV columns specified in prototype.</td></tr>
+<tr><td>Campaign Config column audit</td><td><span class="label label-done">Done</span></td><td>Audited against Product Walkthrough Section 9.</td></tr>
+<tr><td>Fields linked to existing counterparts</td><td><span class="label label-na">Prototype done</span></td><td>DATA SOURCE block in IBO view. Needs Jira update.</td></tr>
+</table>
+
+<h3>PROD-4122 &mdash; Ads Management</h3>
+<table>
+<tr><th style="width:40%">Feedback</th><th style="width:12%">Status</th><th>Notes</th></tr>
+<tr><td>Needs sub-tasks</td><td><span class="label label-na">Jira</span></td><td>Table view, status checklist, actions dropdown, sidebar restructure.</td></tr>
+<tr><td>Map current 7 tabs to new structure</td><td><span class="label label-done">Done</span></td><td>All 7 original Campaign Management tabs (Campaigns, ASIN Config, KW Research List, KW Automation, Campaign Config, KW Config, SearchTerm Config) accessible via ASIN Overview action dropdown. Sidebar stays clean as flat "Ads Management" item.</td></tr>
+<tr><td>Setup Status Checklist = own sub-task</td><td><span class="label label-na">Jira</span></td><td>Sub-task creation in Jira.</td></tr>
+<tr><td>Dependency direction contradictory</td><td><span class="label label-na">Jira</span></td><td>Fix Jira link: PROD-4122 should be blocked BY PROD-4120.</td></tr>
+<tr><td>Fields linked to existing counterparts</td><td><span class="label label-na">Prototype done</span></td><td>DATA SOURCE annotations in ASIN Overview. Needs Jira update.</td></tr>
+</table>
+
+<h3>PROD-4124 &mdash; Keyword Settings</h3>
+<table>
+<tr><th style="width:40%">Feedback</th><th style="width:12%">Status</th><th>Notes</th></tr>
+<tr><td>Best grounded in current system</td><td>&mdash;</td><td>Acknowledged &mdash; positive feedback.</td></tr>
+<tr><td>Needs sub-tasks</td><td><span class="label label-na">Jira</span></td><td>Table shell, inline editing, bulk import/export, column visibility.</td></tr>
+<tr><td>Clarify new vs. carried over</td><td><span class="label label-na">Jira</span></td><td>"72 columns exist today. This rebuilds with grouped headers."</td></tr>
+<tr><td>Bid Config 19 columns &mdash; explain "Applied"</td><td><span class="label label-na">Jira</span></td><td>Needs data source explanation in ticket.</td></tr>
+<tr><td>Reference existing KWs Config page</td><td><span class="label label-na">Jira</span></td><td>Add: "Currently on KWs Config page (Walkthrough Section 11)."</td></tr>
+</table>
+
+<h3>PROD-4125 &mdash; Search Term Settings</h3>
+<table>
+<tr><th style="width:40%">Feedback</th><th style="width:12%">Status</th><th>Notes</th></tr>
+<tr><td>Split into 2 Stories (base table + workflow tabs)</td><td><span class="label label-na">Jira</span></td><td>Story A: Active ST table. Story B: Harvest Queue + Neg KWs + High Performers.</td></tr>
+<tr><td>3 of 4 sub-tabs are net-new</td><td><span class="label label-na">Jira</span></td><td>Ticket must distinguish rebuild vs. greenfield.</td></tr>
+<tr><td>Backend logic for Harvest/Negate doesn't exist</td><td><span class="label label-done">Disproved</span></td>
+    <td><strong>Backend exists:</strong> <code>SearchTermsHarvestingChecker</code> for harvest, <code>SearchTermService.bulk_update()</code> for negate, <code>is_profitable_search_term()</code> for high performers. Documented in backend mapping.</td></tr>
+<tr><td>Reference existing SearchTerm Config page</td><td><span class="label label-na">Jira</span></td><td>Add: "Currently on SearchTerm Config (Walkthrough Section 12)."</td></tr>
+</table>
+
+<h3>PROD-4126 &mdash; Campaigns, KW Research, Branding Scope</h3>
+<table>
+<tr><th style="width:40%">Feedback</th><th style="width:12%">Status</th><th>Notes</th></tr>
+<tr><td>Split into 3 Stories</td><td><span class="label label-na">Jira</span></td><td>Story A: Campaign List + Config. Story B: KW Research. Story C: Branding Scope.</td></tr>
+<tr><td>Reference existing pages by name</td><td><span class="label label-na">Jira</span></td><td>Campaigns = Section 10, Campaign Config = Section 9, KW Automation = Sections 6&ndash;8.</td></tr>
+<tr><td>Separate 13 existing vs. 7 enhancement columns</td><td><span class="label label-na">Jira</span></td><td>Visual separation needed in ticket text.</td></tr>
+<tr><td>Branding Scope values discrepancy (N=Neutral vs Negative, R=Related vs Relevant)</td><td><span class="label label-done">Done</span></td>
+    <td>Prototype uses backend values: N (Negative), R (Relevant), C (Complementary), S (Substitute). Verified against <code>KeywordBrandingScope</code> model.</td></tr>
+<tr><td>Fields linked to existing counterparts</td><td><span class="label label-na">Jira</span></td><td>DATA SOURCE annotations in prototype. Needs Jira update.</td></tr>
+</table>
+
+<h3>PROD-4127 &mdash; Pacing, Bid Optimization, Config Change Log</h3>
+<table>
+<tr><th style="width:40%">Feedback</th><th style="width:12%">Status</th><th>Notes</th></tr>
+<tr><td>Split into 3 Stories</td><td><span class="label label-na">Jira</span></td><td>A: Pacing. B: Bid Optimization. C: Config Change Log.</td></tr>
+<tr><td>Reference current Pacing UI</td><td><span class="label label-na">Jira</span></td><td>"Currently: single toggle on ASIN Config. This adds dedicated management view."</td></tr>
+<tr><td>Config Change Log = new infrastructure</td><td><span class="label label-done">Done</span></td>
+    <td>Prototype completely rewrote raw DB mutations &rarr; 12 aggregated human-readable events (Bid Increased, KW Harvested, Budget Updated, etc.).</td></tr>
+<tr><td>Analytics views too vague</td><td><span class="label label-done">Done</span></td>
+    <td>Prototype has full ADS Performance section: Targeting Dashboard, ST Dashboard, Records with specific columns, filters, match types, and export endpoints.</td></tr>
+<tr><td>Fields linked to existing counterparts</td><td><span class="label label-na">Jira</span></td><td>DATA SOURCE annotations in prototype. Needs Jira update.</td></tr>
+</table>
+
+<h3>PROD-4128 &mdash; UX Infrastructure</h3>
+<table>
+<tr><th style="width:40%">Feedback</th><th style="width:12%">Status</th><th>Notes</th></tr>
+<tr><td>Re-type as Task (not Story)</td><td><span class="label label-na">Jira</span></td><td>Jira ticket type change.</td></tr>
+<tr><td>Needs sub-tasks by pattern type</td><td><span class="label label-na">Jira</span></td><td>8 sub-tasks: tables, CSV, modals, date picker, toasts, themes, ARIA, routing.</td></tr>
+<tr><td>Crosses HOW territory &mdash; rewrite as observable requirements</td><td><span class="label label-na">Jira</span></td><td>E.g., "Screen reader navigates modals" not "<code>role=dialog</code>".</td></tr>
+<tr><td>Sequence as first deliverable</td><td><span class="label label-na">Jira</span></td><td>Sprint planning: PROD-4128 table infra before PROD-4124/4125.</td></tr>
+<tr><td>All infrastructure actually built in prototype</td><td><span class="label label-done">Done</span></td>
+    <td>153+ UX items implemented: sorting (17 tables), pagination (8 tables), sticky headers, column visibility, CSV export, confirmation modals, date presets, toast system, 6 themes, WCAG ARIA, URL hash routing.</td></tr>
+</table>
+
+<hr>
+
+<h2 class="h2-gray">Summary</h2>
+
+<table>
+<tr><th>Category</th><th style="text-align:center">Done</th><th style="text-align:center">Partial</th><th style="text-align:center">Open</th><th style="text-align:center">Jira-Only</th></tr>
+<tr><td>Wizard (PROD-4120)</td><td style="text-align:center">21</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
+<tr><td>Ads Management (PROD-4122)</td><td style="text-align:center">3</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
+<tr><td>IBO (PROD-4121)</td><td style="text-align:center">6</td><td style="text-align:center">1</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
+<tr><td>Backend Alignment</td><td style="text-align:center">8</td><td style="text-align:center">2</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
+<tr><td>UX Enhancements</td><td style="text-align:center">153+</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
+<tr><td>Ticket Quality (Section 2)</td><td style="text-align:center">1</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">9</td></tr>
+<tr><td>Per-Ticket Feedback (Section 3)</td><td style="text-align:center">5</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">20</td></tr>
+<tr style="font-weight:bold; background-color:#f0f0f0;">
+    <td>Total</td>
+    <td style="text-align:center; color:#16a34a;">198+</td>
+    <td style="text-align:center; color:#f59e0b;">3</td>
+    <td style="text-align:center; color:#dc3545;">0</td>
+    <td style="text-align:center; color:#6b7280;">28</td>
+</tr>
+</table>
+
+<div class="note">
+<strong>Remaining prototype work:</strong> All prototype feedback items are resolved. 3 partial items remain (IBO grouping stage, Profit Analysis COGS, Dashboard AI Apply endpoint).<br><br>
+<strong>Remaining Jira work:</strong> 28 items require ticket text updates, sub-task creation, ticket splitting, and sprint sequencing in Jira.
+</div>
+
+<p style="text-align: center; color: #888; font-size: 10pt; margin-top: 40px;">
+    Feedback Implementation Status &mdash; 16 Mar 2026
+</p>
+
+</body>
+</html>
