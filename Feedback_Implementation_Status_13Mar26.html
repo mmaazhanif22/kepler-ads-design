@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Feedback Implementation Status — 16 Mar 2026</title>
+<title>Feedback Implementation Status — 18 Mar 2026</title>
 <style>
 body {
     font-family: Calibri, Arial, sans-serif;
@@ -99,16 +99,16 @@ hr { border: none; border-top: 2px solid #eee; margin: 40px 0; }
 <h1>Feedback Implementation Status</h1>
 
 <div class="meta">
-    <strong>Date:</strong> 16 Mar 2026 &nbsp;|&nbsp;
-    <strong>Scope:</strong> All feedback from Abdul (R1 + R2 + PROD-4120 review), Andrew (PROD-4120 comment), Kostya (verbal) &nbsp;|&nbsp;
+    <strong>Date:</strong> 18 Mar 2026 &nbsp;|&nbsp;
+    <strong>Scope:</strong> All feedback from Abdul (R1 + R2 + R3 + R3-B), Andrew (PROD-4120 comment), Kostya (verbal) &nbsp;|&nbsp;
     <strong>Prototype:</strong> Advertising Portal UI Design.html
 </div>
 
 <div>
-    <span class="summary-box sb-green">29 Done</span>
+    <span class="summary-box sb-green">231+ Done</span>
     <span class="summary-box sb-yellow">1 Partial</span>
     <span class="summary-box sb-red">0 Open</span>
-    <span class="summary-box sb-gray">12 Jira-Only (not prototype)</span>
+    <span class="summary-box sb-gray">28 Jira-Only (not prototype)</span>
 </div>
 
 <hr>
@@ -505,7 +505,159 @@ These items are about the Jira tickets themselves, not the prototype. They requi
 
 <hr>
 
+<!-- ===== SECTION 8: ROUND 3 WIZARD ===== -->
+<h2 class="h2-blue">Section 8 &mdash; Round 3: Wizard Flow (18 Mar 2026)</h2>
+
+<div class="note">
+<strong>Context:</strong> Abdul reviewed the updated mockup after Round 2 accommodations. 22 new items covering naming, navigation, wizard restructure, dialogs, Campaign Config enhancements, and post-wizard flow.
+</div>
+
+<h3>Section 1 &mdash; Sidebar Navigation &amp; Naming</h3>
+<table>
+<tr><th style="width:40%">Feedback</th><th style="width:12%">Status</th><th>Implementation</th></tr>
+<tr><td><strong>R3-1.1: Rename "ASIN Setup" to "Launch Ads"</strong></td><td><span class="label label-done">Done</span></td><td>Sidebar label changed from internal terminology to user-friendly "Launch Ads".</td></tr>
+</table>
+
+<h3>Section 2 &mdash; Actions Dropdown &amp; Page Structure</h3>
+<table>
+<tr><th style="width:40%">Feedback</th><th style="width:12%">Status</th><th>Implementation</th></tr>
+<tr><td><strong>R3-2.1: Remove "ASIN Overview" as sub-tab and page title</strong></td><td><span class="label label-done">Done</span></td><td>Page title = "Manage Ads". "ASIN Overview" no longer appears anywhere.</td></tr>
+<tr><td><strong>R3-2.2: Rename "Ads Management" to "Manage Ads"</strong></td><td><span class="label label-done">Done</span></td><td>Sidebar, heading, and breadcrumb all updated.</td></tr>
+<tr><td><strong>R3-2.3: Remove "Campaign Management" from Actions dropdown</strong></td><td><span class="label label-done">Done</span></td><td>Removed ASIN Config, Campaigns, Campaign Config, KW Research List, KW Automation. KW Config + ST Config kept under "Post-Launch Settings" header.</td></tr>
+</table>
+
+<h3>Section 3 &mdash; Wizard Step-by-Step</h3>
+<table>
+<tr><th style="width:40%">Feedback</th><th style="width:12%">Status</th><th>Implementation</th></tr>
+<tr><td><strong>R3-3.1: Competitor Research &rarr; own main wizard step</strong></td><td><span class="label label-done">Done</span></td><td>Elevated from sub-tab to Step 2. Key value prop gets dedicated step.</td></tr>
+<tr><td><strong>R3-3.2: Rename to "Automated Competitor Research"</strong></td><td><span class="label label-done">Done</span></td><td>Interim name applied. Step 2 heading + description.</td></tr>
+<tr><td><strong>R3-3.3: Remove bottom note about Campaign Settings</strong></td><td><span class="label label-done">Done</span></td><td>Step 4 reference note removed from Product Selection page.</td></tr>
+<tr><td><strong>R3-3.4: Two conflicting dialog boxes</strong></td><td><span class="label label-done">Done</span></td><td>"AI Research takes 5-10 min" callout hides when "Research Complete" message appears.</td></tr>
+<tr><td><strong>R3-3.5: Research completion insights not meaningful</strong></td><td><span class="label label-done">Done</span></td><td>Replaced match-type counts with: categories found, estimated monthly SV (847K), top opportunity keyword. Says "review and approval".</td></tr>
+<tr><td><strong>R3-3.6: Rename "Keyword Research" to "Automated Keyword Research"</strong></td><td><span class="label label-done">Done</span></td><td>Updated in step label, panel heading, all references.</td></tr>
+<tr><td><strong>R3-3.7: Merge KW Research + KW Automation into single step</strong></td><td><span class="label label-done">Done</span></td><td>New Step 3 "Automated Keyword Research" with Phase 1 (Fetching) + Phase 2 (Analysis &amp; Grouping). Phase 2 locked until Phase 1 completes.</td></tr>
+<tr><td><strong>R3-3.8: Drop "Keyword Automation" from all labels</strong></td><td><span class="label label-done">Done</span></td><td>Replaced everywhere with "Automated Keyword Research". Internal team keeps the term.</td></tr>
+<tr><td><strong>R3-3.9: Clearly communicate two phases</strong></td><td><span class="label label-done">Done</span></td><td>Phase indicator tabs: "Phase 1: Keyword Fetching" / "Phase 2: Analysis &amp; Grouping". Phase 2 starts disabled with "(complete Phase 1 first)" hint.</td></tr>
+<tr><td><strong>R3-3.10: Link KW Research List between phases</strong></td><td><span class="label label-done">Done</span></td><td>After Phase 1 completes, keyword count + link shown before Phase 2 auto-starts.</td></tr>
+<tr><td><strong>R3-3.11: Improve page description and dialog notes</strong></td><td><span class="label label-done">Done</span></td><td>Rewritten in plain user-friendly language. Two-phase explanation included.</td></tr>
+<tr><td><strong>R3-3.12: Remove "Use Existing Keywords" option</strong></td><td><span class="label label-done">Done</span></td><td>AI is only path. Option selection UI removed. Direct "Start AI Analysis" button.</td></tr>
+<tr><td><strong>R3-3.13: Fix conflicting dialog on Phase 2 + rename button</strong></td><td><span class="label label-done">Done</span></td><td>"25-30 min" callout hides when complete. Button renamed to "Review Research Output".</td></tr>
+<tr><td><strong>R3-3.14: Tab 3 doesn't match revised mockup</strong></td><td><span class="label label-done">Done</span></td><td>Simplified KW table (4 columns only), removed Group Summary table, simplified header (ASIN + Search + Approve + Reset), removed Prompt Feedback. Fixed <code>loadKwGroupAsin()</code> overwriting mockup.</td></tr>
+<tr><td><strong>R3-3.15: "Return to Campaign Wizard" &rarr; "Next"</strong></td><td><span class="label label-done">Done</span></td><td>Changed to "Next: Campaign Config &rarr;". Advances directly to Step 4.</td></tr>
+<tr><td><strong>R3-3.16: Blue note at top too dense</strong></td><td><span class="label label-done">Done</span></td><td>Replaced wall of text with one-liner. Details moved to contextual per-field hints.</td></tr>
+<tr><td><strong>R3-3.17: Auto Budget toggle missing</strong></td><td><span class="label label-done">Done</span></td><td>Added next to Auto Pacing in ASIN-Level Defaults. Maps to <code>AdvertisingAsinConfig.auto_budget</code>.</td></tr>
+<tr><td><strong>R3-3.18: Group related settings together</strong></td><td><span class="label label-done">Done</span></td><td>Target ACOS + Daily Budget + Auto Pacing + Auto Budget in "ASIN-Level Defaults" section with "Campaigns inherit unless overridden" note.</td></tr>
+<tr><td><strong>R3-3.19: ASIN vs Campaign inheritance unclear</strong></td><td><span class="label label-done">Done</span></td><td>"inherited" / "custom" labels on campaign-level ACOS/Budget fields. Cascade: Keyword &rarr; Campaign &rarr; ASIN &rarr; Global.</td></tr>
+<tr><td><strong>R3-3.20: Pacing vs User-activated distinction</strong></td><td><span class="label label-done">Done</span></td><td>Amber "Pacing" badge on auto-managed campaigns. Distinct Enabled/Disabled treatment.</td></tr>
+<tr><td><strong>R3-3.21: Negative Keywords at campaign level</strong></td><td><span class="label label-done">Done</span></td><td>Per-campaign pencil icon &rarr; expandable negative KW textarea. Maps to <code>CampaignConfig.custom_negative_keywords</code> (SafeJSONField).</td></tr>
+</table>
+
+<h3>Section 4 &mdash; Post-Wizard Flow</h3>
+<table>
+<tr><th style="width:40%">Feedback</th><th style="width:12%">Status</th><th>Implementation</th></tr>
+<tr><td><strong>R3-4.1: After wizard, offer 3 nav options</strong></td><td><span class="label label-done">Done</span></td><td>3 card-style options: Keyword Settings, Search Term Settings, Manage Ads. Info note about data population timing.</td></tr>
+<tr><td><strong>R3-4.2: Actions dropdown routes into wizard</strong></td><td><span class="label label-done">Done</span></td><td>No standalone config pages. Everything within wizard structure.</td></tr>
+</table>
+
+<hr>
+
+<!-- ===== SECTION 9: ROUND 3-B IBO ===== -->
+<h2 class="h2-blue">Section 9 &mdash; Round 3-B: IBO Fixes (18 Mar 2026)</h2>
+
+<div class="note">
+<strong>Context:</strong> Companion to Round 3, focused on IBO (Bulk ASIN Launch). Abdul's verdict: "Overall workflow is good to go." Config details need consolidation and field alignment.
+</div>
+
+<table>
+<tr><th style="width:40%">Feedback</th><th style="width:12%">Status</th><th>Implementation</th></tr>
+<tr><td><strong>R3B-1.1: Bulk Import missing "Auto Pacing Status"</strong></td><td><span class="label label-done">Done</span></td><td>Added to CSV field list description. Backend field exists (<code>auto_pacing_enabled</code>) but needs 1-line mapping addition in <code>file_upload.py</code> &mdash; flagged as backend ticket.</td></tr>
+<tr><td><strong>R3B-1.2: Match/Campaign Types purpose unclear</strong></td><td><span class="label label-done">Done</span></td><td>Added clarifying text: "Select which to generate &mdash; unchecked types will be skipped".</td></tr>
+<tr><td><strong>R3B-1.3: Remove Bid Strategy field</strong></td><td><span class="label label-done">Done</span></td><td>Replaced dropdown with read-only "Dynamic - Down Only (system default)". Not a backend model field.</td></tr>
+<tr><td><strong>R3B-1.4: Remove Daily Budget from Mission Setup</strong></td><td><span class="label label-done">Done</span></td><td>Replaced with note "Budget configured per-group in Configuration stage".</td></tr>
+<tr><td><strong>R3B-1.5: Bulk Import vs Manual field mismatch</strong></td><td><span class="label label-done">Done</span></td><td>Aligned: manual input now has Target ACOS, Competitor ASINs, Auto Pacing fields to match bulk import.</td></tr>
+<tr><td><strong>R3B-2.1: Campaign Skeleton missing ASIN-level config</strong></td><td><span class="label label-done">Done</span></td><td>Auto Pacing + Auto Budget toggles added to Campaign Skeleton card.</td></tr>
+<tr><td><strong>R3B-2.2: Bulk Import missing on Configuration page</strong></td><td><span class="label label-done">Done</span></td><td>Dashed border drop zone added with Download Template + Upload File. Strategy: <code>ad-campaign-config</code>.</td></tr>
+<tr><td><strong>R3B-2.3: Remove Bid Strategy + Naming Convention</strong></td><td><span class="label label-done">Done</span></td><td>Bid Strategy (hardcoded engine logic, not a field) and Naming Convention (system-generated via <code>get_campaign_name()</code>) both removed.</td></tr>
+<tr><td><strong>R3B-3.1: Clarify View/Quick Review navigation</strong></td><td><span class="label label-done">Done</span></td><td>Tooltips added: "Opens keyword research results for this ASIN".</td></tr>
+<tr><td><strong>R3B-4.1: Group Bid Opt + Auto Pacing in Apply to All</strong></td><td><span class="label label-done">Done</span></td><td>Bid Optimization toggle + Auto Pacing toggle added to "Apply to All" bar alongside Target ACOS + Daily Budget.</td></tr>
+<tr><td><strong>R3B-4.2: All tables need filtering</strong></td><td><span class="label label-done">Done</span></td><td>Type filters (SPKW/SPAU/HP/HV/SPAS) and status filters (ENABLED/PAUSED) added above campaign table.</td></tr>
+<tr><td><strong>R3B-5.1: Bid Optimization at campaign level</strong></td><td><span class="label label-done">Done</span></td><td>Opt column visible in both Simple and Advanced views (removed <code>ibo-adv-col</code> restriction).</td></tr>
+<tr><td><strong>R3B-5.2: Negative Keywords at campaign level</strong></td><td><span class="label label-done">Done</span></td><td>Per-campaign "Neg" column with icon button &rarr; expandable textarea. Same pattern as wizard R3-3.21.</td></tr>
+</table>
+
+<hr>
+
+<!-- ===== SECTION 10: POST-R3 IMPROVEMENTS ===== -->
+<h2 class="h2-green">Section 10 &mdash; Post-R3 Improvements (18 Mar 2026)</h2>
+
+<table>
+<tr><th style="width:40%">Feature</th><th style="width:12%">Status</th><th>Implementation</th></tr>
+<tr><td><strong>Bulk campaign selection &amp; actions</strong></td><td><span class="label label-done">Done</span></td><td>Checkbox per campaign row + Select All. Bulk action bar: Enable Selected, Pause Selected, Set ACOS, Set Budget, Clear Selection. Commit <code>99212db</code>.</td></tr>
+<tr><td><strong>Engineering references cleaned from visible UI</strong></td><td><span class="label label-done">Done</span></td><td>~50 tooltips + toast messages cleaned. Model names, API endpoints, Celery tasks, Jungle Scout field names removed. Customer-friendly language only. HTML comments preserved. Saved to <code>Engineering_References_for_Jira.md</code>. Commit <code>a041a65</code>.</td></tr>
+<tr><td><strong>Tab 3 KW Grouping mockup rendering fix</strong></td><td><span class="label label-done">Done</span></td><td><code>loadKwGroupAsin()</code> was overwriting mockup HTML on page load. Disabled auto-call so Abdul's mockup layout renders correctly. Commit <code>52b3425</code>.</td></tr>
+<tr><td><strong>Phase 2 locked until Phase 1 completes</strong></td><td><span class="label label-done">Done</span></td><td>Phase 2 "Analysis &amp; Grouping" tab starts disabled with "(complete Phase 1 first)" hint. Unlocked by AI Research completion or CSV upload. Commit <code>815b46b</code>.</td></tr>
+</table>
+
+<hr>
+
+<!-- ===== SECTION 11: BACKEND ALIGNMENT ===== -->
+<h2 class="h2-green">Section 11 &mdash; Backend Alignment Reaudit (18 Mar 2026)</h2>
+
+<div class="note">
+<strong>Reaudit completed:</strong> All prototype features verified against Kepler codebase. 27 backend items checked. 66 audit rules respected. Engineering references saved to separate file for Jira tickets.
+</div>
+
+<table>
+<tr><th>Category</th><th>Items</th><th>Backend Status</th></tr>
+<tr><td>R3 features (Auto Budget, Pacing, Opt Bid, Neg KWs, ACOS cascade, Pacing states)</td><td>8 fields</td><td><span class="label label-done">All verified</span></td></tr>
+<tr><td>API endpoints (approve, reset, upload, export, bulk update)</td><td>6 endpoints</td><td><span class="label label-done">All exist</span></td></tr>
+<tr><td>Celery tasks (calculate_bids_daily, daily_recalc_auto_budget)</td><td>2 tasks</td><td><span class="label label-done">All exist</span></td></tr>
+<tr><td>Services (PacingEngineService, BidCalculationDataService, get_campaign_name)</td><td>3 services</td><td><span class="label label-done">All exist</span></td></tr>
+<tr><td>Bulk Import strategies (7 file_type values)</td><td>7 strategies</td><td><span class="label label-done">All exist</span></td></tr>
+<tr><td>Enum values (campaign states, ASIN status, KW Research status, match types, branding scope)</td><td>6 groups</td><td><span class="label label-done">All match</span></td></tr>
+<tr><td>onclick/navigate/switchTab/export functions</td><td>209+ calls</td><td><span class="label label-done">All verified</span></td></tr>
+<tr><td>Engineering refs in Jira file</td><td>35+ entries</td><td><span class="label label-done">Complete</span></td></tr>
+<tr><td>R3B-1.1: Auto Pacing in Bulk Import CSV mapping</td><td>1 backend change</td><td><span class="label label-partial">Ticket needed</span> &mdash; field exists in model, needs 1-line addition to <code>file_upload.py</code></td></tr>
+</table>
+
+<hr>
+
 <h2 class="h2-gray">Summary</h2>
+
+<table>
+<tr><th>Category</th><th style="text-align:center">Done</th><th style="text-align:center">Partial</th><th style="text-align:center">Open</th><th style="text-align:center">Jira-Only</th></tr>
+<tr><td>Wizard R1+R2 (PROD-4120)</td><td style="text-align:center">21</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
+<tr><td>Ads Management (PROD-4122)</td><td style="text-align:center">3</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
+<tr><td>IBO R1 (PROD-4121)</td><td style="text-align:center">6</td><td style="text-align:center">1</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
+<tr><td>Backend Alignment (R1+R2)</td><td style="text-align:center">8</td><td style="text-align:center">2</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
+<tr><td>UX Enhancements</td><td style="text-align:center">153+</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
+<tr><td>Ticket Quality (Section 2)</td><td style="text-align:center">1</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">9</td></tr>
+<tr><td>Per-Ticket Feedback (Section 3)</td><td style="text-align:center">5</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">20</td></tr>
+<tr style="background:#e0f2fe"><td><strong>Round 3 Wizard (18 Mar)</strong></td><td style="text-align:center"><strong>22</strong></td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
+<tr style="background:#e0f2fe"><td><strong>Round 3-B IBO (18 Mar)</strong></td><td style="text-align:center"><strong>14</strong></td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
+<tr style="background:#ecfdf5"><td><strong>Post-R3 Improvements</strong></td><td style="text-align:center"><strong>4</strong></td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
+<tr style="background:#ecfdf5"><td><strong>Backend Reaudit (18 Mar)</strong></td><td style="text-align:center"><strong>8</strong></td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">1</td></tr>
+<tr style="font-weight:bold; background-color:#f0f0f0;">
+    <td>Total</td>
+    <td style="text-align:center; color:#16a34a;">246+</td>
+    <td style="text-align:center; color:#f59e0b;">3</td>
+    <td style="text-align:center; color:#dc3545;">0</td>
+    <td style="text-align:center; color:#6b7280;">30</td>
+</tr>
+</table>
+
+<div class="note">
+<strong>Remaining prototype work:</strong> All prototype feedback items are resolved. 3 partial items remain (IBO grouping stage, Profit Analysis COGS, Dashboard AI Apply endpoint).<br><br>
+<strong>Remaining Jira work:</strong> 28 items require ticket text updates, sub-task creation, ticket splitting, and sprint sequencing. 1 backend ticket needed for Auto Pacing bulk import CSV mapping.<br><br>
+<strong>Round 3 carry-forward (Jira):</strong> Sub-tasks for stories, link fields to portal counterparts, stress test requirements, explicitly separate existing vs. net-new.
+</div>
+
+<p style="text-align: center; color: #888; font-size: 10pt; margin-top: 40px;">
+    Feedback Implementation Status &mdash; 18 Mar 2026
+</p>
+
+</body>
+</html>
 
 <table>
 <tr><th>Category</th><th style="text-align:center">Done</th><th style="text-align:center">Partial</th><th style="text-align:center">Open</th><th style="text-align:center">Jira-Only</th></tr>
