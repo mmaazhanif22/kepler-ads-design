@@ -3485,7 +3485,7 @@ input[type="date"] { color-scheme: dark; }
         <div class="tab-bar" role="tablist" style="margin-bottom:16px">
           <button class="tab-btn active" id="tab-branding" data-group="kwauto" role="tab" aria-selected="true" aria-controls="pane-tab-branding" onclick="switchTab('kwauto','branding')">Branding Scope &amp; KW–Product Relationship</button>
           <button class="tab-btn" id="tab-listing" data-group="kwauto" role="tab" aria-selected="false" aria-controls="pane-tab-listing" onclick="switchTab('kwauto','listing')">Listing Attributes Ranking</button>
-          <button class="tab-btn" id="tab-kwgroup" data-group="kwauto" role="tab" aria-selected="false" aria-controls="pane-tab-kwgroup" onclick="switchTab('kwauto','kwgroup')">KWs Grouping &amp; Ranking</button>
+          <button class="tab-btn" id="tab-kwgroup" data-group="kwauto" role="tab" aria-selected="false" aria-controls="pane-tab-kwgroup" onclick="switchTab('kwauto','kwgroup')" disabled style="opacity:0.4;cursor:not-allowed" title="Approve Tab 1 and Tab 2 first">KWs Grouping &amp; Ranking <span id="kwgroupLockHint" style="font-size:9px;color:var(--muted)">(approve Tab 1 &amp; 2 first)</span></button>
         </div>
 
         <!-- ===== Sub-Tab 1: Branding Scope & KW-Product Relationship ===== -->
@@ -16456,9 +16456,26 @@ function submitExtKwTab(n) {
         if (stBadge) { stBadge.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Pending Review'; stBadge.style.background = 'rgba(245,158,11,.12)'; stBadge.style.color = 'var(--warning)'; }
         if (bd) { bd.textContent = statusLabels[tabIdx] + ': pending_review'; bd.style.background = 'rgba(245,158,11,.12)'; bd.style.color = 'var(--warning)'; }
         this.remove();
+        // Re-lock Tab 3 if Tab 1 or Tab 2 approval is reverted
+        if (tabIdx === 1 || tabIdx === 2) {
+          var kwgTab = document.getElementById('tab-kwgroup');
+          if (kwgTab) { kwgTab.disabled = true; kwgTab.style.opacity = '0.4'; kwgTab.style.cursor = 'not-allowed'; kwgTab.title = 'Approve Tab 1 and Tab 2 first'; var hint = document.getElementById('kwgroupLockHint'); if (hint) hint.style.display = ''; }
+        }
         showToast('Tab ' + tabIdx + ' re-opened for editing');
       };
       submitBtn.parentNode.appendChild(editLink);
+    }
+  }
+  // Unlock Tab 3 once both Tab 1 and Tab 2 are approved
+  if (extKwTabApproved[1] && extKwTabApproved[2]) {
+    var kwgTab = document.getElementById('tab-kwgroup');
+    if (kwgTab && kwgTab.disabled) {
+      kwgTab.disabled = false;
+      kwgTab.style.opacity = '1';
+      kwgTab.style.cursor = 'pointer';
+      kwgTab.title = '';
+      var hint = document.getElementById('kwgroupLockHint');
+      if (hint) hint.style.display = 'none';
     }
   }
   // Auto-advance to next tab
