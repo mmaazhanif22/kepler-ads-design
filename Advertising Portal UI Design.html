@@ -11985,7 +11985,7 @@ input[type="date"] { color-scheme: dark; }
           <!-- Phase indicator toggle -->
           <div id="kwPhaseIndicator" style="display:flex;gap:0;margin-bottom:16px;border-bottom:2px solid var(--border)">
             <button id="kwPhase1Btn" onclick="switchKwPhase(1)" style="padding:8px 16px;border:none;background:none;cursor:pointer;font-size:12px;font-weight:700;color:var(--primary);border-bottom:2px solid var(--primary);margin-bottom:-2px">Phase 1: Keyword Fetching</button>
-            <button id="kwPhase2Btn" onclick="switchKwPhase(2)" style="padding:8px 16px;border:none;background:none;cursor:pointer;font-size:12px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px">Phase 2: Analysis &amp; Grouping</button>
+            <button id="kwPhase2Btn" onclick="switchKwPhase(2)" disabled style="padding:8px 16px;border:none;background:none;cursor:not-allowed;font-size:12px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px;opacity:0.4">Phase 2: Analysis &amp; Grouping <span style="font-size:9px;color:var(--muted)">(complete Phase 1 first)</span></button>
           </div>
 
           <!-- ========== PHASE 1: Keyword Fetching (old wizStep2 KW Research content) ========== -->
@@ -15838,7 +15838,8 @@ function completeKwResearch() {
   // Hide user keywords panel and research options
   var userPanel = document.getElementById('kwUserKeywordsPanel');
   if (userPanel) userPanel.style.display = 'none';
-  // Auto-switch to Phase 2 (Analysis & Grouping) within Step 3
+  // Unlock Phase 2 tab and auto-switch to it
+  unlockKwPhase2();
   setTimeout(function() { switchKwPhase(2); }, 800);
   updateWizFooter(3);
   // Show overlap flash if user had pre-added keywords
@@ -15949,11 +15950,16 @@ function autoTriggerResearch() {
 }
 
 // --- Step 3: Phase switcher (Phase 1: KW Fetching / Phase 2: Analysis & Grouping) ---
+function unlockKwPhase2() {
+  var b2 = document.getElementById('kwPhase2Btn');
+  if (b2) { b2.disabled = false; b2.style.cursor = 'pointer'; b2.style.opacity = '1'; b2.innerHTML = 'Phase 2: Analysis &amp; Grouping'; }
+}
 function switchKwPhase(phase) {
   var p1 = document.getElementById('kwPhase1');
   var p2 = document.getElementById('kwPhase2');
   var b1 = document.getElementById('kwPhase1Btn');
   var b2 = document.getElementById('kwPhase2Btn');
+  if (phase === 2 && b2 && b2.disabled) return; // Block if Phase 2 still locked
   if (phase === 1) {
     if (p1) p1.style.display = ''; if (p2) p2.style.display = 'none';
     if (b1) { b1.style.color = 'var(--primary)'; b1.style.borderBottomColor = 'var(--primary)'; b1.style.fontWeight = '700'; }
@@ -16110,6 +16116,9 @@ function handleCsvFileSelect(input) {
       if (breakdown) breakdown.innerHTML = kwCount.toLocaleString() + ' keywords imported from <strong>' + file.name + '</strong> &nbsp;&middot;&nbsp; Ready for KW Automation';
     }
     var te=document.getElementById('kwResearchTimeEstimate');if(te)te.style.display='none';
+    // Unlock Phase 2 after CSV upload
+    unlockKwPhase2();
+    setTimeout(function() { switchKwPhase(2); }, 800);
     updateWizFooter(3);
     addNotification('CSV keywords imported for ' + (selectedAsin || 'ASIN') + ' — ' + kwCount.toLocaleString() + ' keywords loaded from ' + file.name + '.', 'success', 'open-wizard-step3');
   };
