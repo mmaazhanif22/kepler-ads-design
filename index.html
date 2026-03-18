@@ -1525,7 +1525,7 @@ input[type="date"] { color-scheme: dark; }
     <div class="section-label">Amazon Advertising</div>
     <div class="nav-item" tabindex="0" role="button" aria-expanded="true" id="nav-asin-setup" onclick="toggleNavSection('subs-asin-setup')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-      ASIN Setup
+      Launch Ads
       <svg class="nav-item-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
     <div class="nav-subs" id="subs-asin-setup">
@@ -1541,7 +1541,7 @@ input[type="date"] { color-scheme: dark; }
 
     <div class="nav-item" tabindex="0" role="button" aria-expanded="false" id="nav-camp" onclick="navigate('campaigns','nav-camp');switchTab('main','asin-overview')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      Ads Management
+      Manage Ads
     </div>
 
     <div class="nav-item nav-collapsed" tabindex="0" role="button" aria-expanded="false" id="nav-ads-perf" onclick="toggleNavSection('subs-ads-perf')">
@@ -2007,7 +2007,7 @@ input[type="date"] { color-scheme: dark; }
               </div>
               <button class="dismiss-btn" onclick="event.stopPropagation();dismissActionItem(this)" aria-label="Dismiss this action item" style="background:none;border:none;color:var(--muted);cursor:pointer;padding:2px 4px;font-size:14px;line-height:1;opacity:.6;flex-shrink:0">&times;</button>
             </div>
-            <div class="alert a-info action-item" data-action-id="kw-sync" style="padding:9px 11px;cursor:pointer" role="button" tabindex="0" aria-label="Go to KW Automation to run sync" onclick="navigate('campaigns','nav-camp');switchTab('main','kw-automation')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigate('campaigns','nav-camp');switchTab('main','kw-automation')}">
+            <div class="alert a-info action-item" data-action-id="kw-sync" style="padding:9px 11px;cursor:pointer" role="button" tabindex="0" aria-label="Go to Automated Keyword Research to run sync" onclick="navigate('campaigns','nav-camp');switchTab('main','kw-automation')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigate('campaigns','nav-camp');switchTab('main','kw-automation')}">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
               <div style="flex:1">
                 <div style="font-weight:600;font-size:12px">KW sync pending</div>
@@ -2198,7 +2198,7 @@ input[type="date"] { color-scheme: dark; }
       <!-- Toolbar -->
       <div class="flex items-center justify-between mb-4">
         <div>
-          <!-- Intentionally renamed from "Campaign Management" to "Ads Management" for the prototype (Section 3 Abdul feedback) --><h2 style="font-size:16px;font-weight:700">Ads Management</h2>
+          <!-- Renamed to "Manage Ads" per Round 3 Abdul feedback (R3-2.2) --><h2 style="font-size:16px;font-weight:700">Manage Ads</h2>
           <p class="text-sm text-muted" style="margin-top:3px">Purosentido by Scentrade · Amazon US · Last synced 6h ago</p>
         </div>
         <div class="flex gap-2">
@@ -2216,18 +2216,18 @@ input[type="date"] { color-scheme: dark; }
 
       <!-- Section Breadcrumb — sidebar is sole navigation authority -->
       <div class="section-breadcrumb">
-        <span class="section-breadcrumb-parent" style="cursor:pointer" onclick="navigate('campaigns','nav-camp')">Ads Management</span>
+        <span class="section-breadcrumb-parent" style="cursor:pointer" onclick="navigate('campaigns','nav-camp')">Manage Ads</span>
         <span class="section-breadcrumb-sep">›</span>
-        <span class="section-breadcrumb-current" id="breadcrumb-main">ASIN Overview</span>
+        <span class="section-breadcrumb-current" id="breadcrumb-main">Manage Ads</span>
       </div>
 
       <!-- Tab Bar (hidden — sidebar is sole nav) -->
       <div class="tab-bar sidebar-driven-tabbar" role="tablist" aria-hidden="true">
-        <button class="tab-btn active" id="tab-asin-overview" data-group="main" role="tab" aria-selected="true" aria-controls="pane-asin-overview" onclick="switchTab('main','asin-overview')">ASIN Overview</button>
+        <button class="tab-btn active" id="tab-asin-overview" data-group="main" role="tab" aria-selected="true" aria-controls="pane-asin-overview" onclick="switchTab('main','asin-overview')">Manage Ads</button>
         <button class="tab-btn" id="tab-campaigns" data-group="main" role="tab" aria-selected="false" aria-controls="pane-tab-campaigns" onclick="switchTab('main','campaigns')">Campaigns</button>
         <button class="tab-btn" id="tab-asin-config" data-group="main" role="tab" aria-selected="false" aria-controls="pane-tab-asin-config" onclick="switchTab('main','asin-config')">ASIN Config</button>
         <button class="tab-btn" id="tab-kw-research" data-group="main" role="tab" aria-selected="false" aria-controls="pane-tab-kw-research" onclick="switchTab('main','kw-research')">Keyword Research</button>
-        <button class="tab-btn" id="tab-kw-automation" data-group="main" role="tab" aria-selected="false" aria-controls="pane-tab-kw-automation" onclick="switchTab('main','kw-automation')">Keyword Automation</button>
+        <button class="tab-btn" id="tab-kw-automation" data-group="main" role="tab" aria-selected="false" aria-controls="pane-tab-kw-automation" onclick="switchTab('main','kw-automation')">Automated Keyword Research</button>
         <button class="tab-btn" id="tab-camp-config" data-group="main" role="tab" aria-selected="false" aria-controls="pane-tab-camp-config" onclick="switchTab('main','camp-config')">Campaign Config</button>
         <button class="tab-btn" id="tab-kw-config" data-group="main" role="tab" aria-selected="false" aria-controls="pane-tab-kw-config" onclick="switchTab('main','kw-config')">Keyword Settings</button>
         <button class="tab-btn" id="tab-st-config" data-group="main" role="tab" aria-selected="false" aria-controls="pane-tab-st-config" onclick="switchTab('main','st-config')">Search Term Settings</button>
@@ -3457,8 +3457,8 @@ input[type="date"] { color-scheme: dark; }
           <span style="font-size:11px;color:var(--muted)">— All 3 tabs must be approved before returning to the Campaign Wizard</span>
           <span style="flex:1"></span>
           <button class="btn btn-primary btn-sm" onclick="returnToWizardFromKwAuto()" style="gap:4px;font-size:11px">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-            Return to Campaign Wizard
+            Next: Campaign Config
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><polyline points="9 18 15 12 9 6"/></svg>
           </button>
         </div>
 
@@ -3692,33 +3692,15 @@ input[type="date"] { color-scheme: dark; }
 
         <!-- ===== Sub-Tab 3: KWs Grouping & Ranking ===== -->
         <div class="tab-pane" id="pane-kwgroup" data-group="kwauto" role="tabpanel" tabindex="0" aria-hidden="true">
-          <div style="border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:14px">
-            <div style="margin-bottom:10px">
-              <h3 style="font-size:14px;font-weight:700;margin:0 0 2px 0">ASIN Selection</h3>
-              <span style="font-size:11px;color:var(--muted)">Select an ASIN to view keyword grouping and ranking</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <div style="border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:14px">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
               <div style="padding:6px 12px;border:1px solid var(--border);border-radius:6px;font-size:12px;min-width:280px;background:var(--layer)">
                 <span id="extTab3AsinLabel" style="font-family:monospace;font-size:11px">B09L4KWX6Q — PuroSentido Aroma Oil</span>
               </div>
+              <input class="input" placeholder="Search keywords..." style="width:180px;font-size:11px;padding:5px 10px">
               <span style="flex:1"></span>
-              <span style="position:relative">
-                <button class="btn btn-ghost btn-xs" onclick="toggleImportMenu(this)">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:11px;height:11px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                  Import &#9662;
-                </button>
-                <div class="import-dropdown-menu" style="display:none;position:absolute;top:100%;left:0;z-index:200;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:4px;min-width:140px;box-shadow:var(--shadow-md);margin-top:2px">
-                  <div style="padding:6px 10px;cursor:pointer;border-radius:4px;font-size:12px" onmouseover="this.style.background='var(--layer)'" onmouseout="this.style.background=''" onclick="downloadTemplate('kw-grouping');this.parentElement.style.display='none'">Download Template</div>
-                  <div style="padding:6px 10px;cursor:pointer;border-radius:4px;font-size:12px" onmouseover="this.style.background='var(--layer)'" onmouseout="this.style.background=''" onclick="importFile('KW Grouping');this.parentElement.style.display='none'">Import File</div>
-                  <div style="padding:6px 10px;cursor:pointer;border-radius:4px;font-size:12px" onmouseover="this.style.background='var(--layer)'" onmouseout="this.style.background=''" onclick="navigate('upload-hist','nav-upload-hist');this.parentElement.style.display='none'">History</div>
-                </div>
-              </span>
-              <button class="btn btn-secondary btn-xs" onclick="exportKwGrouping()"><!-- API: GET /api/amazon-ads/keyword-branding-scope/export?asin={id} | GET /api/amazon-ads/group-ranking?asin={id} | Import: POST /api/amazon-ads/upload-file type=kw-branding-scope -->
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:11px;height:11px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Export
-              </button>
               <span id="extTab3ApprovedBadge" style="display:none;font-size:11px;font-weight:700;color:var(--success)">&#10003; Approved</span>
-              <button class="btn btn-primary btn-sm" id="extTab3SubmitBtn" onclick="submitExtKwTab(3)">Submit</button>
+              <button class="btn btn-primary btn-sm" id="extTab3SubmitBtn" onclick="submitExtKwTab(3)">Approve</button>
               <button class="btn btn-ghost btn-xs" onclick="showToast('Reset grouping to AI defaults','info')">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:11px;height:11px"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
                 Reset
@@ -3749,17 +3731,6 @@ input[type="date"] { color-scheme: dark; }
             NOTE: JS Relevancy shown as raw 1-10 score here; Campaign Config shows medRelevancy as 0-100% (normalized ×10)
           -->
           <div id="kwgroup-content" style="overflow-y:auto;max-height:calc(100vh - 420px);min-height:220px">
-
-            <!-- ═══ GROUP SUMMARY TABLE ═══ -->
-            <div style="border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:14px;background:var(--card)">
-              <div style="font-size:12px;font-weight:700;margin-bottom:8px">Group Summary</div>
-              <table style="width:100%;border-collapse:collapse;font-size:11px"><thead><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:5px 10px;font-weight:600;color:var(--muted)">Branding Scope</th><th style="text-align:left;padding:5px 10px;font-weight:600;color:var(--muted)">Group # / Rank</th><th style="text-align:right;padding:5px 10px;font-weight:600;color:var(--muted)">Total Keywords</th></tr></thead><tbody>
-                <tr style="border-bottom:1px solid var(--border)"><td style="padding:5px 10px"><span style="font-size:10px;padding:2px 8px;border-radius:10px;background:rgba(37,99,235,.1);color:#2563eb;font-weight:600">NB</span></td><td style="padding:5px 10px">Group 1</td><td style="padding:5px 10px;text-align:right;font-weight:600">45 keywords</td></tr>
-                <tr style="border-bottom:1px solid var(--border)"><td style="padding:5px 10px"><span style="font-size:10px;padding:2px 8px;border-radius:10px;background:rgba(37,99,235,.1);color:#2563eb;font-weight:600">NB</span></td><td style="padding:5px 10px">Group 2</td><td style="padding:5px 10px;text-align:right;font-weight:600">32 keywords</td></tr>
-                <tr style="border-bottom:1px solid var(--border)"><td style="padding:5px 10px"><span style="font-size:10px;padding:2px 8px;border-radius:10px;background:rgba(5,150,105,.1);color:#059669;font-weight:600">OB</span></td><td style="padding:5px 10px">Group 1</td><td style="padding:5px 10px;text-align:right;font-weight:600">28 keywords</td></tr>
-                <tr><td style="padding:5px 10px"><span style="font-size:10px;padding:2px 8px;border-radius:10px;background:rgba(220,38,38,.1);color:#dc2626;font-weight:600">CB</span></td><td style="padding:5px 10px">Group 1</td><td style="padding:5px 10px;text-align:right;font-weight:600">18 keywords</td></tr>
-              </tbody></table>
-            </div>
 
             <!-- ═══ SUMMARY STRIP ═══ -->
             <div class="kwg-summary-strip">
@@ -3810,26 +3781,23 @@ input[type="date"] { color-scheme: dark; }
                     <div class="kwg-kw-scroll">
                       <table class="kwg-kw-table">
                         <thead><tr>
-                          <th style="width:22%">Keyword</th>
-                          <th class="kwg-right">SV (Exact)</th>
-                          <th class="kwg-right">SV (Broad)</th>
+                          <th style="width:28%">Keyword</th>
+                          <th class="kwg-right">Search Vol</th>
                           <th class="kwg-right">Organic Rank</th>
                           <th class="kwg-right">JS Relevancy</th>
-                          <th class="kwg-right">Ease of Ranking</th>
-                          <th class="kwg-right">PPC Bid</th>
                           <th></th>
                         </tr></thead>
                         <tbody>
-                          <tr><td><strong>italian aroma diffuser oil</strong></td><td class="kwg-right">8,420</td><td class="kwg-right">14,200</td><td class="kwg-right" style="color:#16a34a">6</td><td class="kwg-right" style="color:#16a34a">9.1</td><td class="kwg-right" style="color:#16a34a">82</td><td class="kwg-right">$1.85</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
-                          <tr><td><strong>italy essential oil diffuser</strong></td><td class="kwg-right">3,210</td><td class="kwg-right">5,800</td><td class="kwg-right" style="color:#16a34a">11</td><td class="kwg-right" style="color:#16a34a">8.7</td><td class="kwg-right" style="color:#16a34a">78</td><td class="kwg-right">$1.62</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
-                          <tr><td><strong>puro sentido aroma oil italy</strong></td><td class="kwg-right">1,890</td><td class="kwg-right">3,400</td><td class="kwg-right" style="color:#16a34a">9</td><td class="kwg-right" style="color:#16a34a">9.4</td><td class="kwg-right" style="color:#16a34a">85</td><td class="kwg-right">$2.10</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
-                          <tr><td><strong>italian fragrance oil diffuser</strong></td><td class="kwg-right">1,540</td><td class="kwg-right">2,900</td><td class="kwg-right" style="color:#16a34a">14</td><td class="kwg-right" style="color:#16a34a">8.5</td><td class="kwg-right" style="color:#ca8a04">65</td><td class="kwg-right">$1.45</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
-                          <tr><td><strong>aroma oil for diffuser italian scent</strong></td><td class="kwg-right">1,320</td><td class="kwg-right">2,400</td><td class="kwg-right" style="color:#16a34a">18</td><td class="kwg-right" style="color:#16a34a">8.2</td><td class="kwg-right" style="color:#ca8a04">58</td><td class="kwg-right">$1.38</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
-                          <tr><td><strong>italian diffuser oil home scent</strong></td><td class="kwg-right">1,100</td><td class="kwg-right">2,100</td><td class="kwg-right" style="color:#16a34a">22</td><td class="kwg-right" style="color:#16a34a">7.8</td><td class="kwg-right" style="color:#ca8a04">52</td><td class="kwg-right">$1.22</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
-                          <tr><td><strong>premium italy aroma oil</strong></td><td class="kwg-right">980</td><td class="kwg-right">1,700</td><td class="kwg-right" style="color:#16a34a">8</td><td class="kwg-right" style="color:#16a34a">8.9</td><td class="kwg-right" style="color:#16a34a">74</td><td class="kwg-right">$1.95</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
-                          <tr><td><strong>diffuser oil italian fragrance set</strong></td><td class="kwg-right">870</td><td class="kwg-right">1,500</td><td class="kwg-right" style="color:#ca8a04">31</td><td class="kwg-right" style="color:#16a34a">7.5</td><td class="kwg-right" style="color:#dc2626">42</td><td class="kwg-right">$1.18</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
-                          <tr><td><strong>essential oil diffuser italy scent</strong></td><td class="kwg-right">760</td><td class="kwg-right">1,300</td><td class="kwg-right" style="color:#16a34a">19</td><td class="kwg-right" style="color:#16a34a">8.0</td><td class="kwg-right" style="color:#ca8a04">61</td><td class="kwg-right">$1.52</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
-                          <tr><td><strong>aromatic oil diffuser italian</strong></td><td class="kwg-right">640</td><td class="kwg-right">1,100</td><td class="kwg-right" style="color:#16a34a">12</td><td class="kwg-right" style="color:#16a34a">8.4</td><td class="kwg-right" style="color:#16a34a">70</td><td class="kwg-right">$1.30</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
+                          <tr><td><strong>italian aroma diffuser oil</strong></td><td class="kwg-right">8,420</td><td class="kwg-right" style="color:#16a34a">6</td><td class="kwg-right" style="color:#16a34a">9.1</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
+                          <tr><td><strong>italy essential oil diffuser</strong></td><td class="kwg-right">3,210</td><td class="kwg-right" style="color:#16a34a">11</td><td class="kwg-right" style="color:#16a34a">8.7</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
+                          <tr><td><strong>puro sentido aroma oil italy</strong></td><td class="kwg-right">1,890</td><td class="kwg-right" style="color:#16a34a">9</td><td class="kwg-right" style="color:#16a34a">9.4</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
+                          <tr><td><strong>italian fragrance oil diffuser</strong></td><td class="kwg-right">1,540</td><td class="kwg-right" style="color:#16a34a">14</td><td class="kwg-right" style="color:#16a34a">8.5</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
+                          <tr><td><strong>aroma oil for diffuser italian scent</strong></td><td class="kwg-right">1,320</td><td class="kwg-right" style="color:#16a34a">18</td><td class="kwg-right" style="color:#16a34a">8.2</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
+                          <tr><td><strong>italian diffuser oil home scent</strong></td><td class="kwg-right">1,100</td><td class="kwg-right" style="color:#16a34a">22</td><td class="kwg-right" style="color:#16a34a">7.8</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
+                          <tr><td><strong>premium italy aroma oil</strong></td><td class="kwg-right">980</td><td class="kwg-right" style="color:#16a34a">8</td><td class="kwg-right" style="color:#16a34a">8.9</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
+                          <tr><td><strong>diffuser oil italian fragrance set</strong></td><td class="kwg-right">870</td><td class="kwg-right" style="color:#ca8a04">31</td><td class="kwg-right" style="color:#16a34a">7.5</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
+                          <tr><td><strong>essential oil diffuser italy scent</strong></td><td class="kwg-right">760</td><td class="kwg-right" style="color:#16a34a">19</td><td class="kwg-right" style="color:#16a34a">8.0</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
+                          <tr><td><strong>aromatic oil diffuser italian</strong></td><td class="kwg-right">640</td><td class="kwg-right" style="color:#16a34a">12</td><td class="kwg-right" style="color:#16a34a">8.4</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
                         </tbody>
                       </table>
                     </div>
@@ -3846,15 +3814,15 @@ input[type="date"] { color-scheme: dark; }
                   <div class="kwg-camp-body">
                     <div class="kwg-kw-scroll">
                       <table class="kwg-kw-table">
-                        <thead><tr><th style="width:22%">Keyword</th><th class="kwg-right">SV (Exact)</th><th class="kwg-right">SV (Broad)</th><th class="kwg-right">Organic Rank</th><th class="kwg-right">JS Relevancy</th><th class="kwg-right">Ease of Ranking</th><th class="kwg-right">PPC Bid</th><th></th></tr></thead>
+                        <thead><tr><th style="width:28%">Keyword</th><th class="kwg-right">Search Vol</th><th class="kwg-right">Organic Rank</th><th class="kwg-right">JS Relevancy</th><th></th></tr></thead>
                         <tbody>
-                          <tr><td><strong>italian scent diffuser oil set</strong></td><td class="kwg-right">3,420</td><td class="kwg-right">5,600</td><td class="kwg-right" style="color:#ca8a04">28</td><td class="kwg-right" style="color:#16a34a">7.4</td><td class="kwg-right" style="color:#ca8a04">55</td><td class="kwg-right">$1.42</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
-                          <tr><td><strong>aroma diffuser oil for room italy</strong></td><td class="kwg-right">2,810</td><td class="kwg-right">4,500</td><td class="kwg-right" style="color:#ca8a04">35</td><td class="kwg-right" style="color:#16a34a">7.1</td><td class="kwg-right" style="color:#dc2626">38</td><td class="kwg-right">$1.28</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
-                          <tr><td><strong>reed diffuser oil italian fragrance</strong></td><td class="kwg-right">2,340</td><td class="kwg-right">3,800</td><td class="kwg-right" style="color:#16a34a">16</td><td class="kwg-right" style="color:#16a34a">8.0</td><td class="kwg-right" style="color:#ca8a04">62</td><td class="kwg-right">$1.55</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
-                          <tr><td><strong>italy oil diffuser home</strong></td><td class="kwg-right">1,980</td><td class="kwg-right">3,200</td><td class="kwg-right" style="color:#ca8a04">42</td><td class="kwg-right" style="color:#ca8a04">6.8</td><td class="kwg-right" style="color:#dc2626">35</td><td class="kwg-right">$1.15</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
-                          <tr><td><strong>aromatic diffuser oil italian blend</strong></td><td class="kwg-right">1,540</td><td class="kwg-right">2,600</td><td class="kwg-right" style="color:#16a34a">21</td><td class="kwg-right" style="color:#16a34a">7.6</td><td class="kwg-right" style="color:#ca8a04">58</td><td class="kwg-right">$1.48</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
-                          <tr><td><strong>luxury italian aroma oil</strong></td><td class="kwg-right">1,210</td><td class="kwg-right">2,100</td><td class="kwg-right" style="color:#16a34a">15</td><td class="kwg-right" style="color:#16a34a">8.1</td><td class="kwg-right" style="color:#16a34a">72</td><td class="kwg-right">$1.82</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
-                          <tr><td><strong>diffuser fragrance oil italy scent</strong></td><td class="kwg-right">900</td><td class="kwg-right">1,500</td><td class="kwg-right" style="color:#ca8a04">29</td><td class="kwg-right" style="color:#16a34a">7.2</td><td class="kwg-right" style="color:#ca8a04">48</td><td class="kwg-right">$1.08</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
+                          <tr><td><strong>italian scent diffuser oil set</strong></td><td class="kwg-right">3,420</td><td class="kwg-right" style="color:#ca8a04">28</td><td class="kwg-right" style="color:#16a34a">7.4</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
+                          <tr><td><strong>aroma diffuser oil for room italy</strong></td><td class="kwg-right">2,810</td><td class="kwg-right" style="color:#ca8a04">35</td><td class="kwg-right" style="color:#16a34a">7.1</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
+                          <tr><td><strong>reed diffuser oil italian fragrance</strong></td><td class="kwg-right">2,340</td><td class="kwg-right" style="color:#16a34a">16</td><td class="kwg-right" style="color:#16a34a">8.0</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
+                          <tr><td><strong>italy oil diffuser home</strong></td><td class="kwg-right">1,980</td><td class="kwg-right" style="color:#ca8a04">42</td><td class="kwg-right" style="color:#ca8a04">6.8</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
+                          <tr><td><strong>aromatic diffuser oil italian blend</strong></td><td class="kwg-right">1,540</td><td class="kwg-right" style="color:#16a34a">21</td><td class="kwg-right" style="color:#16a34a">7.6</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
+                          <tr><td><strong>luxury italian aroma oil</strong></td><td class="kwg-right">1,210</td><td class="kwg-right" style="color:#16a34a">15</td><td class="kwg-right" style="color:#16a34a">8.1</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
+                          <tr><td><strong>diffuser fragrance oil italy scent</strong></td><td class="kwg-right">900</td><td class="kwg-right" style="color:#ca8a04">29</td><td class="kwg-right" style="color:#16a34a">7.2</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
                         </tbody>
                       </table>
                     </div>
@@ -3885,12 +3853,12 @@ input[type="date"] { color-scheme: dark; }
                   <div class="kwg-camp-body">
                     <div class="kwg-kw-scroll">
                       <table class="kwg-kw-table">
-                        <thead><tr><th style="width:22%">Keyword</th><th class="kwg-right">SV (Exact)</th><th class="kwg-right">SV (Broad)</th><th class="kwg-right">Organic Rank</th><th class="kwg-right">JS Relevancy</th><th class="kwg-right">Ease of Ranking</th><th class="kwg-right">PPC Bid</th><th></th></tr></thead>
+                        <thead><tr><th style="width:28%">Keyword</th><th class="kwg-right">Search Vol</th><th class="kwg-right">Organic Rank</th><th class="kwg-right">JS Relevancy</th><th></th></tr></thead>
                         <tbody>
-                          <tr><td><strong>sicilian lemon diffuser oil</strong></td><td class="kwg-right">1,120</td><td class="kwg-right">2,100</td><td class="kwg-right" style="color:#16a34a">16</td><td class="kwg-right" style="color:#16a34a">8.5</td><td class="kwg-right" style="color:#16a34a">76</td><td class="kwg-right">$1.72</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
-                          <tr><td><strong>white rose aroma oil</strong></td><td class="kwg-right">870</td><td class="kwg-right">1,600</td><td class="kwg-right" style="color:#16a34a">21</td><td class="kwg-right" style="color:#16a34a">8.1</td><td class="kwg-right" style="color:#ca8a04">68</td><td class="kwg-right">$1.55</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
-                          <tr><td><strong>musk diffuser fragrance oil</strong></td><td class="kwg-right">640</td><td class="kwg-right">1,200</td><td class="kwg-right" style="color:#ca8a04">28</td><td class="kwg-right" style="color:#16a34a">7.4</td><td class="kwg-right" style="color:#ca8a04">54</td><td class="kwg-right">$1.38</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
-                          <tr><td colspan="8" style="text-align:center;color:var(--muted);font-size:11px;padding:8px">+ 5 more keywords &mdash; <a href="#" onclick="event.preventDefault();showToast('Expanded view','info')" style="color:var(--primary)">View all</a></td></tr>
+                          <tr><td><strong>sicilian lemon diffuser oil</strong></td><td class="kwg-right">1,120</td><td class="kwg-right" style="color:#16a34a">16</td><td class="kwg-right" style="color:#16a34a">8.5</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
+                          <tr><td><strong>white rose aroma oil</strong></td><td class="kwg-right">870</td><td class="kwg-right" style="color:#16a34a">21</td><td class="kwg-right" style="color:#16a34a">8.1</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
+                          <tr><td><strong>musk diffuser fragrance oil</strong></td><td class="kwg-right">640</td><td class="kwg-right" style="color:#ca8a04">28</td><td class="kwg-right" style="color:#16a34a">7.4</td><td style="color:var(--muted);cursor:pointer">&#9998;</td></tr>
+                          <tr><td colspan="5" style="text-align:center;color:var(--muted);font-size:11px;padding:8px">+ 5 more keywords &mdash; <a href="#" onclick="event.preventDefault();showToast('Expanded view','info')" style="color:var(--primary)">View all</a></td></tr>
                         </tbody>
                       </table>
                     </div>
@@ -4012,7 +3980,7 @@ input[type="date"] { color-scheme: dark; }
                     <thead><tr>
                       <th style="width:22%">Keyword</th>
                       <th>Reason</th>
-                      <th class="kwg-right">SV (Exact)</th>
+                      <th class="kwg-right">Search Vol</th>
                       <th class="kwg-right">Organic Rank</th>
                       <th class="kwg-right">JS Relevancy</th>
                     </tr></thead>
@@ -4043,7 +4011,7 @@ input[type="date"] { color-scheme: dark; }
               <div class="kwg-nr-body">
                 <div class="kwg-kw-scroll">
                   <table class="kwg-kw-table">
-                    <thead><tr><th style="width:22%">Keyword</th><th>Substitute For</th><th class="kwg-right">SV (Exact)</th><th class="kwg-right">Organic Rank</th><th class="kwg-right">JS Relevancy</th></tr></thead>
+                    <thead><tr><th style="width:22%">Keyword</th><th>Substitute For</th><th class="kwg-right">Search Vol</th><th class="kwg-right">Organic Rank</th><th class="kwg-right">JS Relevancy</th></tr></thead>
                     <tbody>
                       <tr><td><strong>essential oil spray room</strong></td><td style="color:var(--muted);font-size:11px">Room Spray (same use)</td><td class="kwg-right">12,400</td><td class="kwg-right" style="color:#dc2626">38</td><td class="kwg-right" style="color:#ca8a04">5.1</td></tr>
                       <tr><td><strong>wax melt fragrance oil</strong></td><td style="color:var(--muted);font-size:11px">Wax Melt (same use)</td><td class="kwg-right">6,210</td><td class="kwg-right" style="color:#dc2626">45</td><td class="kwg-right" style="color:#ca8a04">4.5</td></tr>
@@ -4070,7 +4038,7 @@ input[type="date"] { color-scheme: dark; }
               <div class="kwg-nr-body">
                 <div class="kwg-kw-scroll">
                   <table class="kwg-kw-table">
-                    <thead><tr><th style="width:22%">Keyword</th><th>Complementary Product</th><th class="kwg-right">SV (Exact)</th><th class="kwg-right">Organic Rank</th><th class="kwg-right">JS Relevancy</th></tr></thead>
+                    <thead><tr><th style="width:22%">Keyword</th><th>Complementary Product</th><th class="kwg-right">Search Vol</th><th class="kwg-right">Organic Rank</th><th class="kwg-right">JS Relevancy</th></tr></thead>
                     <tbody>
                       <tr><td><strong>essential oil diffuser machine</strong></td><td style="color:var(--muted);font-size:11px">Diffuser Device</td><td class="kwg-right">4,200</td><td class="kwg-right" style="color:#dc2626">58</td><td class="kwg-right" style="color:#dc2626">3.8</td></tr>
                       <tr><td><strong>reed sticks for diffuser</strong></td><td style="color:var(--muted);font-size:11px">Reed Sticks</td><td class="kwg-right">3,100</td><td class="kwg-right" style="color:#dc2626">74</td><td class="kwg-right" style="color:#dc2626">3.1</td></tr>
@@ -4082,18 +4050,6 @@ input[type="date"] { color-scheme: dark; }
               </div>
             </div>
 
-            <!-- Prompt Feedback -->
-            <div style="margin-top:16px;margin-bottom:12px;padding:12px;background:var(--layer);border:1px solid var(--border);border-radius:8px">
-              <div style="font-size:12px;font-weight:700;margin-bottom:6px">Prompt Feedback</div>
-              <div style="font-size:11px;color:var(--muted);margin-bottom:8px">Share your thoughts or report issues with grouping results</div>
-              <div style="display:flex;gap:8px">
-                <input class="input" placeholder="Type your feedback here..." style="flex:1;font-size:11px;padding:6px 10px">
-                <button class="btn btn-secondary btn-xs" onclick="showToast('Regenerating grouping with feedback...','info')">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
-                  Regenerate
-                </button>
-              </div>
-            </div>
           </div>
         </div>
       </div><!-- /kw-automation tab -->
@@ -10846,11 +10802,29 @@ input[type="date"] { color-scheme: dark; }
                 <button class="btn btn-secondary btn-xs" onclick="iboCountAsins()">Validate</button>
               </div>
             </div>
+            <!-- Manual input fields to match Bulk Import -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:6px">
+              <div>
+                <label style="font-size:10px;color:var(--muted);display:block;margin-bottom:3px">Target ACOS (%)</label>
+                <input class="input input-sm" type="number" placeholder="e.g. 35" style="width:100%" min="1" max="100">
+              </div>
+              <div>
+                <label style="font-size:10px;color:var(--muted);display:block;margin-bottom:3px">Competitor ASINs</label>
+                <input class="input input-sm" type="text" placeholder="B0COMP001, B0COMP002" style="width:100%">
+              </div>
+              <div style="grid-column:span 2;display:flex;align-items:center;gap:8px">
+                <label style="font-size:10px;color:var(--muted)">Auto Pacing</label>
+                <div style="width:36px;height:18px;border-radius:9px;background:var(--success);position:relative;cursor:pointer;transition:background .2s" onclick="var t=this;if(t.dataset.on!=='false'){t.style.background='var(--border)';t.children[0].style.left='2px';t.dataset.on='false'}else{t.style.background='var(--success)';t.children[0].style.left='16px';t.dataset.on='true'}" data-on="true">
+                  <div style="width:14px;height:14px;border-radius:50%;background:white;position:absolute;top:2px;left:16px;transition:left .2s;box-shadow:0 1px 2px rgba(0,0,0,.2)"></div>
+                </div>
+                <span style="font-size:10px;color:var(--muted)">Enabled by default</span>
+              </div>
+            </div>
             <!-- Bulk Import -->
             <div style="margin-top:12px;padding:12px;border:2px dashed var(--border);border-radius:8px;text-align:center;cursor:pointer;transition:border-color .2s" onclick="showToast('File picker opened — select CSV or Excel file','info')" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">
               <svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" style="width:24px;height:24px;margin:0 auto 6px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
               <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px">Bulk Import Config</div>
-              <div style="font-size:10px;color:var(--muted)">Upload CSV or Excel with ASIN, Target ACOS, Budget, Competitors per ASIN</div>
+              <div style="font-size:10px;color:var(--muted)">Upload CSV or Excel with ASIN, Target ACOS, Budget, Competitors, Auto Pacing Status per ASIN</div>
               <div style="display:flex;gap:8px;justify-content:center;margin-top:8px">
                 <button class="btn btn-ghost btn-xs" onclick="event.stopPropagation();downloadTemplate('asin-config')">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:11px;height:11px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -10880,6 +10854,7 @@ input[type="date"] { color-scheme: dark; }
                 <label style="font-size:12px;display:flex;align-items:center;gap:6px"><input type="checkbox" checked id="ibo-mt-phrase"> Phrase</label>
                 <label style="font-size:12px;display:flex;align-items:center;gap:6px"><input type="checkbox" id="ibo-mt-broad"> Broad</label>
               </div>
+              <div style="font-size:9px;color:var(--muted);margin-top:4px;font-style:italic">Select which to generate — unchecked types will be skipped</div>
             </div>
             <div>
               <label style="font-size:10px;color:var(--muted);display:block;margin-bottom:4px;text-transform:uppercase">Campaign Types <span class="field-hint" data-tip="NB (Non-Branded) = generic keywords. OBH (Own Brand Halo) = your brand + product keywords. CB (Competitor Branded) = competitor brand keywords. Each type gets separate campaigns for budget control.">?</span></label>
@@ -10888,19 +10863,16 @@ input[type="date"] { color-scheme: dark; }
                 <label style="font-size:12px;display:flex;align-items:center;gap:6px"><input type="checkbox" checked id="ibo-ct-obh"> OBH (Own Brand)</label>
                 <label style="font-size:12px;display:flex;align-items:center;gap:6px"><input type="checkbox" checked id="ibo-ct-cb"> CB (Competitor)</label>
               </div>
+              <div style="font-size:9px;color:var(--muted);margin-top:4px;font-style:italic">Select which to generate — unchecked types will be skipped</div>
             </div>
             <div>
-              <label style="font-size:10px;color:var(--muted);display:block;margin-bottom:4px;text-transform:uppercase">Bid Strategy <span class="field-hint" data-tip="Amazon's bidding mode. 'Dynamic Down Only' = Amazon may lower bids when less likely to convert (safest). 'Dynamic Up & Down' = Amazon may raise bids up to 100% for top placements. 'Fixed' = bids stay as set.">?</span></label>
-              <select class="sel" id="ibo-bid-strategy" style="width:100%;padding:6px 8px;font-size:12px">
-                <option>Dynamic — Down Only</option>
-                <option>Dynamic — Up &amp; Down</option>
-                <option>Fixed Bids</option>
-              </select>
+              <!-- NOT a backend field — hardcoded in bidding/strategies/. Formula: optimal_bid = price × target_acos × cvr -->
+              <label style="font-size:10px;color:var(--muted);display:block;margin-bottom:4px;text-transform:uppercase">Bid Strategy</label>
+              <span style="font-size:12px;color:var(--muted)">Bid Strategy: Dynamic - Down Only (system default)</span>
             </div>
             <div>
-              <label style="font-size:10px;color:var(--muted);display:block;margin-bottom:4px;text-transform:uppercase">Daily Budget ($) <span class="field-hint" data-tip="Default daily spend limit per campaign. Amazon minimum is $5. This is a global default — override per-group in Stage 2. Total daily spend = budget × number of campaigns.">?</span></label>
-              <input class="input input-sm" type="number" id="ibo-daily-budget" value="20.00" step="5" style="width:100%" aria-label="Default daily budget per campaign">
-              <div style="font-size:10px;color:var(--muted);margin-top:3px">Per campaign. Override per-group in Stage 2.</div>
+              <label style="font-size:10px;color:var(--muted);display:block;margin-bottom:4px;text-transform:uppercase">Daily Budget</label>
+              <span style="font-size:12px;color:var(--muted)">Budget configured per-group in Configuration stage</span>
             </div>
           </div>
         </div>
@@ -10947,6 +10919,17 @@ input[type="date"] { color-scheme: dark; }
           <strong style="color:var(--primary)">Per-group configuration</strong> — Each AI-generated group shares category competitors (Tier 1). Add variant-specific competitors per ASIN (Tier 2). Override Target ACOS and budget at the group level if needed. Hover over <span class="field-hint" style="display:inline-flex;vertical-align:middle;margin:0 2px" data-tip="Like this! Each field with a ? icon has a tooltip explaining what it does.">?</span> icons for details.
         </div>
 
+        <!-- DATA SOURCE: POST /api/upload-file/ {file_type:'ad-campaign-config'} -->
+        <div style="margin-bottom:14px;padding:14px;border:2px dashed var(--border);border-radius:8px;text-align:center;cursor:pointer;transition:border-color .2s" onclick="showToast('File picker opened — select CSV with per-group campaign config','info')" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" style="width:22px;height:22px;margin:0 auto 4px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px">Upload CSV with per-group campaign configuration</div>
+          <div style="font-size:10px;color:var(--muted)">Overrides Target ACOS, Budget, Competitors, and Pacing settings per group</div>
+          <div style="display:flex;gap:8px;justify-content:center;margin-top:8px">
+            <button class="btn btn-ghost btn-xs" onclick="event.stopPropagation();downloadTemplate('campaign-config')">Download Template</button>
+            <button class="btn btn-secondary btn-xs" onclick="event.stopPropagation();showToast('File picker opened','info')">Upload File</button>
+          </div>
+        </div>
+
         <div class="ibo-group-tabs" id="ibo-cfg-tabs">
           <!-- Rendered by iboRenderConfigTabs() -->
         </div>
@@ -10987,19 +10970,26 @@ input[type="date"] { color-scheme: dark; }
                     <input class="input input-sm" id="ibo-grp-budget" type="number" placeholder="Use global (20)" style="width:100%">
                   </div>
                 </div>
-                <div>
-                  <label style="font-size:10px;color:var(--muted);display:block;margin-bottom:3px">Naming Convention <span class="field-hint" data-tip="Kepler's standardized campaign naming: NBH1=Non-Branded, OBH1=Own Brand, CBH1=Competitor. SPKW=Sponsored Products Keyword. Campaign names are system-generated.">?</span></label>
-                  <div style="font-size:11px;font-family:monospace;color:var(--primary);background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:6px 10px">NBH1-SPKW-PB01-XX-S-{ASIN}-E-KW</div>
-                  <div style="font-size:10px;color:var(--muted);margin-top:2px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:10px;height:10px;vertical-align:middle;margin-right:2px"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Campaign names are system-generated and not editable</div>
+                <!-- Naming Convention removed — system-generated, not configurable -->
+                <!-- DATA SOURCE: AdvertisingAsinConfig.auto_pacing_enabled (BooleanField) -->
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px">
+                  <div>
+                    <div style="font-size:11px;font-weight:600;color:var(--text)">Auto Pacing</div>
+                    <div style="font-size:9px;color:var(--muted)">Distribute budget evenly across the day</div>
+                  </div>
+                  <div style="width:36px;height:18px;border-radius:9px;background:var(--success);position:relative;cursor:pointer;transition:background .2s" onclick="var t=this;if(t.dataset.on!=='false'){t.style.background='var(--border)';t.children[0].style.left='2px';t.dataset.on='false'}else{t.style.background='var(--success)';t.children[0].style.left='16px';t.dataset.on='true'}" data-on="true">
+                    <div style="width:14px;height:14px;border-radius:50%;background:white;position:absolute;top:2px;left:16px;transition:left .2s;box-shadow:0 1px 2px rgba(0,0,0,.2)"></div>
+                  </div>
                 </div>
-                <div>
-                  <label style="font-size:10px;color:var(--muted);display:block;margin-bottom:3px">Bid Strategy <span class="field-hint" data-tip="Override the global bid strategy for this group. 'Use global default' inherits the setting from Stage 1.">?</span></label>
-                  <select class="sel" id="ibo-grp-bid-strat" style="width:100%;padding:5px 8px;font-size:12px">
-                    <option>Use global default</option>
-                    <option>Dynamic — Down Only</option>
-                    <option>Dynamic — Up &amp; Down</option>
-                    <option>Fixed Bids</option>
-                  </select>
+                <!-- DATA SOURCE: AdvertisingAsinConfig.auto_budget (BooleanField) -->
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px">
+                  <div>
+                    <div style="font-size:11px;font-weight:600;color:var(--text)">Auto Budget</div>
+                    <div style="font-size:9px;color:var(--muted)">Let Kepler calculate optimal daily budgets</div>
+                  </div>
+                  <div style="width:36px;height:18px;border-radius:9px;background:var(--success);position:relative;cursor:pointer;transition:background .2s" onclick="var t=this;if(t.dataset.on!=='false'){t.style.background='var(--border)';t.children[0].style.left='2px';t.dataset.on='false'}else{t.style.background='var(--success)';t.children[0].style.left='16px';t.dataset.on='true'}" data-on="true">
+                    <div style="width:14px;height:14px;border-radius:50%;background:white;position:absolute;top:2px;left:16px;transition:left .2s;box-shadow:0 1px 2px rgba(0,0,0,.2)"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -11315,7 +11305,7 @@ input[type="date"] { color-scheme: dark; }
                 <td><span class="badge b-blue" style="font-size:9px">Aroma Oils</span></td>
                 <td>84</td><td>3</td><td>9</td>
                 <td><span class="badge b-green" style="font-size:9px">Auto-Approved</span></td>
-                <td><button class="btn btn-ghost btn-xs" onclick="iboQuickReview('B0B38C1JVG')">View</button></td>
+                <td><button class="btn btn-ghost btn-xs" title="Opens keyword research results for this ASIN" onclick="iboQuickReview('B0B38C1JVG')">View</button></td>
               </tr>
               <tr>
                 <td><input type="checkbox" aria-label="Select B0B9F8KHJL"></td>
@@ -11324,7 +11314,7 @@ input[type="date"] { color-scheme: dark; }
                 <td><span class="badge b-blue" style="font-size:9px">Aroma Oils</span></td>
                 <td>71</td><td>3</td><td>9</td>
                 <td><span class="badge b-green" style="font-size:9px">Auto-Approved</span></td>
-                <td><button class="btn btn-ghost btn-xs" onclick="iboQuickReview('B0B9F8KHJL')">View</button></td>
+                <td><button class="btn btn-ghost btn-xs" title="Opens keyword research results for this ASIN" onclick="iboQuickReview('B0B9F8KHJL')">View</button></td>
               </tr>
               <tr>
                 <td><input type="checkbox" aria-label="Select B0C1P2XYZQ"></td>
@@ -11333,7 +11323,7 @@ input[type="date"] { color-scheme: dark; }
                 <td><span class="badge b-blue" style="font-size:9px">Aroma Oils</span></td>
                 <td>78</td><td>3</td><td>9</td>
                 <td><span class="badge b-green" style="font-size:9px">Auto-Approved</span></td>
-                <td><button class="btn btn-ghost btn-xs" onclick="iboQuickReview('B0C1P2XYZQ')">View</button></td>
+                <td><button class="btn btn-ghost btn-xs" title="Opens keyword research results for this ASIN" onclick="iboQuickReview('B0C1P2XYZQ')">View</button></td>
               </tr>
               <tr>
                 <td><input type="checkbox" aria-label="Select B0CFRST455"></td>
@@ -11342,7 +11332,7 @@ input[type="date"] { color-scheme: dark; }
                 <td><span class="badge" style="font-size:9px;background:rgba(34,197,94,.15);color:#4ade80">Reed Diffusers</span></td>
                 <td>63</td><td>2</td><td>6</td>
                 <td><span class="badge b-green" style="font-size:9px">Auto-Approved</span></td>
-                <td><button class="btn btn-ghost btn-xs" onclick="iboQuickReview('B0CFRST455')">View</button></td>
+                <td><button class="btn btn-ghost btn-xs" title="Opens keyword research results for this ASIN" onclick="iboQuickReview('B0CFRST455')">View</button></td>
               </tr>
               <tr>
                 <td><input type="checkbox" aria-label="Select B0D7MNPQRS"></td>
@@ -11351,7 +11341,7 @@ input[type="date"] { color-scheme: dark; }
                 <td><span class="badge" style="font-size:9px;background:rgba(34,197,94,.15);color:#4ade80">Reed Diffusers</span></td>
                 <td>57</td><td>2</td><td>6</td>
                 <td><span class="badge b-green" style="font-size:9px">Auto-Approved</span></td>
-                <td><button class="btn btn-ghost btn-xs" onclick="iboQuickReview('B0D7MNPQRS')">View</button></td>
+                <td><button class="btn btn-ghost btn-xs" title="Opens keyword research results for this ASIN" onclick="iboQuickReview('B0D7MNPQRS')">View</button></td>
               </tr>
               <tr>
                 <td><input type="checkbox" aria-label="Select B0E2KLMNO8"></td>
@@ -11360,7 +11350,7 @@ input[type="date"] { color-scheme: dark; }
                 <td><span class="badge" style="font-size:9px;background:rgba(249,115,22,.15);color:#fb923c">Car Diffusers</span></td>
                 <td>49</td><td>2</td><td>6</td>
                 <td><span class="badge b-green" style="font-size:9px">Auto-Approved</span></td>
-                <td><button class="btn btn-ghost btn-xs" onclick="iboQuickReview('B0E2KLMNO8')">View</button></td>
+                <td><button class="btn btn-ghost btn-xs" title="Opens keyword research results for this ASIN" onclick="iboQuickReview('B0E2KLMNO8')">View</button></td>
               </tr>
               <tr>
                 <td><input type="checkbox" aria-label="Select B0F3PQRSTU"></td>
@@ -11369,7 +11359,7 @@ input[type="date"] { color-scheme: dark; }
                 <td><span class="badge" style="font-size:9px;background:rgba(249,115,22,.15);color:#fb923c">Car Diffusers</span></td>
                 <td>52</td><td>2</td><td>6</td>
                 <td><span class="badge b-green" style="font-size:9px">Auto-Approved</span></td>
-                <td><button class="btn btn-ghost btn-xs" onclick="iboQuickReview('B0F3PQRSTU')">View</button></td>
+                <td><button class="btn btn-ghost btn-xs" title="Opens keyword research results for this ASIN" onclick="iboQuickReview('B0F3PQRSTU')">View</button></td>
               </tr>
               <tr style="background:rgba(234,179,8,.05)">
                 <td><input type="checkbox" checked aria-label="Select B0G4VWXYZA"></td>
@@ -11379,7 +11369,7 @@ input[type="date"] { color-scheme: dark; }
                 <td>47</td><td>2</td><td>6</td>
                 <td><span class="badge" style="font-size:9px;background:rgba(234,179,8,.2);color:#facc15">Needs Review</span></td>
                 <td style="display:flex;gap:4px;flex-wrap:wrap">
-                  <button class="btn btn-secondary btn-xs" onclick="iboQuickReview('B0G4VWXYZA')">Quick Review</button>
+                  <button class="btn btn-secondary btn-xs" title="Opens keyword research results for this ASIN" onclick="iboQuickReview('B0G4VWXYZA')">Quick Review</button>
                   <button class="btn btn-ghost btn-xs" onclick="showToast('Approved B0G4VWXYZA · API: POST /api/amazon-ads/approve-kw-stage {asin_id, prompt_type}','success')">Approve</button>
                 </td>
               </tr>
@@ -11391,7 +11381,7 @@ input[type="date"] { color-scheme: dark; }
                 <td>61</td><td>3</td><td>9</td>
                 <td><span class="badge" style="font-size:9px;background:rgba(234,179,8,.2);color:#facc15">Needs Review</span></td>
                 <td style="display:flex;gap:4px;flex-wrap:wrap">
-                  <button class="btn btn-secondary btn-xs" onclick="iboQuickReview('B0H5BCDEFG')">Quick Review</button>
+                  <button class="btn btn-secondary btn-xs" title="Opens keyword research results for this ASIN" onclick="iboQuickReview('B0H5BCDEFG')">Quick Review</button>
                   <button class="btn btn-ghost btn-xs" onclick="showToast('Approved B0H5BCDEFG · API: POST /api/amazon-ads/approve-kw-stage {asin_id, prompt_type}','success')">Approve</button>
                 </td>
               </tr>
@@ -11403,7 +11393,7 @@ input[type="date"] { color-scheme: dark; }
                 <td>73</td><td>3</td><td>9</td>
                 <td><span class="badge" style="font-size:9px;background:rgba(234,179,8,.2);color:#facc15">Needs Review</span></td>
                 <td style="display:flex;gap:4px;flex-wrap:wrap">
-                  <button class="btn btn-secondary btn-xs" onclick="iboQuickReview('B0I6HIJKLM')">Quick Review</button>
+                  <button class="btn btn-secondary btn-xs" title="Opens keyword research results for this ASIN" onclick="iboQuickReview('B0I6HIJKLM')">Quick Review</button>
                   <button class="btn btn-ghost btn-xs" onclick="showToast('Approved B0I6HIJKLM · API: POST /api/amazon-ads/approve-kw-stage {asin_id, prompt_type}','success')">Approve</button>
                 </td>
               </tr>
@@ -11476,6 +11466,20 @@ input[type="date"] { color-scheme: dark; }
               <input class="input input-sm" type="number" id="iboApplyBudget" placeholder="20" style="width:70px" min="5">
               <button class="btn btn-secondary btn-xs" onclick="document.querySelectorAll('#iboCampTable .ibo-budget-input').forEach(function(i){i.value=document.getElementById('iboApplyBudget').value});showToast('Daily budget applied · API: AdvertisingCampaignConfig.daily_budget (min 5.01)','success')">Apply</button><!-- API: PUT /api/amazon-ads/config/ad-campaign-config/ daily_budget field → triggers calculate_auto_budget() -->
             </div>
+            <!-- DATA SOURCE: PATCH /api/campaigns/update_bulk/ {strategy: optimize_bid_update} -->
+            <div style="display:flex;align-items:center;gap:6px;border-left:1px solid var(--border);padding-left:12px">
+              <label style="font-size:10px;color:var(--muted)">Bid Opt</label>
+              <div style="width:32px;height:16px;border-radius:8px;background:var(--border);position:relative;cursor:pointer;transition:background .2s" onclick="var t=this;if(t.dataset.on!=='true'){t.style.background='var(--success)';t.children[0].style.left='14px';t.dataset.on='true';showToast('Bid Optimization ON for all · API: PATCH /api/campaigns/update_bulk/ {strategy: optimize_bid_update}','success')}else{t.style.background='var(--border)';t.children[0].style.left='2px';t.dataset.on='false';showToast('Bid Optimization OFF for all','info')}" data-on="false">
+                <div style="width:12px;height:12px;border-radius:50%;background:white;position:absolute;top:2px;left:2px;transition:left .2s;box-shadow:0 1px 2px rgba(0,0,0,.2)"></div>
+              </div>
+            </div>
+            <!-- DATA SOURCE: AdvertisingAsinConfig.auto_pacing_enabled -->
+            <div style="display:flex;align-items:center;gap:6px;border-left:1px solid var(--border);padding-left:12px">
+              <label style="font-size:10px;color:var(--muted)">Auto Pacing</label>
+              <div style="width:32px;height:16px;border-radius:8px;background:var(--success);position:relative;cursor:pointer;transition:background .2s" onclick="var t=this;if(t.dataset.on!=='false'){t.style.background='var(--border)';t.children[0].style.left='2px';t.dataset.on='false';showToast('Auto Pacing OFF for all','info')}else{t.style.background='var(--success)';t.children[0].style.left='14px';t.dataset.on='true';showToast('Auto Pacing ON for all · API: AdvertisingAsinConfig.auto_pacing_enabled','success')}" data-on="true">
+                <div style="width:12px;height:12px;border-radius:50%;background:white;position:absolute;top:2px;left:14px;transition:left .2s;box-shadow:0 1px 2px rgba(0,0,0,.2)"></div>
+              </div>
+            </div>
           </div>
           <div style="display:flex;align-items:center;gap:8px">
             <span style="font-size:10px;color:var(--muted)">View:</span>
@@ -11514,6 +11518,21 @@ input[type="date"] { color-scheme: dark; }
           </div>
         </div>
 
+        <!-- Campaign table filter buttons -->
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap">
+          <span style="font-size:10px;color:var(--muted);font-weight:600">Type:</span>
+          <button class="btn btn-secondary btn-xs" style="background:rgba(59,130,246,.15)" onclick="showToast('Showing all campaigns','info')">All</button>
+          <button class="btn btn-ghost btn-xs" onclick="showToast('Filtered to SPKW','info')">SPKW</button>
+          <button class="btn btn-ghost btn-xs" onclick="showToast('Filtered to SPAU','info')">SPAU</button>
+          <button class="btn btn-ghost btn-xs" onclick="showToast('Filtered to HP','info')">HP</button>
+          <button class="btn btn-ghost btn-xs" onclick="showToast('Filtered to HV','info')">HV</button>
+          <button class="btn btn-ghost btn-xs" onclick="showToast('Filtered to SPAS','info')">SPAS</button>
+          <span style="width:1px;height:16px;background:var(--border);margin:0 4px"></span>
+          <span style="font-size:10px;color:var(--muted);font-weight:600">Status:</span>
+          <button class="btn btn-ghost btn-xs" onclick="showToast('Filtered to ENABLED','info')">ENABLED</button>
+          <button class="btn btn-ghost btn-xs" onclick="showToast('Filtered to PAUSED','info')">PAUSED</button>
+        </div>
+
         <!-- Campaign table -->
         <div class="tbl-wrap">
           <table class="data-tbl" id="iboCampTable">
@@ -11533,7 +11552,8 @@ input[type="date"] { color-scheme: dark; }
                 <th>Target ACOS <span class="field-hint" data-tip="Per-campaign target ACOS — ad spend as % of ad revenue. Kepler uses this to calculate bids. Typical range: 25–40%.">?</span></th>
                 <th>Budget/day <span class="field-hint" data-tip="Daily spend limit for this campaign. Amazon minimum is $5. Campaigns stop showing ads once daily budget is exhausted.">?</span></th>
                 <th>Status <span class="field-hint" data-tip="ENABLED = campaign goes live at launch. PAUSED = campaign exists but won't spend.">?</span></th>
-                <th class="ibo-adv-col">Opt <span class="field-hint" data-tip="AdvertisingCampaign.optimize_bid (Boolean, default=False). When ON: Kepler calculates bids using Target ACOS and syncs them to Amazon via calculate_bids_daily(). When OFF: bids are calculated but NOT sent to Amazon. Tracks last_sync_on / last_sync_off. Bulk update via PATCH /api/campaigns/update_bulk/.">?</span></th>
+                <th style="width:30px">Neg <span class="field-hint" data-tip="Per-campaign negative keywords. Click to expand an inline editor to add negative keywords specific to this campaign.">?</span></th>
+                <th>Opt <span class="field-hint" data-tip="AdvertisingCampaign.optimize_bid (Boolean, default=False). When ON: Kepler calculates bids using Target ACOS and syncs them to Amazon via calculate_bids_daily(). When OFF: bids are calculated but NOT sent to Amazon. Tracks last_sync_on / last_sync_off. Bulk update via PATCH /api/campaigns/update_bulk/.">?</span></th>
               </tr>
             </thead>
             <tbody id="iboCampBody">
@@ -11714,8 +11734,8 @@ input[type="date"] { color-scheme: dark; }
         </div>
         <div class="wiz-steps" id="wizSteps" style="max-width:680px;margin:0 auto;flex:1">
           <div class="wiz-step active" id="ws1" onclick="if(this.classList.contains('done'))goToStep(1)" title="Click to revisit completed step"><div class="step-dot"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div><div class="step-lbl">Product Selection</div></div>
-          <div class="wiz-step" id="ws2" onclick="if(this.classList.contains('done'))goToStep(2)" title="Click to revisit completed step"><div class="step-dot"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><div class="step-lbl">KW Research</div></div>
-          <div class="wiz-step" id="ws3" onclick="if(this.classList.contains('done'))goToStep(3)" title="Click to revisit completed step"><div class="step-dot"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><div class="step-lbl">KW Automation</div></div>
+          <div class="wiz-step" id="ws2" onclick="if(this.classList.contains('done'))goToStep(2)" title="Click to revisit completed step"><div class="step-dot"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><div class="step-lbl">Competitor Research</div></div>
+          <div class="wiz-step" id="ws3" onclick="if(this.classList.contains('done'))goToStep(3)" title="Click to revisit completed step"><div class="step-dot"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><div class="step-lbl">KW Research</div></div>
           <div class="wiz-step" id="ws4" onclick="if(this.classList.contains('done'))goToStep(4)" title="Click to revisit completed step"><div class="step-dot"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div><div class="step-lbl">Campaign Config</div></div>
           <div class="wiz-step" id="ws5" onclick="if(this.classList.contains('done'))goToStep(5)" title="Click to revisit completed step"><div class="step-dot"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div class="step-lbl">Activate</div></div>
         </div>
@@ -11740,8 +11760,8 @@ input[type="date"] { color-scheme: dark; }
         === -->
         <div class="wiz-panel active" id="wizStep1">
 
-          <!-- Sub-step indicator -->
-          <div id="step1SubNav" style="display:flex;gap:0;margin-bottom:16px;border-bottom:2px solid var(--border)">
+          <!-- Sub-step indicator (hidden — competitors moved to Step 2) -->
+          <div id="step1SubNav" style="display:none">
             <button id="sub1Btn" onclick="wizSubStep(1)" style="padding:8px 16px;border:none;background:none;cursor:pointer;font-size:12px;font-weight:700;color:var(--primary);border-bottom:2px solid var(--primary);margin-bottom:-2px">Select Product</button>
             <button id="sub2Btn" onclick="wizSubStep(2)" style="padding:8px 16px;border:none;background:none;cursor:pointer;font-size:12px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px" disabled>Select Competitors</button>
           </div>
@@ -11825,17 +11845,37 @@ input[type="date"] { color-scheme: dark; }
               <svg viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2.5" style="width:16px;height:16px;flex-shrink:0"><polyline points="20 6 9 17 4 12"/></svg>
               <span style="font-weight:600;color:var(--text)">Product selected — ready to proceed</span>
             </div>
-            <div style="margin-top:6px;color:var(--muted);font-size:11px">Target ACOS, Daily Budget, Auto Pacing, and other campaign settings will be configured in Step 4 (Campaign Config).</div>
+            <!-- R3-3.3: Removed Step 4 settings note per Abdul Round 3 feedback -->
           </div>
 
           </div><!-- /wizSub1 -->
 
-          <!-- Sub-step 2: Competitor Discovery (portal-style sub-flow within Step 1) -->
-          <div id="wizSub2" style="display:none">
+        </div><!-- /step1 -->
+
+        <!-- === STEP 2: Automated Competitor Research ===
+             DATA SOURCES:
+             - Competitor discovery: POST /api/amazon-ads/products/discover-competitors/ (AI-powered SSE, 40-70 sec)
+             - Competitor storage: AdvertisingAsinConfig.competitor_asins (SafeJSONField, array of ASINs)
+             DELTA: Competitor discovery moved from Step 1 sub-step 2 to standalone Step 2.
+        === -->
+        <div class="wiz-panel" id="wizStep2" style="position:relative;min-height:320px">
+
           <div class="mb-4">
-            <h3 style="font-size:16px;font-weight:700;margin-bottom:4px">Select Competitor ASINs for Keyword Research</h3>
-            <p class="text-sm text-muted">Add 5–9 competitor ASINs. These fuel keyword research and campaign targeting. You can enter manually or use AI-Powered Discovery.</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+              <h3 style="font-size:16px;font-weight:700;margin:0">Automated Competitor Research</h3>
+              <div style="display:flex;align-items:center;gap:10px">
+                <span id="wizStep2Asin" style="font-size:12px;font-weight:600;color:var(--muted)"></span>
+                <button id="wizStep2Redo" class="btn btn-ghost btn-xs" onclick="redoCompetitorResearch()" style="display:none;gap:4px;color:var(--error);font-size:11px">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                  Redo from this step
+                </button>
+              </div>
+            </div>
+            <p class="text-sm text-muted">Add 5-9 competitor ASINs. These fuel keyword research and campaign targeting. You can enter manually or use AI-Powered Discovery.</p>
           </div>
+
+          <!-- Competitor Discovery content (moved from wizSub2) -->
+          <div id="wizSub2">
 
           <!-- Progress counter -->
           <div class="card" style="padding:14px 16px;margin-bottom:16px">
@@ -11902,10 +11942,10 @@ input[type="date"] { color-scheme: dark; }
 
           </div><!-- /wizSub2 -->
 
-        </div><!-- /step1 -->
+        </div><!-- /step2 -->
 
-        <!-- === STEP 2: KW Research ===
-             DATA SOURCES:
+        <!-- === STEP 3: Automated Keyword Research (Phase 1: KW Fetching + Phase 2: Analysis & Grouping) ===
+             DATA SOURCES (Phase 1 — KW Research):
              - Trigger: POST /api/amazon-ads/config/asin-config/{id}/trigger-kw-research/ → creates BRANDING_SCOPE + ATTRIBUTES_RANKING batches
              - Keywords: Jungle Scout via Keepa → AsinKeyword model (js_monthly_search_volume_exact, js_monthly_search_volume_broad)
              - Search Volume: AsinKeyword.js_monthly_search_volume_exact (Jungle Scout)
@@ -11914,24 +11954,42 @@ input[type="date"] { color-scheme: dark; }
              - Status tracking: AdvertisingAsinConfig.kw_research_status (1=Insufficient Data, 2=Ready to Generate, 3=In Progress, 4=Ready Pending Review, 5=Submitted & Processed)
              - Batch status: KeywordResearchAutomationBatch.stage_status (PENDING → IN_QUEUE → RECEIVED → APPROVED/FAILED)
              - Processing: Async via RabbitMQ queue "keyword_research_automation", AI chunks of 100 keywords
-             ERRORS: "Cannot trigger keyword research. Current status: {status}", "Failed to create research batches"
-             DELTA: KW Research trigger EXISTS. Wizard adds auto-trigger on step entry + progress bar + notification on complete (NEW).
+             DATA SOURCES (Phase 2 — KW Automation):
+             - Branding Scope (NB/OB/CB): AI (gpt-4-mini) → KeywordBrandingScope model (branding_scope + relationship R/C/S/N)
+             - Listing Attributes: AI (gpt-4-mini) → AttributeRanking model (attribute_text, attribute type, rank)
+             - Attribute types: Product Type, Variant, Use Case, Audience
+             - Grouping & Ranking: AI (gpt-4-mini) → KwResearchGroupRank model (product_type, dimension, group_rank)
+             - Services: KeywordBrandingScopePrepareService, AttributesRankingPrepareService, GroupingRankingPrepareServiceV2
+             - Processing: 3-stage AI pipeline via RabbitMQ "keyword_research_automation" queue
+             - Feedback loop: Users can correct AI results → KwResearchFeedback model → system re-prompts
+             ERRORS: Validator classes check column format, keyword count, tag format. Returns ValidationResult with overall_errors + key_errors.
+             DELTA: KW Research + KW Automation merged into single step with Phase 1/Phase 2 toggle. Both existed separately before.
         === -->
-        <div class="wiz-panel" id="wizStep2" style="position:relative;min-height:320px">
+        <div class="wiz-panel" id="wizStep3">
 
+          <!-- Step 3 Header -->
           <div class="mb-4">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
-              <h3 style="font-size:16px;font-weight:700;margin:0">Keyword Research</h3>
+              <h3 style="font-size:16px;font-weight:700;margin:0">Automated Keyword Research</h3>
               <div style="display:flex;align-items:center;gap:10px">
-                <span id="wizStep2Asin" style="font-size:12px;font-weight:600;color:var(--muted)"></span>
-                <button id="wizStep2Redo" class="btn btn-ghost btn-xs" onclick="redoKwResearch()" style="display:none;gap:4px;color:var(--error);font-size:11px">
+                <span id="wizStep3Asin" style="font-size:12px;font-weight:600;color:var(--muted)"></span>
+                <button id="wizStep3Redo" class="btn btn-ghost btn-xs" onclick="redoKwAutomation()" style="display:none;gap:4px;color:var(--error);font-size:11px">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
                   Redo from this step
                 </button>
               </div>
             </div>
-            <p class="text-sm text-muted">Kepler analyzes your product listing and competitor ASINs to generate keyword intelligence across 3 automation tabs.</p>
+            <p class="text-sm text-muted">Kepler fetches keyword data, then uses AI to classify branding scope, rank listing attributes, and group keywords into optimized campaign structures.</p>
           </div>
+
+          <!-- Phase indicator toggle -->
+          <div id="kwPhaseIndicator" style="display:flex;gap:0;margin-bottom:16px;border-bottom:2px solid var(--border)">
+            <button id="kwPhase1Btn" onclick="switchKwPhase(1)" style="padding:8px 16px;border:none;background:none;cursor:pointer;font-size:12px;font-weight:700;color:var(--primary);border-bottom:2px solid var(--primary);margin-bottom:-2px">Phase 1: Keyword Fetching</button>
+            <button id="kwPhase2Btn" onclick="switchKwPhase(2)" style="padding:8px 16px;border:none;background:none;cursor:pointer;font-size:12px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px">Phase 2: Analysis &amp; Grouping</button>
+          </div>
+
+          <!-- ========== PHASE 1: Keyword Fetching (old wizStep2 KW Research content) ========== -->
+          <div id="kwPhase1">
 
           <!-- Your Keywords (optional — add before research) -->
           <div id="kwUserKeywordsPanel" style="padding:14px 16px;border:1px solid var(--border);border-radius:10px;margin-bottom:14px;background:var(--layer)">
@@ -11980,10 +12038,10 @@ input[type="date"] { color-scheme: dark; }
           </div>
 
           <!-- Time estimate callout -->
-          <div style="padding:10px 14px;background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:8px;margin-bottom:14px;display:flex;align-items:center;gap:10px;font-size:12px">
+          <div id="kwResearchTimeEstimate" style="padding:10px 14px;background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:8px;margin-bottom:14px;display:flex;align-items:center;gap:10px;font-size:12px">
             <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" style="width:18px;height:18px;flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             <div>
-              <div style="font-weight:600;color:var(--text)">AI Research takes 5–10 minutes</div>
+              <div style="font-weight:600;color:var(--text)">AI Research takes 5-10 minutes</div>
               <div style="color:var(--muted);font-size:11px;margin-top:2px">Kepler fetches keyword data from Amazon search results based on your product and competitors. You can close this wizard — we'll notify you via the <strong style="color:var(--text)">notification bell</strong> when research is ready.</div>
             </div>
           </div>
@@ -12073,9 +12131,9 @@ input[type="date"] { color-scheme: dark; }
             <div style="display:flex;align-items:center;gap:10px;padding:12px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.3);border-radius:8px">
               <svg viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2.5" style="width:18px;height:18px;flex-shrink:0"><polyline points="20 6 9 17 4 12"/></svg>
               <div>
-                <div style="font-weight:700;font-size:13px;color:var(--success)">Research Complete — Ready for Review</div>
-                <div id="kwResearchBreakdown" style="font-size:11px;color:var(--muted);margin-top:3px">156 keywords found &nbsp;·&nbsp; Exact: 48 &nbsp;·&nbsp; Phrase: 52 &nbsp;·&nbsp; Broad: 31 &nbsp;·&nbsp; Auto: 25</div>
-                <div style="font-size:11px;color:var(--muted);margin-top:2px">NB: 94 &nbsp;·&nbsp; OB: 38 &nbsp;·&nbsp; CB: 24 &nbsp;&nbsp;|&nbsp;&nbsp; 3 KW Automation tabs ready for approval</div>
+                <div style="font-weight:700;font-size:13px;color:var(--success)">Research Complete — Ready for Review and Approval</div>
+                <div id="kwResearchBreakdown" style="font-size:11px;color:var(--muted);margin-top:3px">156 keywords discovered across 8 product categories &nbsp;&middot;&nbsp; Est. monthly search volume: 847K &nbsp;&middot;&nbsp; Top opportunity: 'italian aroma diffuser oil' (8,420 SV)</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:2px">3 keyword analysis tabs ready for review and approval</div>
                 <div style="font-size:10px;color:var(--muted);margin-top:4px">Completed in 22 min 14 sec</div>
               </div>
               <button class="btn btn-ghost btn-xs" onclick="redoKwResearch()" style="flex-shrink:0;margin-left:auto">
@@ -12094,67 +12152,35 @@ input[type="date"] { color-scheme: dark; }
               </div>
             </div>
           </div>
-        </div><!-- /step2 -->
 
-        <!-- === STEP 3: KW Automation (AI Processing + In-Wizard Review) ===
-             DATA SOURCES:
-             - Branding Scope (NB/OB/CB): AI (gpt-4-mini) → KeywordBrandingScope model (branding_scope + relationship R/C/S/N)
-             - Listing Attributes: AI (gpt-4-mini) → AttributeRanking model (attribute_text, attribute type, rank)
-             - Attribute types: Product Type, Variant, Use Case, Audience
-             - Grouping & Ranking: AI (gpt-4-mini) → KwResearchGroupRank model (product_type, dimension, group_rank)
-             - Services: KeywordBrandingScopePrepareService, AttributesRankingPrepareService, GroupingRankingPrepareServiceV2
-             - Processing: 3-stage AI pipeline via RabbitMQ "keyword_research_automation" queue
-             - Feedback loop: Users can correct AI results → KwResearchFeedback model → system re-prompts
-             ERRORS: Validator classes check column format, keyword count, tag format. Returns ValidationResult with overall_errors + key_errors.
-             DELTA: KW Automation AI pipeline EXISTS. Wizard adds in-step review + auto-trigger (NEW UI wrapper over existing backend).
-        === -->
-        <div class="wiz-panel" id="wizStep3">
+          </div><!-- /kwPhase1 -->
 
-          <!-- KW Automation Header -->
-          <div class="mb-4">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
-              <h3 style="font-size:16px;font-weight:700;margin:0">Keyword Automation</h3>
-              <div style="display:flex;align-items:center;gap:10px">
-                <span id="wizStep3Asin" style="font-size:12px;font-weight:600;color:var(--muted)"></span>
-                <button id="wizStep3Redo" class="btn btn-ghost btn-xs" onclick="redoKwAutomation()" style="display:none;gap:4px;color:var(--error);font-size:11px">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
-                  Redo from this step
-                </button>
-              </div>
-            </div>
-            <p class="text-sm text-muted">Configure how keywords are tagged and grouped. AI analyzes your keywords across 3 phases, then you review and approve the results.</p>
-          </div>
+          <!-- ========== PHASE 2: Analysis & Grouping (old wizStep3 KW Automation content) ========== -->
+          <div id="kwPhase2" style="display:none">
 
           <!-- Time estimate callout -->
-          <div style="padding:10px 14px;background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:8px;margin-bottom:14px;display:flex;align-items:center;gap:10px;font-size:12px">
+          <div id="kwAutoTimeEstimate" style="padding:10px 14px;background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:8px;margin-bottom:14px;display:flex;align-items:center;gap:10px;font-size:12px">
             <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" style="width:18px;height:18px;flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             <div>
-              <div style="font-weight:600;color:var(--text)">AI Automation takes 25–30 minutes</div>
+              <div style="font-weight:600;color:var(--text)">AI Automation takes 25-30 minutes</div>
               <div style="color:var(--muted);font-size:11px;margin-top:2px">Kepler's AI classifies branding scope, ranks listing attributes, and groups keywords into campaign structures. You can close this wizard — we'll notify you via the <strong style="color:var(--text)">notification bell</strong> when automation is ready.</div>
             </div>
           </div>
 
           <!-- State 1: AI Processing Options (shown before processing starts) -->
           <div id="kwAutoOptions">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
-              <div id="kwAutoOptAI" onclick="selectKwAutoOption('ai')" style="padding:18px;background:var(--layer);border:2px solid var(--primary);border-radius:10px;cursor:pointer;position:relative">
-                <div style="position:absolute;top:8px;right:10px"><span class="badge b-green" style="font-size:9px">Recommended</span></div>
-                <div style="margin-bottom:8px;margin-top:4px;display:flex;justify-content:center"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.6" style="width:32px;height:32px"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-                <div style="font-weight:700;font-size:13px;margin-bottom:4px;text-align:center">Use AI Automation</div>
-                <div style="font-size:11px;color:var(--muted);text-align:center">AI-optimized keyword structure. Usually takes 25-30 minutes.</div>
-                <div id="kwAutoMissingData" style="margin-top:8px;text-align:center;font-size:11px;color:var(--warning)">Missing: Bullet Points, Description</div>
-                <div style="margin-top:4px;text-align:center"><button class="btn btn-ghost btn-xs" onclick="event.stopPropagation();showToast('Add missing listing data in Automated Listings to improve AI accuracy','info')" style="font-size:10px;color:var(--primary);gap:3px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:10px;height:10px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add Missing Data</button></div>
+            <div style="padding:18px;background:var(--layer);border:1px solid var(--border);border-radius:10px;margin-bottom:14px">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.6" style="width:28px;height:28px;flex-shrink:0"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                <div>
+                  <div style="font-weight:700;font-size:13px">AI Keyword Analysis</div>
+                  <div style="font-size:11px;color:var(--muted)">AI classifies branding scope, ranks listing attributes, and groups keywords into campaign structures. Usually takes 25-30 minutes.</div>
+                </div>
               </div>
-              <div id="kwAutoOptManual" onclick="selectKwAutoOption('manual')" style="padding:18px;background:var(--layer);border:2px solid var(--border);border-radius:10px;cursor:pointer">
-                <div style="margin-bottom:8px;margin-top:16px;display:flex;justify-content:center"><svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.6" style="width:32px;height:32px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
-                <div style="font-weight:700;font-size:13px;margin-bottom:4px;text-align:center">Use Existing Keywords</div>
-                <div style="font-size:11px;color:var(--muted);text-align:center">Skip AI — tag keywords manually in the review tabs below.</div>
-              </div>
-            </div>
-            <div style="text-align:center">
-              <button class="btn btn-primary" id="startKwAutoBtn" onclick="startKwAutomation()">
+              <div id="kwAutoMissingData" style="margin-bottom:10px;font-size:11px;color:var(--warning)">Missing: Bullet Points, Description &mdash; <button class="btn btn-ghost btn-xs" onclick="event.stopPropagation();showToast('Add missing listing data in Automated Listings to improve AI accuracy','info')" style="font-size:10px;color:var(--primary);gap:3px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:10px;height:10px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add Missing Data</button></div>
+              <button class="btn btn-primary" id="startKwAutoBtn" onclick="startKwAutomation()" style="width:100%;justify-content:center">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                Start AI Automation
+                Start AI Analysis
               </button>
             </div>
           </div>
@@ -12226,7 +12252,7 @@ input[type="date"] { color-scheme: dark; }
             <svg viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2.5" style="width:20px;height:20px;flex-shrink:0"><polyline points="20 6 9 17 4 12"/></svg>
             <div style="flex:1">
               <div style="font-weight:700;font-size:13px;color:var(--success)">Review AI Results</div>
-              <div style="font-size:11.5px;color:var(--muted);margin-top:2px">AI has finished processing. Review and approve the results in the KWs Automation tab in Campaign Management.</div>
+              <div style="font-size:11.5px;color:var(--muted);margin-top:2px">AI has finished processing. Review and approve the results in the KWs Automation tab in Manage Ads.</div>
             </div>
           </div>
 
@@ -12262,7 +12288,7 @@ input[type="date"] { color-scheme: dark; }
           <div style="display:flex;gap:10px;align-items:center">
             <button class="btn btn-primary" onclick="openKwAutoReviewPage()" style="gap:6px">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              Open KWs Automation
+              Review Research Output
             </button>
             <button class="btn btn-ghost" onclick="redoKwAutomation()" style="gap:4px">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
@@ -12276,6 +12302,8 @@ input[type="date"] { color-scheme: dark; }
             <strong style="color:var(--text)">Next step is disabled</strong> until you review and approve all 3 tabs on the KWs Automation page. After approving, return here to continue.
           </div>
           </div><!-- /kwAutoReviewSection -->
+
+          </div><!-- /kwPhase2 -->
 
         </div><!-- /step3 -->
 
@@ -12324,7 +12352,7 @@ input[type="date"] { color-scheme: dark; }
             </div>
             <p class="text-sm text-muted">Review auto-generated campaigns. Set Target ACOS, Daily Budget, and Status per campaign. Setting Status = ENABLED creates them live on Amazon.</p>
             <div style="margin-top:8px;padding:8px 12px;background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-radius:6px;font-size:11px;color:var(--info)">
-              <strong>Note:</strong> Campaigns are dynamically generated: <strong>1 campaign per keyword group × match type</strong> (SPKW), <strong>4 auto-targeting campaigns</strong> (SPAU), and <strong>1 per competitor brand</strong> (SPAS). Count changes based on your keyword groups from Step 3 and competitors from Step 1. <strong style="color:var(--warning)">Target ACOS is required</strong> — use "Apply to All" to set it. Budget defaults to <strong>$5.00/day</strong> (minimum).
+              Review and configure your campaigns below. Each section guides you through the setup.
             </div>
             <!-- Sub-wizard progress + Show All toggle -->
             <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between">
@@ -12440,23 +12468,35 @@ input[type="date"] { color-scheme: dark; }
           <!-- === SUB-WIZARD SECTION B: ASIN Settings === -->
           <div class="subwiz-section" id="subwizB">
 
-          <!-- ASIN-Level Settings (moved from Step 1 per Andrew's feedback) -->
+          <!-- ASIN-Level Defaults (grouped: Target ACOS, Daily Budget, Auto Pacing, Auto Budget) -->
           <div style="padding:12px 14px;background:var(--layer);border:1px solid var(--border);border-radius:8px;margin-bottom:12px;font-size:12px">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-              <div style="font-weight:700;color:var(--text)">ASIN-Level Settings</div>
-              <span class="field-hint" data-tip="These settings apply to all campaigns for this ASIN, not individual ones. Changes here affect every campaign created for this product.">?</span>
+              <div style="font-weight:700;color:var(--text)">ASIN-Level Defaults</div>
+              <span class="field-hint" data-tip="These settings apply to all campaigns for this ASIN. Campaigns inherit these values unless overridden at campaign level.">?</span>
             </div>
+            <div style="font-size:10px;color:var(--muted);margin-bottom:10px">Campaigns inherit these values unless overridden at campaign level</div>
             <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
               <div style="display:flex;align-items:center;gap:6px">
                 <span style="color:var(--muted)">Auto Pacing:</span>
                 <button id="wizPacingTog" class="toggle" role="switch" aria-checked="false" onclick="this.classList.toggle('on');this.setAttribute('aria-checked',String(this.classList.contains('on')));var g=document.getElementById('pacing-guidance');if(g)g.style.display=this.classList.contains('on')?'':'none'"></button>
                 <span class="field-hint" data-tip="When ON, Kepler automatically manages campaign pacing throughout the day — pausing campaigns that are overspending and re-enabling ones that are underspending. Helps prevent budget exhaustion by midday. Recommended for hands-off management.">?</span>
               </div>
+              <div style="display:flex;align-items:center;gap:6px">
+                <!-- DATA SOURCE: AdvertisingAsinConfig.auto_budget (BooleanField, default=False). Task: daily_recalc_auto_budget -->
+                <span style="color:var(--muted)">Auto Budget:</span>
+                <button id="wizAutoBudgetTog" class="toggle" role="switch" aria-checked="false" onclick="this.classList.toggle('on');this.setAttribute('aria-checked',String(this.classList.contains('on')));var g=document.getElementById('autobudget-guidance');if(g)g.style.display=this.classList.contains('on')?'':'none'"></button>
+                <span class="field-hint" data-tip="When ON, Kepler automatically calculates and adjusts daily budgets per campaign based on keyword performance data. Overrides manual budget values.">?</span>
+              </div>
             </div>
             <!-- Focus-triggered guidance for Auto Pacing -->
             <div id="pacing-guidance" style="margin-top:8px;padding:8px 10px;background:rgba(245,158,11,.06);border-left:3px solid var(--warning);border-radius:0 6px 6px 0;font-size:11px;display:none">
               <div style="color:var(--text);font-weight:600;margin-bottom:3px">What Auto Pacing does:</div>
               <div style="color:var(--muted)">When ON, Kepler automatically enables/disables campaigns based on daily performance targets. Campaigns may be paused mid-day if spend is ahead of pace, or re-enabled if behind. <strong style="color:var(--text)">Recommended: ON</strong> for hands-off management.</div>
+            </div>
+            <!-- Focus-triggered guidance for Auto Budget -->
+            <div id="autobudget-guidance" style="margin-top:8px;padding:8px 10px;background:rgba(59,130,246,.06);border-left:3px solid var(--primary);border-radius:0 6px 6px 0;font-size:11px;display:none">
+              <div style="color:var(--text);font-weight:600;margin-bottom:3px">What Auto Budget does:</div>
+              <div style="color:var(--muted)">When ON, Kepler recalculates daily budgets automatically based on keyword search volume, competition, and performance data. Manual budget overrides at campaign level are preserved. <strong style="color:var(--text)">Recommended: ON</strong> for data-driven budget allocation.</div>
             </div>
           </div>
 
@@ -12611,11 +12651,26 @@ input[type="date"] { color-scheme: dark; }
             Complete Setup &amp; Go to Campaigns
           </button>
 
-          <!-- End-of-wizard navigation — optional secondary actions -->
-          <div style="text-align:center;margin-top:12px;padding:8px 0">
-            <span style="font-size:11px;color:var(--muted)">After setup, jump to:</span>
-            <a href="#" onclick="closeWizard();navigate('campaigns','nav-camp');switchTab('main','kw-config');return false" style="font-size:11px;color:var(--primary);margin:0 8px;text-decoration:none">Keyword Settings →</a>
-            <a href="#" onclick="closeWizard();navigate('campaigns','nav-camp');switchTab('main','st-config');return false" style="font-size:11px;color:var(--primary);margin:0 8px;text-decoration:none">Search Term Settings →</a>
+          <!-- End-of-wizard navigation — 3 card options -->
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:16px">
+            <div onclick="closeWizard();navigate('campaigns','nav-camp');switchTab('main','kw-config')" style="padding:16px;background:var(--layer);border:1px solid var(--border);border-radius:8px;cursor:pointer;text-align:center">
+              <div style="font-size:20px;margin-bottom:6px">&#9881;&#65039;</div>
+              <div style="font-size:13px;font-weight:600">Keyword Settings</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:2px">Review & adjust keyword configuration</div>
+            </div>
+            <div onclick="closeWizard();navigate('campaigns','nav-camp');switchTab('main','st-config')" style="padding:16px;background:var(--layer);border:1px solid var(--border);border-radius:8px;cursor:pointer;text-align:center">
+              <div style="font-size:20px;margin-bottom:6px">&#128270;</div>
+              <div style="font-size:13px;font-weight:600">Search Term Settings</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:2px">Monitor search term performance</div>
+            </div>
+            <div onclick="closeWizard();navigate('campaigns','nav-camp');switchTab('main','asin-overview')" style="padding:16px;background:var(--layer);border:1px solid var(--border);border-radius:8px;cursor:pointer;text-align:center">
+              <div style="font-size:20px;margin-bottom:6px">&#128202;</div>
+              <div style="font-size:13px;font-weight:600">Manage Ads</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:2px">View all ASINs & manage campaigns</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;padding:8px 12px;background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.15);border-radius:6px;font-size:11px;color:var(--muted)">
+            <strong style="color:var(--text)">Note:</strong> Keyword and Search Term data may take time to populate as campaigns go live on Amazon.
           </div>
         </div><!-- /step5 -->
 
@@ -13814,6 +13869,9 @@ function handleNotifAction(action) {
   if (action === 'open-wizard-step2') {
     openWizard();
     setTimeout(function() { goToStep(2); }, 200);
+  } else if (action === 'open-wizard-step3') {
+    openWizard();
+    setTimeout(function() { goToStep(3); }, 200);
   } else if (action === 'open-wizard-step4') {
     openWizard();
     setTimeout(function() { goToStep(4); }, 200);
@@ -14107,7 +14165,7 @@ const breadcrumbLabels = {
     campaigns:    'Campaigns',
     'asin-config':'ASIN Config',
     'kw-research':'Keyword Research',
-    'kw-automation':'Keyword Automation',
+    'kw-automation':'Automated Keyword Research',
     'camp-config':'Campaign Config',
     'kw-config':  'Keyword Settings',
     'st-config':  'Search Term Settings',
@@ -14846,18 +14904,13 @@ function goToStep(n) {
   document.querySelectorAll('.wiz-panel').forEach(p => p.classList.remove('active'));
   const panel = document.getElementById('wizStep' + n);
   if (panel) panel.classList.add('active');
-  // When entering Step 1, reset sub-step to Product selection
-  if (n === 1) {
-    wizSubStep(_wizSubStep || 1);
-  }
   // When entering Step 4, dynamically build campaign table based on prior wizard steps
   if (n === 4) {
     buildCampaignTable();
     resetSubwiz();
   }
-  // When entering Step 2, auto-trigger research generation
-  if (n === 2 && !kwResearchDone) {
-    setTimeout(autoTriggerResearch, 500);
+  // When entering Step 3 (KW Research phase), update competitor count
+  if (n === 3) {
     var countEl = document.getElementById('kwCompCount');
     if (countEl) countEl.textContent = competitors.length;
   }
@@ -14897,9 +14950,9 @@ function updateWizStepHeaders(n) {
     if (el) el.textContent = asinText;
   });
   // Show "Redo from this step" on active step if it makes sense (Steps 2-5, only when step has data)
-  // Step 2: show redo if research is done
+  // Step 2: show redo if competitors have been added
   var redo2 = document.getElementById('wizStep2Redo');
-  if (redo2) redo2.style.display = (n === 2 && kwResearchDone) ? 'inline-flex' : 'none';
+  if (redo2) redo2.style.display = (n === 2 && competitors.length > 0) ? 'inline-flex' : 'none';
   // Step 3: show redo if on step 3 and kw automation was completed
   var redo3 = document.getElementById('wizStep3Redo');
   var kwAutoComplete = document.getElementById('kwAutoComplete');
@@ -14914,7 +14967,7 @@ function updateWizStepHeaders(n) {
 function redoFromStep(step) {
   if (step === 4) {
     // Reset campaign config and go back to step 3
-    showToast('Resetting campaign config — returning to KW Automation', 'info');
+    showToast('Resetting campaign config — returning to KW Research', 'info');
     goToStep(3);
   } else if (step === 5) {
     // Go back to campaign config
@@ -14926,8 +14979,8 @@ function updateWizFooter(n) {
   const back = document.getElementById('wizBack');
   const next = document.getElementById('wizNext');
   const info = document.getElementById('wizStepInfo');
-  // Back button: show if not on Step 1 sub-step 1
-  back.style.display = (n === 1 && _wizSubStep === 1) ? 'none' : '';
+  // Back button: hide on Step 1 only
+  back.style.display = (n === 1) ? 'none' : '';
   if (n === 5) {
     next.style.display = 'none';
     info.textContent = _wizEditMode ? 'Review and update your campaign settings.' : 'Review your launch settings and activate Kepler bid optimization.';
@@ -14944,45 +14997,47 @@ function updateWizFooter(n) {
     }
   }
   if (n === 1) {
-    if (_wizSubStep === 1) {
-      // Sub-step 1: Product Selection
-      if (!selectedAsin) {
-        next.disabled = true;
-        info.textContent = 'Select a product to continue';
-      } else {
-        next.disabled = false;
-        next.className = 'btn btn-primary';
-        next.textContent = 'Save & Continue →';
-        info.textContent = `Selected: ${selectedAsin} — next: select competitors`;
-      }
+    // Step 1: Product Selection only
+    if (!selectedAsin) {
+      next.disabled = true;
+      info.textContent = 'Select a product to continue';
     } else {
-      // Sub-step 2: Competitors
-      const ok = competitors.length >= 5;
-      next.disabled = !ok;
-      next.className = ok ? 'btn btn-primary' : 'btn btn-secondary';
-      next.textContent = ok ? 'Save & Continue →' : 'Next →';
-      info.textContent = ok ? `${competitors.length} competitors selected ✓` : `Need ${5 - competitors.length} more competitor${5 - competitors.length !== 1 ? 's' : ''}`;
-    }
-  } else if (n === 2) {
-    next.disabled = !kwResearchDone;
-    next.className = kwResearchDone ? 'btn btn-primary' : 'btn btn-secondary';
-    info.textContent = kwResearchDone ? 'Research complete ✓' : 'Run keyword research to continue';
-  } else if (n === 3) {
-    var reviewVisible = document.getElementById('kwAutoReviewSection')?.style.display !== 'none';
-    if (reviewVisible && _kwAutoComplete) {
-      // All 3 tabs approved on external KWs Automation page
       next.disabled = false;
       next.className = 'btn btn-primary';
-      info.textContent = 'All 3 tabs approved ✓ — ready to configure campaigns';
-    } else if (reviewVisible) {
-      // Automation done but tabs not all approved yet
-      next.disabled = true;
-      next.className = 'btn btn-secondary';
-      info.textContent = 'Review and approve all 3 tabs in KWs Automation to continue';
+      next.textContent = 'Save & Continue →';
+      info.textContent = `Selected: ${selectedAsin} — next: competitor research`;
+    }
+  } else if (n === 2) {
+    // Step 2: Competitor Research
+    const ok = competitors.length >= 5;
+    next.disabled = !ok;
+    next.className = ok ? 'btn btn-primary' : 'btn btn-secondary';
+    next.textContent = ok ? 'Save & Continue →' : 'Next →';
+    info.textContent = ok ? `${competitors.length} competitors selected ✓` : `Need ${5 - competitors.length} more competitor${5 - competitors.length !== 1 ? 's' : ''}`;
+  } else if (n === 3) {
+    // Step 3: Combined KW Research (Phase 1) + KW Automation (Phase 2)
+    var phase2Visible = document.getElementById('kwPhase2')?.style.display !== 'none';
+    if (phase2Visible) {
+      // Phase 2 is showing — check KW Automation status
+      var reviewVisible = document.getElementById('kwAutoReviewSection')?.style.display !== 'none';
+      if (reviewVisible && _kwAutoComplete) {
+        next.disabled = false;
+        next.className = 'btn btn-primary';
+        info.textContent = 'All 3 tabs approved ✓ — ready to configure campaigns';
+      } else if (reviewVisible) {
+        next.disabled = true;
+        next.className = 'btn btn-secondary';
+        info.textContent = 'Review and approve all 3 tabs in KWs Automation to continue';
+      } else {
+        next.disabled = true;
+        next.className = 'btn btn-secondary';
+        info.textContent = 'Complete KW Automation to continue';
+      }
     } else {
-      next.disabled = true;
-      next.className = 'btn btn-secondary';
-      info.textContent = 'Complete KW Automation to continue';
+      // Phase 1 is showing — check KW Research status
+      next.disabled = !kwResearchDone;
+      next.className = kwResearchDone ? 'btn btn-primary' : 'btn btn-secondary';
+      info.textContent = kwResearchDone ? 'Research complete ✓ — switch to Phase 2' : 'Run keyword research to continue';
     }
   } else if (n === 4) {
     // Validate all campaign ACOS + budget fields are filled
@@ -15011,21 +15066,9 @@ function updateWizFooter(n) {
   }
 }
 function wizardNext() {
-  // Step 1 sub-flow: Product → Competitors within same step
-  if (wizStep === 1 && _wizSubStep === 1) {
-    _wizSubStep = 2;
-    wizSubStep(2);
-    return;
-  }
   if (wizStep < 5) goToStep(wizStep + 1);
 }
 function wizardBack() {
-  // Step 1 sub-flow: Competitors → Product within same step
-  if (wizStep === 1 && _wizSubStep === 2) {
-    _wizSubStep = 1;
-    wizSubStep(1);
-    return;
-  }
   if (wizStep > 1) goToStep(wizStep - 1);
 }
 async function completeSetup() {
@@ -15532,8 +15575,10 @@ function _buildCampRow(r, type) {
   // Color-code org rank: green ≤25, amber 26-50, red >50
   var rankColor = anaColor || (r.medOrgRank <= 25 ? 'color:#16a34a' : (r.medOrgRank <= 50 ? 'color:#ca8a04' : 'color:#dc2626'));
 
+  var pacingBadge = (type === 'SPKW' || type === 'HP') ? ' <span style="font-size:8px;padding:1px 6px;border-radius:8px;background:rgba(245,158,11,.12);color:var(--warning);font-weight:600">Pacing</span>' : '';
+  var negKwBtn = ' <span style="font-size:11px;cursor:pointer;color:var(--muted)" title="Negative keywords for this campaign" onclick="event.stopPropagation();showToast(\'Expand negative keywords for this campaign\',\'info\')">&#9998;</span>';
   return '<tr style="border-bottom:1px solid var(--border)" data-match="' + r.dataMatch + '" data-camp-type="' + type + '">'
-    + '<td title="' + r.campName + '" style="padding:6px 10px;max-width:190px"><div style="font-size:11px;font-weight:600;color:var(--text)">' + r.displayName + '</div><div style="font-size:10px;color:var(--muted);font-family:monospace;margin-top:1px">' + r.campName + '</div></td>'
+    + '<td title="' + r.campName + '" style="padding:6px 10px;max-width:190px"><div style="font-size:11px;font-weight:600;color:var(--text)">' + r.displayName + pacingBadge + negKwBtn + '</div><div style="font-size:10px;color:var(--muted);font-family:monospace;margin-top:1px">' + r.campName + '</div></td>'
     + '<td style="padding:6px 6px;text-align:center"><span class="badge ' + typeClass + '" style="' + typeStyle + '">' + type + '</span></td>'
     + '<td style="padding:6px 6px;text-align:center"><span class="badge ' + r.matchBadge + '" style="' + matchStyle + '">' + r.matchLabel + '</span></td>'
     + '<td style="padding:6px 6px;font-size:11px;color:' + targetColor + ';font-weight:' + targetWeight + '">' + r.targeting + '</td>'
@@ -15544,8 +15589,8 @@ function _buildCampRow(r, type) {
     + '<td class="col-comp" style="padding:6px 6px;text-align:center;font-size:11px;font-weight:600;' + compColor + '">' + (r.medCompetition === '—' ? '—' : r.medCompetition) + '</td>'
     + '<td class="col-bid" style="padding:6px 6px;text-align:center;font-size:11px;' + anaColor + '">' + (r.sugBid === '—' ? '—' : '$' + r.sugBid.toFixed(2)) + '</td>'
     + '<td class="col-rank" style="padding:6px 6px;text-align:center;font-size:11px;font-weight:600;' + rankColor + '">' + (r.medOrgRank === '—' ? '—' : '#' + r.medOrgRank) + '</td>'
-    + '<td style="padding:6px 8px;text-align:center"><input type="number" class="wiz-acos-input" value="' + r.acos + '" placeholder="Set %" min="1" max="500" style="width:58px;padding:3px 4px;border:1px solid ' + (r.acos === '' ? 'var(--warning)' : 'var(--border)') + ';border-radius:4px;background:var(--layer);color:var(--text);font-size:11px;text-align:center" oninput="updateWizFooter(4);calcTotalBudget()"></td>'
-    + '<td style="padding:6px 8px;text-align:center"><input type="number" class="wiz-budget-input" value="' + r.budget + '" min="5" step="0.01" style="width:58px;padding:3px 4px;border:1px solid var(--border);border-radius:4px;background:var(--layer);color:var(--text);font-size:11px;text-align:center" oninput="updateWizFooter(4);calcTotalBudget()"></td>'
+    + '<td style="padding:6px 8px;text-align:center"><input type="number" class="wiz-acos-input" value="' + r.acos + '" placeholder="Set %" min="1" max="500" style="width:58px;padding:3px 4px;border:1px solid ' + (r.acos === '' ? 'var(--warning)' : 'var(--border)') + ';border-radius:4px;background:var(--layer);color:var(--text);font-size:11px;text-align:center" oninput="updateWizFooter(4);calcTotalBudget()"><div style="font-size:9px;color:var(--muted)">inherited</div></td>'
+    + '<td style="padding:6px 8px;text-align:center"><input type="number" class="wiz-budget-input" value="' + r.budget + '" min="5" step="0.01" style="width:58px;padding:3px 4px;border:1px solid var(--border);border-radius:4px;background:var(--layer);color:var(--text);font-size:11px;text-align:center" oninput="updateWizFooter(4);calcTotalBudget()"><div style="font-size:9px;color:var(--muted)">inherited</div></td>'
     + '<td style="padding:6px 6px;text-align:center"><select class="wiz-status-sel" style="padding:3px 4px;border:1px solid var(--border);border-radius:4px;background:var(--layer);color:var(--text);font-size:10px" onchange="showToast(\'Campaign status: \' + this.value)"><option>ENABLED</option><option>PAUSED</option><option>MANUAL_EDITED</option></select></td>'
     + '<td style="padding:6px 6px;text-align:center"><button class="toggle wiz-opt-tog" role="switch" aria-checked="false" onclick="this.classList.toggle(\'on\');this.setAttribute(\'aria-checked\',String(this.classList.contains(\'on\')))" style="transform:scale(.7)"></button></td>'
     + '</tr>';
@@ -15715,15 +15760,18 @@ function completeKwResearch() {
   const doneEl = document.getElementById('kwResearchDone');
   if (inProgress) inProgress.style.display = 'none';
   if (doneEl) doneEl.style.display = '';
+  var te=document.getElementById('kwResearchTimeEstimate');if(te)te.style.display='none';
   // Hide user keywords panel and research options
   var userPanel = document.getElementById('kwUserKeywordsPanel');
   if (userPanel) userPanel.style.display = 'none';
-  updateWizFooter(2);
+  // Auto-switch to Phase 2 (Analysis & Grouping) within Step 3
+  setTimeout(function() { switchKwPhase(2); }, 800);
+  updateWizFooter(3);
   // Show overlap flash if user had pre-added keywords
   showOverlapFlash();
   // Notify via bell
   var kwCount = _userKeywordsConfirmed ? '156 + ' + _userKeywords.length + ' user' : '156';
-  addNotification('Keyword Research complete for ' + (selectedAsin || 'ASIN') + ' — ' + kwCount + ' keywords found. Ready for KW Automation in Step 3.', 'success', 'open-wizard-step2');
+  addNotification('Keyword Research complete for ' + (selectedAsin || 'ASIN') + ' — ' + kwCount + ' keywords found. Ready for Phase 2: Analysis & Grouping.', 'success', 'open-wizard-step3');
   showToast('Keyword Research complete — ' + kwCount + ' keywords found', 'success');
 }
 
@@ -15761,7 +15809,8 @@ function redoKwResearch() {
   if (userPanel) userPanel.style.display = '';
   if (overlapFlash) overlapFlash.style.display = 'none';
   selectKwResearchOption('auto');
-  updateWizFooter(2);
+  switchKwPhase(1);
+  updateWizFooter(3);
   showToast('KW Research reset — you can re-run or upload a new CSV', 'info');
 }
 
@@ -15818,14 +15867,40 @@ function updateKwAutoProcessingState() {
   }
 }
 
-// --- Step 2: Auto-trigger DISABLED — user chooses when to start research ---
+// --- Step 3 Auto-trigger DISABLED — user chooses when to start research ---
 function autoTriggerResearch() {
   // No longer auto-triggers. User clicks "Run AI Research" or uploads CSV.
   // This function is kept as a no-op so existing calls don't error.
   return;
 }
 
-// --- Step 2: User Keywords panel ---
+// --- Step 3: Phase switcher (Phase 1: KW Fetching / Phase 2: Analysis & Grouping) ---
+function switchKwPhase(phase) {
+  var p1 = document.getElementById('kwPhase1');
+  var p2 = document.getElementById('kwPhase2');
+  var b1 = document.getElementById('kwPhase1Btn');
+  var b2 = document.getElementById('kwPhase2Btn');
+  if (phase === 1) {
+    if (p1) p1.style.display = ''; if (p2) p2.style.display = 'none';
+    if (b1) { b1.style.color = 'var(--primary)'; b1.style.borderBottomColor = 'var(--primary)'; b1.style.fontWeight = '700'; }
+    if (b2) { b2.style.color = 'var(--muted)'; b2.style.borderBottomColor = 'transparent'; b2.style.fontWeight = '600'; }
+  } else {
+    if (p1) p1.style.display = 'none'; if (p2) p2.style.display = '';
+    if (b2) { b2.style.color = 'var(--primary)'; b2.style.borderBottomColor = 'var(--primary)'; b2.style.fontWeight = '700'; }
+    if (b1) { b1.style.color = 'var(--muted)'; b1.style.borderBottomColor = 'transparent'; b1.style.fontWeight = '600'; }
+  }
+  updateWizFooter(3);
+}
+
+// --- Competitor Research redo (Step 2) ---
+function redoCompetitorResearch() {
+  competitors = [];
+  renderCompList();
+  showToast('Competitors cleared — re-add competitors', 'info');
+  updateWizFooter(2);
+}
+
+// --- Step 3: User Keywords panel ---
 var _userKeywords = [];
 var _userKeywordsConfirmed = false;
 
@@ -15960,8 +16035,9 @@ function handleCsvFileSelect(input) {
       var breakdown = document.getElementById('kwResearchBreakdown');
       if (breakdown) breakdown.innerHTML = kwCount.toLocaleString() + ' keywords imported from <strong>' + file.name + '</strong> &nbsp;&middot;&nbsp; Ready for KW Automation';
     }
-    updateWizFooter(2);
-    addNotification('CSV keywords imported for ' + (selectedAsin || 'ASIN') + ' — ' + kwCount.toLocaleString() + ' keywords loaded from ' + file.name + '.', 'success', 'open-wizard-step2');
+    var te=document.getElementById('kwResearchTimeEstimate');if(te)te.style.display='none';
+    updateWizFooter(3);
+    addNotification('CSV keywords imported for ' + (selectedAsin || 'ASIN') + ' — ' + kwCount.toLocaleString() + ' keywords loaded from ' + file.name + '.', 'success', 'open-wizard-step3');
   };
   reader.readAsText(file);
   input.value = ''; // reset so same file can be re-selected
@@ -15974,18 +16050,6 @@ let _kwAutoOption = 'ai';
 
 function selectKwAutoOption(opt) {
   _kwAutoOption = opt;
-  var aiEl = document.getElementById('kwAutoOptAI');
-  var manualEl = document.getElementById('kwAutoOptManual');
-  var btn = document.getElementById('startKwAutoBtn');
-  if (aiEl) aiEl.style.borderColor = opt === 'ai' ? 'var(--primary)' : 'var(--border)';
-  if (manualEl) manualEl.style.borderColor = opt === 'manual' ? 'var(--primary)' : 'var(--border)';
-  if (btn) {
-    if (opt === 'ai') {
-      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Start AI Automation';
-    } else {
-      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Skip to Manual Review';
-    }
-  }
 }
 
 function startKwAutomation() {
@@ -16067,8 +16131,9 @@ function completeKwAutomation() {
   _kwAutoComplete = false;
   var processing = document.getElementById('kwAutoProcessing');
   if (processing) processing.style.display = 'none';
+  var te=document.getElementById('kwAutoTimeEstimate');if(te)te.style.display='none';
   showKwAutoReview();
-  addNotification('KW Automation complete for ' + (selectedAsin || 'ASIN') + ' — review results in KWs Automation page.', 'success', 'open-wizard-step4');
+  addNotification('Keyword Analysis complete for ' + (selectedAsin || 'ASIN') + ' — review results in Automated Keyword Research page.', 'success', 'open-wizard-step4');
   showToast('KW Automation complete — open KWs Automation to review and approve', 'success');
   updateWizFooter(3);
 }
@@ -16236,7 +16301,7 @@ function returnToWizardFromKwAuto() {
   if (banner) banner.style.display = 'none';
   if (badges) badges.style.display = 'none';
   if (asinSel) asinSel.style.display = '';
-  // Reopen wizard in full-page mode
+  // Reopen wizard in full-page mode and go to Step 4 (Campaign Config)
   setTimeout(function() {
     var mainContent = document.getElementById('mainContent');
     if (mainContent) mainContent.style.display = 'none';
@@ -16246,7 +16311,7 @@ function returnToWizardFromKwAuto() {
     if (mainEl) mainEl.style.marginLeft = '0';
     var overlay = document.getElementById('wizOverlay');
     if (overlay) overlay.classList.add('open');
-    goToStep(3);
+    goToStep(4);
   }, 100);
 }
 
@@ -16323,7 +16388,7 @@ function submitExtKwTab(n) {
   }
   // Check if all approved — show return prompt
   if (extKwTabApproved[1] && extKwTabApproved[2] && extKwTabApproved[3]) {
-    addNotification('All KWs Automation tabs approved for ' + (selectedAsin || 'ASIN') + '. Return to Campaign Wizard to continue.', 'success', 'open-wizard-step4');
+    addNotification('All KWs Automation tabs approved for ' + (selectedAsin || 'ASIN') + '. Click Next to continue to Campaign Config.', 'success', 'open-wizard-step4');
   }
 }
 
@@ -18565,7 +18630,7 @@ function iboBuildCampaignTable() {
 
     // ASIN group header — collapsible
     html += '<tr class="ibo-asin-group-hdr collapsed" data-ibo-group="asin-' + asinIdx + '" onclick="iboToggleAsinGroup(\'asin-' + asinIdx + '\')" style="background:rgba(59,130,246,.03);cursor:pointer;border-top:2px solid var(--border)">'
-      + '<td colspan="15" style="padding:8px 12px">'
+      + '<td colspan="16" style="padding:8px 12px">'
       + '<div style="display:flex;align-items:center;justify-content:space-between">'
       + '<div style="display:flex;align-items:center;gap:10px">'
       + '<span style="font-size:10px;color:var(--primary);transition:transform .2s" class="ibo-grp-chevron">&#9654;</span>'
@@ -18583,7 +18648,7 @@ function iboBuildCampaignTable() {
     // ── SPKW campaigns — Manual Keyword: relevancy_tag × match_type ──
     // Codebase: strategy=MANUAL, naming: {tag}-SPKW-{brandCode}-XX-S-{ASIN}-{E|P|B}-KW
     html += '<tr class="ibo-camp-detail-row ibo-section-hdr" data-ibo-group="asin-' + asinIdx + '" style="display:none;background:rgba(59,130,246,.06);border-bottom:1px solid var(--border)">'
-      + '<td colspan="15" style="padding:4px 10px;font-size:9px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px">Manual Keyword (SPKW) — ' + spkwCount + ' campaigns · ' + asinData.kwGroups.length + ' relevancy groups × ' + _iboMatchTypes.length + ' match types</td></tr>';
+      + '<td colspan="16" style="padding:4px 10px;font-size:9px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px">Manual Keyword (SPKW) — ' + spkwCount + ' campaigns · ' + asinData.kwGroups.length + ' relevancy groups × ' + _iboMatchTypes.length + ' match types</td></tr>';
     asinData.kwGroups.forEach(function(g) {
       var _relC = g.medRelevancy >= 75 ? '#16a34a' : (g.medRelevancy >= 50 ? '#ca8a04' : '#dc2626');
       var _compC = g.medCompetition <= 40 ? '#16a34a' : (g.medCompetition <= 60 ? '#ca8a04' : '#dc2626');
@@ -18605,7 +18670,8 @@ function iboBuildCampaignTable() {
           + '<td style="text-align:center"><input type="number" class="input input-sm ibo-acos-input" value="" placeholder="Set %" min="1" max="100" style="width:58px;height:24px;font-size:11px;padding:2px 4px;text-align:center;border-color:var(--warning)"></td>'
           + '<td style="text-align:center"><input type="number" class="input input-sm ibo-budget-input" value="5" min="5" style="width:58px;height:24px;font-size:11px;padding:2px 4px;text-align:center"></td>'
           + '<td style="text-align:center"><select class="sel" style="padding:2px 4px;font-size:10px;border-radius:4px"><option>ENABLED</option><option>PAUSED</option><option>MANUAL_EDITED</option></select></td>'
-          + '<td class="ibo-adv-col" style="text-align:center"><input type="checkbox" checked style="accent-color:var(--primary)" title="Kepler Bid Optimization"></td>'
+          + '<td style="text-align:center"><button class="btn btn-ghost btn-xs" style="padding:2px 4px;font-size:9px" onclick="var r=this.closest(\'tr\');var nxt=r.nextElementSibling;if(nxt&&nxt.classList.contains(\'ibo-neg-kw-row\')){nxt.style.display=nxt.style.display===\'none\'?\'table-row\':\'none\'}else{var nr=document.createElement(\'tr\');nr.className=\'ibo-neg-kw-row\';nr.innerHTML=\'<td colspan=16 style=padding:8px><div style=display:flex;gap:8px;align-items:flex-start><textarea class=input rows=2 placeholder=Enter\\ negative\\ keywords,\\ one\\ per\\ line style=flex:1;font-size:11px;resize:vertical></textarea><button class=btn\\ btn-secondary\\ btn-xs onclick=showToast(String.fromCharCode(78,101,103,97,116,105,118,101,32,107,101,121,119,111,114,100,115,32,115,97,118,101,100),String.fromCharCode(115,117,99,99,101,115,115))>Save</button></div></td>\';r.parentNode.insertBefore(nr,r.nextSibling)}" title="Per-campaign negative keywords">&#x2296;</button></td>'
+          + '<td style="text-align:center"><input type="checkbox" checked style="accent-color:var(--primary)" title="Kepler Bid Optimization"></td>'
           + '</tr>';
       });
     });
@@ -18613,7 +18679,7 @@ function iboBuildCampaignTable() {
     // ── SPAU campaigns — Auto Targeting: 4 types per ASIN ──
     // Codebase: strategy=AUTO, naming: XXXXXX-SPAU-{brandCode}-XX-S-{ASIN}-{C|L|S|M}-KW
     html += '<tr class="ibo-camp-detail-row ibo-section-hdr" data-ibo-group="asin-' + asinIdx + '" style="display:none;background:rgba(34,197,94,.06);border-bottom:1px solid var(--border)">'
-      + '<td colspan="15" style="padding:4px 10px;font-size:9px;font-weight:700;color:var(--success);text-transform:uppercase;letter-spacing:.5px">Auto Targeting (SPAU) — ' + spauCount + ' campaigns · Close / Loose / Substitutes / Complements</td></tr>';
+      + '<td colspan="16" style="padding:4px 10px;font-size:9px;font-weight:700;color:var(--success);text-transform:uppercase;letter-spacing:.5px">Auto Targeting (SPAU) — ' + spauCount + ' campaigns · Close / Loose / Substitutes / Complements</td></tr>';
     _iboSpauTypes.forEach(function(t) {
       var campName = 'XXXXXX-SPAU-' + brandCode + '-XX-S-' + asin + '-' + t.code + '-KW';
       html += '<tr class="ibo-camp-detail-row" data-ibo-group="asin-' + asinIdx + '" style="display:none;border-bottom:1px solid var(--border)">'
@@ -18631,7 +18697,8 @@ function iboBuildCampaignTable() {
         + '<td style="text-align:center"><input type="number" class="input input-sm ibo-acos-input" value="" placeholder="Set %" min="1" max="100" style="width:58px;height:24px;font-size:11px;padding:2px 4px;text-align:center;border-color:var(--warning)"></td>'
         + '<td style="text-align:center"><input type="number" class="input input-sm ibo-budget-input" value="5" min="5" style="width:58px;height:24px;font-size:11px;padding:2px 4px;text-align:center"></td>'
         + '<td style="text-align:center"><select class="sel" style="padding:2px 4px;font-size:10px;border-radius:4px"><option>ENABLED</option><option>PAUSED</option><option>MANUAL_EDITED</option></select></td>'
-        + '<td class="ibo-adv-col" style="text-align:center"><input type="checkbox" style="accent-color:var(--primary)" title="Kepler Bid Optimization"></td>'
+        + '<td style="text-align:center"><button class="btn btn-ghost btn-xs" style="padding:2px 4px;font-size:9px" onclick="var r=this.closest(\'tr\');var nxt=r.nextElementSibling;if(nxt&&nxt.classList.contains(\'ibo-neg-kw-row\')){nxt.style.display=nxt.style.display===\'none\'?\'table-row\':\'none\'}else{var nr=document.createElement(\'tr\');nr.className=\'ibo-neg-kw-row\';nr.innerHTML=\'<td colspan=16 style=padding:8px><div style=display:flex;gap:8px;align-items:flex-start><textarea class=input rows=2 placeholder=Enter\\ negative\\ keywords,\\ one\\ per\\ line style=flex:1;font-size:11px;resize:vertical></textarea><button class=btn\\ btn-secondary\\ btn-xs onclick=showToast(String.fromCharCode(78,101,103,97,116,105,118,101,32,107,101,121,119,111,114,100,115,32,115,97,118,101,100),String.fromCharCode(115,117,99,99,101,115,115))>Save</button></div></td>\';r.parentNode.insertBefore(nr,r.nextSibling)}" title="Per-campaign negative keywords">&#x2296;</button></td>'
+        + '<td style="text-align:center"><input type="checkbox" style="accent-color:var(--primary)" title="Kepler Bid Optimization"></td>'
         + '</tr>';
     });
 
@@ -18640,7 +18707,7 @@ function iboBuildCampaignTable() {
     // HP campaigns are created from high-performing search terms found via HighPerformingSearchTermService
     if (asinData.hpKeywords && asinData.hpKeywords.length > 0) {
       html += '<tr class="ibo-camp-detail-row ibo-section-hdr" data-ibo-group="asin-' + asinIdx + '" style="display:none;background:rgba(234,179,8,.06);border-bottom:1px solid var(--border)">'
-        + '<td colspan="15" style="padding:4px 10px;font-size:9px;font-weight:700;color:#ca8a04;text-transform:uppercase;letter-spacing:.5px">High Performance (HP) — ' + hpCount + ' campaigns · Isolated top search terms × Exact match</td></tr>';
+        + '<td colspan="16" style="padding:4px 10px;font-size:9px;font-weight:700;color:#ca8a04;text-transform:uppercase;letter-spacing:.5px">High Performance (HP) — ' + hpCount + ' campaigns · Isolated top search terms × Exact match</td></tr>';
       asinData.hpKeywords.forEach(function(hpItem) {
         var kw = hpItem.kw;
         var _hpRelC = hpItem.relevancy >= 75 ? '#16a34a' : (hpItem.relevancy >= 50 ? '#ca8a04' : '#dc2626');
@@ -18664,7 +18731,7 @@ function iboBuildCampaignTable() {
             + '<td style="text-align:center"><input type="number" class="input input-sm ibo-acos-input" value="" placeholder="Set %" min="1" max="100" style="width:58px;height:24px;font-size:11px;padding:2px 4px;text-align:center;border-color:var(--warning)"></td>'
             + '<td style="text-align:center"><input type="number" class="input input-sm ibo-budget-input" value="10" min="5" style="width:58px;height:24px;font-size:11px;padding:2px 4px;text-align:center"></td>'
             + '<td style="text-align:center"><select class="sel" style="padding:2px 4px;font-size:10px;border-radius:4px"><option>ENABLED</option><option>PAUSED</option><option>MANUAL_EDITED</option></select></td>'
-            + '<td class="ibo-adv-col" style="text-align:center"><input type="checkbox" checked style="accent-color:var(--primary)" title="Kepler Bid Optimization"></td>'
+            + '<td style="text-align:center"><input type="checkbox" checked style="accent-color:var(--primary)" title="Kepler Bid Optimization"></td>'
             + '</tr>';
         });
       });
@@ -18678,7 +18745,7 @@ function iboBuildCampaignTable() {
       var _hvCompC = (asinData.harvestCompetition || 0) <= 40 ? '#16a34a' : ((asinData.harvestCompetition || 0) <= 60 ? '#ca8a04' : '#dc2626');
       var _hvRankC = (asinData.harvestOrgRank || 0) <= 25 ? '#16a34a' : ((asinData.harvestOrgRank || 0) <= 50 ? '#ca8a04' : '#dc2626');
       html += '<tr class="ibo-camp-detail-row ibo-section-hdr" data-ibo-group="asin-' + asinIdx + '" style="display:none;background:rgba(168,85,247,.06);border-bottom:1px solid var(--border)">'
-        + '<td colspan="15" style="padding:4px 10px;font-size:9px;font-weight:700;color:#a855f7;text-transform:uppercase;letter-spacing:.5px">Harvesting (HV) — 1 campaign · Search term harvesting from Auto campaigns</td></tr>';
+        + '<td colspan="16" style="padding:4px 10px;font-size:9px;font-weight:700;color:#a855f7;text-transform:uppercase;letter-spacing:.5px">Harvesting (HV) — 1 campaign · Search term harvesting from Auto campaigns</td></tr>';
       html += '<tr class="ibo-camp-detail-row" data-ibo-group="asin-' + asinIdx + '" style="display:none;border-bottom:1px solid var(--border)">'
         + '<td title="' + hvCampName + '" style="padding:5px 10px;max-width:200px"><div style="font-size:11px;font-weight:600;color:#a855f7">Harvesting — Exact</div><div style="font-size:9px;color:var(--muted);font-family:monospace;margin-top:1px">' + hvCampName + '</div></td>'
         + '<td style="text-align:center"><span class="badge" style="font-size:9px;background:rgba(168,85,247,.15);color:#a855f7">HV</span></td>'
@@ -18694,7 +18761,7 @@ function iboBuildCampaignTable() {
         + '<td style="text-align:center"><input type="number" class="input input-sm ibo-acos-input" value="" placeholder="Set %" min="1" max="100" style="width:58px;height:24px;font-size:11px;padding:2px 4px;text-align:center;border-color:var(--warning)"></td>'
         + '<td style="text-align:center"><input type="number" class="input input-sm ibo-budget-input" value="5" min="5" style="width:58px;height:24px;font-size:11px;padding:2px 4px;text-align:center"></td>'
         + '<td style="text-align:center"><select class="sel" style="padding:2px 4px;font-size:10px;border-radius:4px"><option>ENABLED</option><option>PAUSED</option><option>MANUAL_EDITED</option></select></td>'
-        + '<td class="ibo-adv-col" style="text-align:center"><input type="checkbox" checked style="accent-color:var(--primary)" title="Kepler Bid Optimization"></td>'
+        + '<td style="text-align:center"><input type="checkbox" checked style="accent-color:var(--primary)" title="Kepler Bid Optimization"></td>'
         + '</tr>';
     }
 
@@ -18703,7 +18770,7 @@ function iboBuildCampaignTable() {
     // match_type='X' (ASIN_SAME_AS targeting expression)
     if (asinData.brands.length > 0) {
       html += '<tr class="ibo-camp-detail-row ibo-section-hdr" data-ibo-group="asin-' + asinIdx + '" style="display:none;background:rgba(139,92,246,.06);border-bottom:1px solid var(--border)">'
-        + '<td colspan="15" style="padding:4px 10px;font-size:9px;font-weight:700;color:#8b5cf6;text-transform:uppercase;letter-spacing:.5px">Competitor ASIN Targeting (SPAS) — ' + spasCount + ' campaigns · ' + asinData.brands.length + ' brand groups</td></tr>';
+        + '<td colspan="16" style="padding:4px 10px;font-size:9px;font-weight:700;color:#8b5cf6;text-transform:uppercase;letter-spacing:.5px">Competitor ASIN Targeting (SPAS) — ' + spasCount + ' campaigns · ' + asinData.brands.length + ' brand groups</td></tr>';
     }
     asinData.brands.forEach(function(brand) {
       var safeName = brand.replace(/[^a-zA-Z0-9]/g, '');
@@ -18723,7 +18790,8 @@ function iboBuildCampaignTable() {
         + '<td style="text-align:center"><input type="number" class="input input-sm ibo-acos-input" value="" placeholder="Set %" min="1" max="100" style="width:58px;height:24px;font-size:11px;padding:2px 4px;text-align:center;border-color:var(--warning)"></td>'
         + '<td style="text-align:center"><input type="number" class="input input-sm ibo-budget-input" value="5" min="5" style="width:58px;height:24px;font-size:11px;padding:2px 4px;text-align:center"></td>'
         + '<td style="text-align:center"><select class="sel" style="padding:2px 4px;font-size:10px;border-radius:4px"><option>ENABLED</option><option>PAUSED</option><option>MANUAL_EDITED</option></select></td>'
-        + '<td class="ibo-adv-col" style="text-align:center"><input type="checkbox" style="accent-color:var(--primary)" title="Kepler Bid Optimization"></td>'
+        + '<td style="text-align:center"><button class="btn btn-ghost btn-xs" style="padding:2px 4px;font-size:9px" onclick="var r=this.closest(\'tr\');var nxt=r.nextElementSibling;if(nxt&&nxt.classList.contains(\'ibo-neg-kw-row\')){nxt.style.display=nxt.style.display===\'none\'?\'table-row\':\'none\'}else{var nr=document.createElement(\'tr\');nr.className=\'ibo-neg-kw-row\';nr.innerHTML=\'<td colspan=16 style=padding:8px><div style=display:flex;gap:8px;align-items:flex-start><textarea class=input rows=2 placeholder=Enter\\ negative\\ keywords,\\ one\\ per\\ line style=flex:1;font-size:11px;resize:vertical></textarea><button class=btn\\ btn-secondary\\ btn-xs onclick=showToast(String.fromCharCode(78,101,103,97,116,105,118,101,32,107,101,121,119,111,114,100,115,32,115,97,118,101,100),String.fromCharCode(115,117,99,99,101,115,115))>Save</button></div></td>\';r.parentNode.insertBefore(nr,r.nextSibling)}" title="Per-campaign negative keywords">&#x2296;</button></td>'
+        + '<td style="text-align:center"><input type="checkbox" style="accent-color:var(--primary)" title="Kepler Bid Optimization"></td>'
         + '</tr>';
     });
 
@@ -19660,8 +19728,6 @@ function openWizardForAsin(asin, targetStep) {
   if (targetStep && targetStep >= 1) {
     setTimeout(function() {
       goToStep(targetStep);
-      // If editing competitors (Step 1), show competitors sub-step
-      if (targetStep === 1) { _wizSubStep = 2; wizSubStep(2); }
     }, 200);
   }
 }
@@ -19673,8 +19739,8 @@ function showWizEditMenu(asin, triggerEl) {
     existing.remove();
   }
   const steps = [
-    { step:1, label:'Edit Competitors', icon:'🔍' },
-    { step:3, label:'KWs Automation',    icon:'🔑' },
+    { step:2, label:'Edit Competitors', icon:'🔍' },
+    { step:3, label:'KW Research',      icon:'🔑' },
     { step:4, label:'Edit Campaigns',   icon:'📋' },
     { step:5, label:'Launch Settings',  icon:'🚀' }
   ];
@@ -19783,18 +19849,12 @@ function showAsinActionMenu(asin, triggerEl) {
 
   const actions = [
     { header:'Wizard Steps' },
-    { label:'Edit Competitors', icon:'&#128269;', action:function(){ openWizardForAsin(asin, 1); } },
-    { label:'KW Research (Wizard)', icon:'&#128273;', action:function(){ openWizardForAsin(asin, 2); } },
-    { label:'KW Automation (Wizard)', icon:'&#128196;', action:function(){ openWizardForAsin(asin, 3); } },
+    { label:'Competitor Research', icon:'&#128269;', action:function(){ openWizardForAsin(asin, 2); } },
+    { label:'KW Research (Wizard)', icon:'&#128273;', action:function(){ openWizardForAsin(asin, 3); } },
     { label:'Campaign Config (Wizard)', icon:'&#9881;', action:function(){ openWizardForAsin(asin, 4); } },
     { label:'Launch Settings', icon:'&#128640;', action:function(){ openWizardForAsin(asin, 5); } },
     { divider:true },
-    { header:'Campaign Management' },
-    { label:'Campaigns', icon:'&#128202;', action:function(){ navigate('campaigns','nav-camp'); switchTab('main','campaigns'); showToast('Filtered to ' + asin, 'info'); } },
-    { label:'ASIN Config', icon:'&#128203;', action:function(){ navigate('campaigns','nav-camp'); switchTab('main','asin-config'); showToast('Filtered to ' + asin, 'info'); } },
-    { label:'KW Research List', icon:'&#128273;', action:function(){ navigate('campaigns','nav-camp'); switchTab('main','kw-research'); showToast('Filtered to ' + asin, 'info'); } },
-    { label:'KW Automation', icon:'&#128196;', action:function(){ navigate('campaigns','nav-camp'); switchTab('main','kw-automation'); showToast('Filtered to ' + asin, 'info'); } },
-    { label:'Campaign Config', icon:'&#9881;', action:function(){ navigate('campaigns','nav-camp'); switchTab('main','camp-config'); showToast('Filtered to ' + asin, 'info'); } },
+    { header:'Post-Launch Settings' },
     { label:'KW Config', icon:'&#128221;', action:function(){ navigate('campaigns','nav-camp'); switchTab('main','kw-config'); showToast('Filtered to ' + asin, 'info'); } },
     { label:'SearchTerm Config', icon:'&#128270;', action:function(){ navigate('campaigns','nav-camp'); switchTab('main','st-config'); showToast('Filtered to ' + asin, 'info'); } }
   ];
