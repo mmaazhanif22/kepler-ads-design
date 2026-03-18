@@ -254,6 +254,53 @@ Extracted from prototype tooltips and UI elements. Use when writing Jira ticket 
 - **Backend:** `AdvertisingAsinConfig.auto_pacing_enabled` (BooleanField) — field EXISTS in model
 - **BACKEND TICKET NEEDED:** `auto_pacing_enabled` is NOT YET in `config_file_upload()` CSV mapping at `managers/file_upload.py:422-429`. Currently the mapping includes: ASIN, TargetACOS, CompetitorASINs, DailyBudget, AutoBudgetStatus, AdStatus. Need to add: `'AutoPacingStatus': 'auto_pacing_enabled'` to `cols_mapping` dict. This is a 1-line backend change.
 
+## Competitor Discovery Rich Tiles (R4-1)
+- **Location:** Wizard Step 2 "Automated Competitor Research", IBO competitor discovery
+- **Product data:** `AsinAttributes` model in `apps/asins/models/asin_data.py` — `item_name` (TextField), `price` (FloatField, line 63), `image` (CharField, line 62)
+- **Competitor endpoints (Analytics app, NOT amazon_ads):**
+  - `GET /analytics/search_terms/competitor_asins` — clickShare, conversionShare, searchFrequencyRank (`apps/analytics/api/urls.py:78`)
+  - `GET /analytics/search_terms/competitor_brands` (line 79)
+  - `GET /analytics/search_terms/competitor_terms` (line 80)
+- **Sales velocity:** ASPIRATIONAL — no dedicated backend field. Abdul requires it as part of spec regardless. Future: JungleScout API or SP-API orders data integration needed.
+- **Competitor storage:** `AdvertisingAsinConfig.competitor_asins` (SafeJSONField, `config.py:62`)
+
+## KW Research List Endpoint (R4-4, R4-9)
+- **Location:** "Review Fetched Keywords →" link between Phase 1/2, "Keyword Research List" in Actions dropdown
+- **Endpoint:** `GET /amazon-ads/keywords-research/` registered at `api/urls.py:11`
+- **ViewSet:** `KeywordsResearchApiView` at `entity_views.py:97`
+- **Serializer:** `AdvertisingResearchAsinKeywordSerializer` at `serializers.py:230`
+- **Returns:** Paginated DataFrame with ASIN, keyword, suggested bids (exact/broad/phrase), asin_keyword details
+
+## Phase 2 Auto-Trigger (R4-5)
+- **Location:** Wizard Step 3 — Phase 2 auto-starts after Phase 1 completes
+- **Approval endpoint:** `POST /amazon-ads/approve-kw-stage/` at `entity_views.py:1532`
+- **Input:** `{asin_id, prompt_type}` — prompt_type: 1=Branding Scope, 2=Attributes Ranking, 3=Grouping Ranking
+- **Auto-trigger:** `transaction.on_commit()` queues Celery task `run_kw_research_grouping_stage.delay()` (line 1579)
+- **Flow:** Approval → updates batches to APPROVED → queues next stage automatically
+
+## Ads Toggle Post-Launch (R4-10)
+- **Location:** Wizard Step 5 tip box
+- **Backend:** `AdvertisingAsinConfig.ad_status` — SmallIntegerField, ENABLED=1, PAUSED=2, MANUAL_EDIT=4
+- **API:** PUT `/api/amazon-ads/config/asin-config/{id}/`
+
+## IBO Manual Input Field Alignment (R4-12)
+- **Location:** IBO Stage 1 manual input section
+- **Fields added:** Daily Budget + Ad Status (matching bulk import template)
+- **Backend mappings:**
+  - Daily Budget: `AdvertisingAsinConfig.daily_budget` (FloatField, min=5.01, `config.py:59`)
+  - Ad Status: `AdvertisingAsinConfig.ad_status` (SmallIntegerField, ENABLED=1/PAUSED=2)
+  - Target ACOS: `AdvertisingAsinConfig.target_acos` (FloatField, 1-100, `config.py:61`)
+  - Competitor ASINs: `AdvertisingAsinConfig.competitor_asins` (SafeJSONField, `config.py:62`)
+  - Auto Pacing: `AdvertisingAsinConfig.auto_pacing_enabled` (BooleanField, `config.py:82`)
+
+## IBO Stage 5 Group Filtering (R4-14)
+- **Location:** IBO Stage 5 campaign table filter row
+- **Groups:** NB Highly Relevant, NB Moderate, Own Brand, Competitor, Auto
+- **Backend:** `KwResearchGroupRank` model at `keyword_research_automation.py:169`
+  - `branding_scope`: NB, OB, CB (enum at line 75-78)
+  - `group_rank`: integer ranking within scope
+  - Campaign naming derives from scope + rank: `{relevancy_tag_id}-SPKW-{brand_code}-XX-S-{ASIN}-{match}-KW`
+
 ## Bulk Campaign Selection & Actions
 - **Location:** Wizard Step 4 Campaign table — checkbox column, bulk action bar
 - **API:** POST `/api/amazon-ads/config/ad-campaign-config/` — bulk updates status, target_acos, daily_budget

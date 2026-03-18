@@ -105,7 +105,7 @@ hr { border: none; border-top: 2px solid #eee; margin: 40px 0; }
 </div>
 
 <div>
-    <span class="summary-box sb-green">231+ Done</span>
+    <span class="summary-box sb-green">260+ Done</span>
     <span class="summary-box sb-yellow">1 Partial</span>
     <span class="summary-box sb-red">0 Open</span>
     <span class="summary-box sb-gray">28 Jira-Only (not prototype)</span>
@@ -622,6 +622,33 @@ These items are about the Jira tickets themselves, not the prototype. They requi
 
 <hr>
 
+<!-- ===== SECTION 12: ROUND 4 ===== -->
+<h2 class="h2-blue">Section 12 &mdash; Round 4: Post-R3 Review (18 Mar 2026)</h2>
+
+<div class="note">
+<strong>Context:</strong> Abdul reviewed the R3 implementation. 14 items: competitor tile enhancements, naming cleanup, wizard flow improvements, IBO field alignment, and missing features.
+</div>
+
+<table>
+<tr><th style="width:40%">Feedback</th><th style="width:12%">Status</th><th>Implementation</th></tr>
+<tr><td><strong>R4-1: Competitor Discovery tiles</strong> &mdash; show image, title, price, velocity, rating, reviews</td><td><span class="label label-done">Done</span></td><td>Rich cards with price ($24.99), velocity (~850/mo), rating (4.5), reviews (2,340). Backend: <code>AsinAttributes</code> model + competitor analytics endpoints.</td></tr>
+<tr><td><strong>R4-2: Replace KW Research description</strong></td><td><span class="label label-done">Done</span></td><td>"...group keywords into ranked segments, each representing a unique branding scope and customers' search intent combination."</td></tr>
+<tr><td><strong>R4-3: Kill "AI Automation" / "KW Automation"</strong></td><td><span class="label label-done">Done</span></td><td>All 6 instances per file replaced with "Automated Keyword Research".</td></tr>
+<tr><td><strong>R4-4: KW Research List link between phases</strong></td><td><span class="label label-done">Done</span></td><td>"Review Fetched Keywords &rarr;" link in Phase 1 completion UI. Routes to KW Research tab.</td></tr>
+<tr><td><strong>R4-5: Auto-trigger Phase 2</strong></td><td><span class="label label-done">Done</span></td><td>Phase 2 auto-starts 2s after Phase 1 completes. "Start AI Analysis" remains as manual re-run.</td></tr>
+<tr><td><strong>R4-6: Tab 3 final review</strong></td><td><span class="label label-done">Done</span></td><td>Confirmed matching Abdul's mockup.</td></tr>
+<tr><td><strong>R4-7: Per-campaign neg KWs</strong> &mdash; visible button, functional</td><td><span class="label label-done">Done</span></td><td>"+ Neg KWs" button expands inline textarea with Save/Cancel. Backend: <code>custom_negative_keywords</code> (SafeJSONField).</td></tr>
+<tr><td><strong>R4-8: Bid Opt technical text on Step 5</strong></td><td><span class="label label-done">Done</span></td><td>Engineering terms removed. Customer-friendly explanation of ON/OFF behavior.</td></tr>
+<tr><td><strong>R4-9: KW Research List in Actions dropdown</strong></td><td><span class="label label-done">Done</span></td><td>"Keyword Research List" added under Post-Launch Settings.</td></tr>
+<tr><td><strong>R4-10: Ads toggle note on Step 5</strong></td><td><span class="label label-done">Done</span></td><td>Tip: "After launch, you can toggle ads on or off from the Manage Ads page."</td></tr>
+<tr><td><strong>R4-11: Auto Pacing in bulk import</strong></td><td><span class="label label-done">Done</span></td><td>Verified present in description. Backend field exists (<code>auto_pacing_enabled</code>). CSV mapping ticket still pending.</td></tr>
+<tr><td><strong>R4-12: Budget + Ad Status in manual input</strong></td><td><span class="label label-done">Done</span></td><td>Daily Budget ($, min 5) + Ad Status (ENABLED/PAUSED) added to IBO Stage 1 manual input.</td></tr>
+<tr><td><strong>R4-13: Import template columns verified</strong></td><td><span class="label label-done">Done</span></td><td>Stage 2 template lists all 11 columns including Auto Pacing + Auto Budget.</td></tr>
+<tr><td><strong>R4-14: Group filtering in IBO Stage 5</strong></td><td><span class="label label-done">Done</span></td><td>5 group filters: NB Highly Relevant, NB Moderate, Own Brand, Competitor, Auto.</td></tr>
+</table>
+
+<hr>
+
 <h2 class="h2-gray">Summary</h2>
 
 <table>
@@ -637,9 +664,10 @@ These items are about the Jira tickets themselves, not the prototype. They requi
 <tr style="background:#e0f2fe"><td><strong>Round 3-B IBO (18 Mar)</strong></td><td style="text-align:center"><strong>14</strong></td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
 <tr style="background:#ecfdf5"><td><strong>Post-R3 Improvements</strong></td><td style="text-align:center"><strong>4</strong></td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
 <tr style="background:#ecfdf5"><td><strong>Backend Reaudit (18 Mar)</strong></td><td style="text-align:center"><strong>8</strong></td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">1</td></tr>
+<tr style="background:#dbeafe"><td><strong>Round 4 (18 Mar)</strong></td><td style="text-align:center"><strong>14</strong></td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
 <tr style="font-weight:bold; background-color:#f0f0f0;">
     <td>Total</td>
-    <td style="text-align:center; color:#16a34a;">246+</td>
+    <td style="text-align:center; color:#16a34a;">260+</td>
     <td style="text-align:center; color:#f59e0b;">3</td>
     <td style="text-align:center; color:#dc3545;">0</td>
     <td style="text-align:center; color:#6b7280;">30</td>
@@ -647,7 +675,7 @@ These items are about the Jira tickets themselves, not the prototype. They requi
 </table>
 
 <div class="note">
-<strong>Remaining prototype work:</strong> All prototype feedback items are resolved. 3 partial items remain (IBO grouping stage, Profit Analysis COGS, Dashboard AI Apply endpoint).<br><br>
+<strong>Remaining prototype work:</strong> All prototype feedback items are resolved. 3 partial items remain (IBO grouping stage, Profit Analysis COGS, Dashboard AI Apply endpoint). 1 aspirational item (competitor sales velocity — no backend field yet).<br><br>
 <strong>Remaining Jira work:</strong> 28 items require ticket text updates, sub-task creation, ticket splitting, and sprint sequencing. 1 backend ticket needed for Auto Pacing bulk import CSV mapping.<br><br>
 <strong>Round 3 carry-forward (Jira):</strong> Sub-tasks for stories, link fields to portal counterparts, stress test requirements, explicitly separate existing vs. net-new.
 </div>
@@ -659,32 +687,4 @@ These items are about the Jira tickets themselves, not the prototype. They requi
 </body>
 </html>
 
-<table>
-<tr><th>Category</th><th style="text-align:center">Done</th><th style="text-align:center">Partial</th><th style="text-align:center">Open</th><th style="text-align:center">Jira-Only</th></tr>
-<tr><td>Wizard (PROD-4120)</td><td style="text-align:center">21</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
-<tr><td>Ads Management (PROD-4122)</td><td style="text-align:center">3</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
-<tr><td>IBO (PROD-4121)</td><td style="text-align:center">6</td><td style="text-align:center">1</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
-<tr><td>Backend Alignment</td><td style="text-align:center">8</td><td style="text-align:center">2</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
-<tr><td>UX Enhancements</td><td style="text-align:center">153+</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
-<tr><td>Ticket Quality (Section 2)</td><td style="text-align:center">1</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">9</td></tr>
-<tr><td>Per-Ticket Feedback (Section 3)</td><td style="text-align:center">5</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">20</td></tr>
-<tr style="font-weight:bold; background-color:#f0f0f0;">
-    <td>Total</td>
-    <td style="text-align:center; color:#16a34a;">198+</td>
-    <td style="text-align:center; color:#f59e0b;">3</td>
-    <td style="text-align:center; color:#dc3545;">0</td>
-    <td style="text-align:center; color:#6b7280;">28</td>
-</tr>
-</table>
-
-<div class="note">
-<strong>Remaining prototype work:</strong> All prototype feedback items are resolved. 3 partial items remain (IBO grouping stage, Profit Analysis COGS, Dashboard AI Apply endpoint).<br><br>
-<strong>Remaining Jira work:</strong> 28 items require ticket text updates, sub-task creation, ticket splitting, and sprint sequencing in Jira.
-</div>
-
-<p style="text-align: center; color: #888; font-size: 10pt; margin-top: 40px;">
-    Feedback Implementation Status &mdash; 16 Mar 2026
-</p>
-
-</body>
-</html>
+<!-- old duplicate summary removed -->
