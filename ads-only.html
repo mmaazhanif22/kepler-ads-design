@@ -12104,8 +12104,10 @@ async function wizConfirmClose() {
   }
   closeWizard();
 }
+var _wizSetupComplete = false;
 function closeWizard() {
-  try { cancelResearch(); } catch(e) {}
+  if (!_wizSetupComplete) { try { cancelResearch(); } catch(e) {} }
+  _wizSetupComplete = false;
   window._autoResearchDone = false;
   _wizEditMode = false;
   _wizEditAsin = null;
@@ -12354,7 +12356,7 @@ async function completeSetup() {
     return;
   }
   if (!optimizeOn) {
-    const optOk = await showConfirmModal({ title: 'No Campaigns Have Bid Optimization', message: 'None of your campaigns have optimize_bid enabled (Opt column in Step 4). Bids will be calculated by Kepler but NOT synced to Amazon. You can enable it per-campaign later via Campaigns bulk action (PATCH /api/campaigns/update_bulk/).', confirmLabel: 'Continue Without Optimization', variant: 'danger' });
+    const optOk = await showConfirmModal({ title: 'No Campaigns Have Bid Optimization', message: 'None of your campaigns have bid optimization enabled. Kepler will calculate optimal bids but will not sync them to Amazon until you enable it. You can turn it on per campaign from Campaign Config anytime.', confirmLabel: 'Continue Without Optimization', variant: 'danger' });
     if (!optOk) return;
   }
   if (errEl) errEl.style.display = 'none';
@@ -12379,6 +12381,7 @@ async function completeSetup() {
         : `Setup complete! ${enabledCount} campaign${enabledCount !== 1 ? 's' : ''} set to ENABLED and being activated on Amazon.`;
       saveWizardLaunchData(selectedAsin);
       showToast(toastMsg, 'success');
+      _wizSetupComplete = true;
       closeWizard();
       if (btn) { btn.disabled = false; btn.innerHTML = doneLabel; }
     }, 1500);
