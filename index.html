@@ -14129,7 +14129,7 @@ function navigate(view, navId) {
   if (navSectionMap[view]) ensureNavExpanded(navSectionMap[view]);
   const titles = {
     dashboard:  ['Dashboard',             'Purosentido by Scentrade · Amazon US'],
-    campaigns:  ['Ads Management',         'Purosentido by Scentrade · Amazon US'],
+    campaigns:  ['Manage Ads',              'Purosentido by Scentrade · Amazon US'],
     'ads-perf': ['ADS Performance',       'Purosentido by Scentrade · Amazon US'],
     logs:       ['Logs & Analysis',       'Purosentido by Scentrade · Amazon US'],
     apdc:       ['APDC Diagnostics',      'Purosentido by Scentrade · Amazon US'],
@@ -14763,18 +14763,32 @@ function switchTab(group, tabId) {
   const btn  = document.getElementById('tab-' + tabId);
   if (pane) { pane.classList.add('active'); pane.setAttribute('aria-hidden', 'false'); }
   if (btn)  { btn.classList.add('active');  btn.setAttribute('aria-selected', 'true'); }
-  // Update breadcrumb label
+  // Update breadcrumb label — hide child when it matches parent (e.g., "Manage Ads" default tab)
   const breadcrumbEl = document.getElementById(breadcrumbElMap[group]);
   if (breadcrumbEl && breadcrumbLabels[group] && breadcrumbLabels[group][tabId]) {
-    breadcrumbEl.textContent = breadcrumbLabels[group][tabId];
+    var subLabel = breadcrumbLabels[group][tabId];
+    var parentEl = breadcrumbEl.previousElementSibling ? breadcrumbEl.previousElementSibling.previousElementSibling : null;
+    var sepEl = breadcrumbEl.previousElementSibling;
+    if (parentEl && parentEl.textContent.trim() === subLabel) {
+      breadcrumbEl.style.display = 'none';
+      if (sepEl) sepEl.style.display = 'none';
+    } else {
+      breadcrumbEl.style.display = '';
+      if (sepEl) sepEl.style.display = '';
+      breadcrumbEl.textContent = subLabel;
+    }
   }
   // Update topbar title to show Section > Sub-view
   if (breadcrumbLabels[group] && breadcrumbLabels[group][tabId]) {
-    const groupTitles = { main: 'Ads Management', 'ads-perf': 'ADS Performance', logs: 'Logs & Analysis' };
+    const groupTitles = { main: 'Manage Ads', 'ads-perf': 'ADS Performance', logs: 'Logs & Analysis' };
     const sectionTitle = groupTitles[group] || '';
     const subLabel = breadcrumbLabels[group][tabId];
     const topbarEl = document.getElementById('topbar-title');
-    if (topbarEl && sectionTitle) topbarEl.textContent = sectionTitle + ' \u203A ' + subLabel;
+    if (topbarEl && sectionTitle) {
+      // Don't show redundant "Manage Ads › Manage Ads" for default tab
+      if (sectionTitle === subLabel) topbarEl.textContent = sectionTitle;
+      else topbarEl.textContent = sectionTitle + ' \u203A ' + subLabel;
+    }
   }
   // Sync active state on sidebar nav-sub items
   document.querySelectorAll('.nav-sub').forEach(s => s.classList.remove('active'));
