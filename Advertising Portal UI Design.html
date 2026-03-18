@@ -2834,6 +2834,12 @@ input[type="date"] { color-scheme: dark; }
         ASYNC: RabbitMQ queue 'keyword_research_automation' → Jungle Scout API → 3-stage AI processing
       -->
       <div class="tab-pane" id="pane-kw-research" data-group="main" role="tabpanel" tabindex="0" aria-hidden="true">
+        <!-- Return to Wizard banner (shown when navigated from wizard) -->
+        <div id="kwResearchWizardBanner" style="display:none;padding:10px 14px;background:rgba(79,70,229,.08);border:1px solid rgba(79,70,229,.2);border-radius:8px;margin-bottom:12px;display:none;align-items:center;gap:10px;font-size:12px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" style="width:16px;height:16px;flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span style="flex:1;color:var(--text)">You are reviewing fetched keywords from the wizard. When done, return to continue setup.</span>
+          <button class="btn btn-primary btn-xs" onclick="document.getElementById('kwResearchWizardBanner').style.display='none';openWizard();goToStep(3)" style="flex-shrink:0">Return to Wizard →</button>
+        </div>
         <!-- Filter bar -->
         <div class="flex items-center gap-2 mb-3" style="flex-wrap:wrap">
           <div class="search-wrap" style="flex:1;min-width:160px;max-width:240px">
@@ -12153,7 +12159,7 @@ input[type="date"] { color-scheme: dark; }
                 <div id="kwResearchBreakdown" style="font-size:11px;color:var(--muted);margin-top:3px">156 keywords discovered across 8 product categories &nbsp;&middot;&nbsp; Est. monthly search volume: 847K &nbsp;&middot;&nbsp; Top opportunity: 'italian aroma diffuser oil' (8,420 SV)</div>
                 <div style="font-size:11px;color:var(--muted);margin-top:2px">3 keyword analysis tabs ready for review and approval</div>
                 <div style="margin-top:8px">
-                  <button class="btn btn-ghost btn-xs" onclick="closeWizard();setTimeout(function(){navigate('campaigns','nav-camp');setTimeout(function(){switchTab('main','kw-research');showToast('Showing fetched keywords for review. Return to the wizard from Actions dropdown to continue.','info')},100)},100)" style="color:var(--primary);text-decoration:underline;font-size:11px">
+                  <button class="btn btn-ghost btn-xs" onclick="closeWizard();setTimeout(function(){navigate('campaigns','nav-camp');setTimeout(function(){switchTab('main','kw-research');var b=document.getElementById('kwResearchWizardBanner');if(b)b.style.display='flex';showToast('Showing fetched keywords for review','info')},100)},100)" style="color:var(--primary);text-decoration:underline;font-size:11px">
                     Review Fetched Keywords →
                   </button>
                   <span style="font-size:10px;color:var(--muted);margin-left:6px">View the full keyword list before AI analysis begins</span>
