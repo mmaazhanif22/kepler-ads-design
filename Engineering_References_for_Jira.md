@@ -265,11 +265,12 @@ Extracted from prototype tooltips and UI elements. Use when writing Jira ticket 
 - **Competitor storage:** `AdvertisingAsinConfig.competitor_asins` (SafeJSONField, `config.py:62`)
 
 ## KW Research List Endpoint (R4-4, R4-9)
-- **Location:** "Review Fetched Keywords →" link between Phase 1/2, "Keyword Research List" in Actions dropdown
+- **Location:** "Review Fetched Keywords →" link between Phase 1/2, "Keyword Research List" in Actions dropdown, Return to Wizard banner on KW Research tab
 - **Endpoint:** `GET /amazon-ads/keywords-research/` registered at `api/urls.py:11`
 - **ViewSet:** `KeywordsResearchApiView` at `entity_views.py:97`
 - **Serializer:** `AdvertisingResearchAsinKeywordSerializer` at `serializers.py:230`
 - **Returns:** Paginated DataFrame with ASIN, keyword, suggested bids (exact/broad/phrase), asin_keyword details
+- **Wizard flow:** "Review Fetched Keywords" closes wizard → navigates to `pane-kw-research` → shows `kwResearchWizardBanner` with "Return to Wizard →" button → reopens wizard at Step 3 via `openWizard();goToStep(3)`
 
 ## Phase 2 Auto-Trigger (R4-5)
 - **Location:** Wizard Step 3 — Phase 2 auto-starts after Phase 1 completes
