@@ -10812,6 +10812,17 @@ input[type="date"] { color-scheme: dark; }
                 <label style="font-size:10px;color:var(--muted);display:block;margin-bottom:3px">Competitor ASINs</label>
                 <input class="input input-sm" type="text" placeholder="B0COMP001, B0COMP002" style="width:100%">
               </div>
+              <div>
+                <label style="font-size:10px;color:var(--muted);display:block;margin-bottom:3px">Daily Budget ($)</label>
+                <input class="input input-sm" type="number" placeholder="e.g. 20" style="width:100%" min="5" step="1">
+              </div>
+              <div>
+                <label style="font-size:10px;color:var(--muted);display:block;margin-bottom:3px">Ad Status</label>
+                <select class="sel" style="width:100%;padding:5px 8px;font-size:11px">
+                  <option selected>ENABLED</option>
+                  <option>PAUSED</option>
+                </select>
+              </div>
               <div style="grid-column:span 2;display:flex;align-items:center;gap:8px">
                 <label style="font-size:10px;color:var(--muted)">Auto Pacing</label>
                 <div style="width:36px;height:18px;border-radius:9px;background:var(--success);position:relative;cursor:pointer;transition:background .2s" onclick="var t=this;if(t.dataset.on!=='false'){t.style.background='var(--border)';t.children[0].style.left='2px';t.dataset.on='false'}else{t.style.background='var(--success)';t.children[0].style.left='16px';t.dataset.on='true'}" data-on="true">
@@ -10824,7 +10835,7 @@ input[type="date"] { color-scheme: dark; }
             <div style="margin-top:12px;padding:12px;border:2px dashed var(--border);border-radius:8px;text-align:center;cursor:pointer;transition:border-color .2s" onclick="showToast('File picker opened — select CSV or Excel file','info')" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">
               <svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" style="width:24px;height:24px;margin:0 auto 6px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
               <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px">Bulk Import Config</div>
-              <div style="font-size:10px;color:var(--muted)">Upload CSV or Excel with ASIN, Target ACOS, Budget, Competitors, Auto Pacing Status per ASIN</div>
+              <div style="font-size:10px;color:var(--muted)">Upload CSV or Excel with ASIN, Target ACOS, Daily Budget, Ad Status, Competitors, Auto Pacing Status per ASIN</div>
               <div style="display:flex;gap:8px;justify-content:center;margin-top:8px">
                 <button class="btn btn-ghost btn-xs" onclick="event.stopPropagation();downloadTemplate('asin-config')">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:11px;height:11px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -10923,7 +10934,7 @@ input[type="date"] { color-scheme: dark; }
         <div style="margin-bottom:14px;padding:14px;border:2px dashed var(--border);border-radius:8px;text-align:center;cursor:pointer;transition:border-color .2s" onclick="showToast('File picker opened — select CSV with per-group campaign config','info')" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">
           <svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" style="width:22px;height:22px;margin:0 auto 4px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
           <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px">Upload CSV with per-group campaign configuration</div>
-          <div style="font-size:10px;color:var(--muted)">Overrides Target ACOS, Budget, Competitors, and Pacing settings per group</div>
+          <div style="font-size:10px;color:var(--muted)">Columns: ASIN, Relevancy/Group, Match Type, Target Spec, Target Brand, Target ACOS, Daily Budget, Ad Status, Custom Negative Keywords, Auto Pacing, Auto Budget</div>
           <div style="display:flex;gap:8px;justify-content:center;margin-top:8px">
             <button class="btn btn-ghost btn-xs" onclick="event.stopPropagation();downloadTemplate('campaign-config')">Download Template</button>
             <button class="btn btn-secondary btn-xs" onclick="event.stopPropagation();showToast('File picker opened','info')">Upload File</button>
@@ -11531,6 +11542,13 @@ input[type="date"] { color-scheme: dark; }
           <span style="font-size:10px;color:var(--muted);font-weight:600">Status:</span>
           <button class="btn btn-ghost btn-xs" onclick="showToast('Filtered to ENABLED','info')">ENABLED</button>
           <button class="btn btn-ghost btn-xs" onclick="showToast('Filtered to PAUSED','info')">PAUSED</button>
+          <span style="width:1px;height:16px;background:var(--border);margin:0 4px"></span>
+          <span style="font-size:10px;color:var(--muted);font-weight:600">Group:</span>
+          <button class="btn btn-ghost btn-xs" onclick="showToast('Filtered to NB Highly Relevant group','info')">NB Highly Relevant</button>
+          <button class="btn btn-ghost btn-xs" onclick="showToast('Filtered to NB Moderate group','info')">NB Moderate</button>
+          <button class="btn btn-ghost btn-xs" onclick="showToast('Filtered to OB group','info')">Own Brand</button>
+          <button class="btn btn-ghost btn-xs" onclick="showToast('Filtered to CB group','info')">Competitor</button>
+          <button class="btn btn-ghost btn-xs" onclick="showToast('Filtered to Auto group','info')">Auto</button>
         </div>
 
         <!-- Campaign table -->
@@ -11979,7 +11997,7 @@ input[type="date"] { color-scheme: dark; }
                 </button>
               </div>
             </div>
-            <p class="text-sm text-muted">Kepler fetches keyword data, then uses AI to classify branding scope, rank listing attributes, and group keywords into optimized campaign structures.</p>
+            <p class="text-sm text-muted">Kepler fetches keyword data, then uses AI to group keywords into ranked segments, each representing a unique branding scope and customers' search intent combination.</p>
           </div>
 
           <!-- Phase indicator toggle -->
@@ -12134,6 +12152,12 @@ input[type="date"] { color-scheme: dark; }
                 <div style="font-weight:700;font-size:13px;color:var(--success)">Research Complete — Ready for Review and Approval</div>
                 <div id="kwResearchBreakdown" style="font-size:11px;color:var(--muted);margin-top:3px">156 keywords discovered across 8 product categories &nbsp;&middot;&nbsp; Est. monthly search volume: 847K &nbsp;&middot;&nbsp; Top opportunity: 'italian aroma diffuser oil' (8,420 SV)</div>
                 <div style="font-size:11px;color:var(--muted);margin-top:2px">3 keyword analysis tabs ready for review and approval</div>
+                <div style="margin-top:8px">
+                  <button class="btn btn-ghost btn-xs" onclick="navigate('campaigns','nav-camp');switchTab('main','kw-research');showToast('Showing fetched keywords for review','info')" style="color:var(--primary);text-decoration:underline;font-size:11px">
+                    Review Fetched Keywords →
+                  </button>
+                  <span style="font-size:10px;color:var(--muted);margin-left:6px">View the full keyword list before AI analysis begins</span>
+                </div>
                 <div style="font-size:10px;color:var(--muted);margin-top:4px">Completed in 22 min 14 sec</div>
               </div>
               <button class="btn btn-ghost btn-xs" onclick="redoKwResearch()" style="flex-shrink:0;margin-left:auto">
@@ -12162,7 +12186,7 @@ input[type="date"] { color-scheme: dark; }
           <div id="kwAutoTimeEstimate" style="padding:10px 14px;background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:8px;margin-bottom:14px;display:flex;align-items:center;gap:10px;font-size:12px">
             <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" style="width:18px;height:18px;flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             <div>
-              <div style="font-weight:600;color:var(--text)">AI Automation takes 25-30 minutes</div>
+              <div style="font-weight:600;color:var(--text)">Automated Keyword Research takes 25-30 minutes</div>
               <div style="color:var(--muted);font-size:11px;margin-top:2px">Kepler's AI classifies branding scope, ranks listing attributes, and groups keywords into campaign structures. You can close this wizard — we'll notify you via the <strong style="color:var(--text)">notification bell</strong> when automation is ready.</div>
             </div>
           </div>
@@ -12627,7 +12651,7 @@ input[type="date"] { color-scheme: dark; }
               <svg viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2" style="width:20px;height:20px;flex-shrink:0"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
               <div style="flex:1">
                 <div style="font-weight:700;font-size:13px">Kepler Bid Optimization</div>
-                <div style="font-size:12px;color:var(--muted);margin-top:2px">Master toggle sets <code style="font-size:11px">optimize_bid</code> on <strong>all campaigns</strong> via <code style="font-size:11px">PATCH /api/campaigns/update_bulk/</code> (strategy: optimize_bid_update). When ON: <code style="font-size:11px">calculate_bids_daily()</code> syncs bids to Amazon. When OFF: bids calculated but <strong>not sent</strong>. You can also toggle per-campaign in Step 4's Opt column.</div>
+                <div style="font-size:12px;color:var(--muted);margin-top:2px">Master toggle enables or disables automatic bid optimization for all campaigns at once. When ON, Kepler calculates and syncs optimal bids to Amazon daily based on your Target ACOS. When OFF, bids are still calculated but not applied — useful for reviewing recommendations before going live. You can also toggle per campaign in Step 4's Opt col.</div>
               </div>
               <div style="display:flex;align-items:center;gap:12px">
                 <div style="text-align:right">
@@ -12663,6 +12687,10 @@ input[type="date"] { color-scheme: dark; }
           <button class="btn btn-primary" style="width:100%;padding:13px;font-size:14px;font-weight:700;border-radius:10px;justify-content:center" onclick="completeSetup()">
             Complete Setup &amp; Go to Campaigns
           </button>
+
+          <div style="padding:8px 12px;background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.15);border-radius:6px;font-size:11px;color:var(--muted);margin-top:12px">
+            <strong style="color:var(--text)">Tip:</strong> After launch, you can toggle ads on or off for this ASIN anytime from the <strong>Manage Ads</strong> page using the Ads toggle switch.
+          </div>
 
           <!-- End-of-wizard navigation — 3 card options -->
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:16px">
@@ -15057,7 +15085,7 @@ function updateWizFooter(n) {
       } else {
         next.disabled = true;
         next.className = 'btn btn-secondary';
-        info.textContent = 'Complete KW Automation to continue';
+        info.textContent = 'Complete Automated KW Research to continue';
       }
     } else {
       // Phase 1 is showing — check KW Research status
@@ -15602,7 +15630,7 @@ function _buildCampRow(r, type) {
   var rankColor = anaColor || (r.medOrgRank <= 25 ? 'color:#16a34a' : (r.medOrgRank <= 50 ? 'color:#ca8a04' : 'color:#dc2626'));
 
   var pacingBadge = (type === 'SPKW' || type === 'HP') ? ' <span style="font-size:8px;padding:1px 6px;border-radius:8px;background:rgba(245,158,11,.12);color:var(--warning);font-weight:600">Pacing</span>' : '';
-  var negKwBtn = ' <span style="font-size:11px;cursor:pointer;color:var(--muted)" title="Negative keywords for this campaign" onclick="event.stopPropagation();showToast(\'Expand negative keywords for this campaign\',\'info\')">&#9998;</span>';
+  var negKwBtn = ' <button class="btn btn-ghost" style="font-size:9px;padding:2px 6px;color:var(--muted);border:1px solid var(--border);border-radius:4px;margin-left:4px" onclick="event.stopPropagation();toggleNegKwRow(this)" title="Add negative keywords for this campaign">+ Neg KWs</button>';
   return '<tr style="border-bottom:1px solid var(--border)" data-match="' + r.dataMatch + '" data-camp-type="' + type + '">'
     + '<td style="padding:6px 6px;text-align:center"><input type="checkbox" class="wiz-camp-cb" onchange="wizCampSelectionChanged()" style="cursor:pointer"></td>'
     + '<td title="' + r.campName + '" style="padding:6px 10px;max-width:190px"><div style="font-size:11px;font-weight:600;color:var(--text)">' + r.displayName + pacingBadge + negKwBtn + '</div><div style="font-size:10px;color:var(--muted);font-family:monospace;margin-top:1px">' + r.campName + '</div></td>'
@@ -15621,6 +15649,34 @@ function _buildCampRow(r, type) {
     + '<td style="padding:6px 6px;text-align:center"><select class="wiz-status-sel" style="padding:3px 4px;border:1px solid var(--border);border-radius:4px;background:var(--layer);color:var(--text);font-size:10px" onchange="showToast(\'Campaign status: \' + this.value)"><option>ENABLED</option><option>PAUSED</option><option>MANUAL_EDITED</option></select></td>'
     + '<td style="padding:6px 6px;text-align:center"><button class="toggle wiz-opt-tog" role="switch" aria-checked="false" onclick="this.classList.toggle(\'on\');this.setAttribute(\'aria-checked\',String(this.classList.contains(\'on\')))" style="transform:scale(.7)"></button></td>'
     + '</tr>';
+}
+
+function toggleNegKwRow(btn) {
+  var row = btn.closest('tr');
+  var nextRow = row.nextElementSibling;
+  if (nextRow && nextRow.classList.contains('neg-kw-row')) {
+    nextRow.remove();
+    btn.style.color = 'var(--muted)';
+    btn.style.borderColor = 'var(--border)';
+    return;
+  }
+  var colCount = row.children.length;
+  var newRow = document.createElement('tr');
+  newRow.className = 'neg-kw-row';
+  newRow.style.cssText = 'background:rgba(220,38,38,.03);border-bottom:1px solid var(--border)';
+  newRow.innerHTML = '<td colspan="' + colCount + '" style="padding:8px 10px">'
+    + '<div style="display:flex;align-items:start;gap:8px">'
+    + '<svg viewBox="0 0 24 24" fill="none" stroke="var(--error)" stroke-width="2" style="width:14px;height:14px;flex-shrink:0;margin-top:4px"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>'
+    + '<div style="flex:1">'
+    + '<div style="font-size:10px;font-weight:600;margin-bottom:3px;color:var(--text)">Negative Keywords for this Campaign</div>'
+    + '<textarea style="width:100%;min-height:48px;padding:6px 8px;border:1px solid var(--border);border-radius:4px;background:var(--layer);color:var(--text);font-size:11px;resize:vertical" placeholder="Enter negative keywords, one per line..."></textarea>'
+    + '<div style="display:flex;justify-content:flex-end;gap:6px;margin-top:4px">'
+    + '<button class="btn btn-ghost btn-xs" onclick="this.closest(\'.neg-kw-row\').remove()" style="font-size:10px">Cancel</button>'
+    + '<button class="btn btn-primary btn-xs" onclick="showToast(\'Negative keywords saved for this campaign\',\'success\');this.closest(\'.neg-kw-row\').remove()" style="font-size:10px">Save</button>'
+    + '</div></div></div></td>';
+  row.after(newRow);
+  btn.style.color = 'var(--error)';
+  btn.style.borderColor = 'var(--error)';
 }
 
 // === Bulk Campaign Actions ===
@@ -15853,6 +15909,10 @@ function completeKwResearch() {
   // Unlock Phase 2 tab and auto-switch to it
   unlockKwPhase2();
   setTimeout(function() { switchKwPhase(2); }, 800);
+  // R4-5: Auto-trigger Phase 2 processing — user has no other option
+  setTimeout(function() {
+    if (typeof startKwAutomation === 'function') startKwAutomation();
+  }, 2000);
   updateWizFooter(3);
   // Show overlap flash if user had pre-added keywords
   showOverlapFlash();
@@ -16125,7 +16185,7 @@ function handleCsvFileSelect(input) {
     if (doneEl) {
       doneEl.style.display = '';
       var breakdown = document.getElementById('kwResearchBreakdown');
-      if (breakdown) breakdown.innerHTML = kwCount.toLocaleString() + ' keywords imported from <strong>' + file.name + '</strong> &nbsp;&middot;&nbsp; Ready for KW Automation';
+      if (breakdown) breakdown.innerHTML = kwCount.toLocaleString() + ' keywords imported from <strong>' + file.name + '</strong> &nbsp;&middot;&nbsp; Ready for Automated KW Research';
     }
     var te=document.getElementById('kwResearchTimeEstimate');if(te)te.style.display='none';
     // Unlock Phase 2 after CSV upload
@@ -16229,7 +16289,7 @@ function completeKwAutomation() {
   var te=document.getElementById('kwAutoTimeEstimate');if(te)te.style.display='none';
   showKwAutoReview();
   addNotification('Keyword Analysis complete for ' + (selectedAsin || 'ASIN') + ' — review results in Automated Keyword Research page.', 'success', 'open-wizard-step4');
-  showToast('KW Automation complete — open KWs Automation to review and approve', 'success');
+  showToast('Automated KW Research complete — open KWs Automation to review and approve', 'success');
   updateWizFooter(3);
 }
 
@@ -16251,7 +16311,7 @@ function cancelKwAutomation() {
   var processing = document.getElementById('kwAutoProcessing');
   if (options) options.style.display = '';
   if (processing) processing.style.display = 'none';
-  showToast('KW Automation cancelled.', 'warning');
+  showToast('Automated KW Research cancelled.', 'warning');
 }
 
 function redoKwAutomation() {
@@ -16288,7 +16348,7 @@ function redoKwAutomation() {
   if (options) options.style.display = '';
   if (review) review.style.display = 'none';
   updateWizFooter(3);
-  showToast('KW Automation reset — you can re-run AI processing', 'info');
+  showToast('Automated KW Research reset — you can re-run AI processing', 'info');
 }
 
 // --- Step 3: KW Tab switching & approval ---
@@ -16610,14 +16670,14 @@ function discoverCompetitors() {
     btn.disabled = false;
     btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> Rediscover`;
     const sugs = [
-      { asin:'B003TMA3DU', name:'AROMALAND Essential Oil Fragrance Diffuser', emoji:'🌸', score:96 },
-      { asin:'B0CWVVDXNP', name:'Lampe Berger Refill Fragrance Oil', emoji:'🍋', score:93 },
-      { asin:'B0DZ73X829', name:'Yankee Candle Diffuser Oil Premium Blend', emoji:'🕯️', score:89 },
-      { asin:'B00P2S4XM6', name:'NEST Fragrances Reed Diffuser Oil', emoji:'🌿', score:85 },
-      { asin:'B0BYFDZXLZ', name:'Westin Hotels Signature Scent Oil', emoji:'🏨', score:82 },
-      { asin:'B0CBH48FSN', name:'Thymes Frasier Fir Diffuser Oil', emoji:'🌲', score:77 },
-      { asin:'B0D5RMVMWF', name:'Antica Farmacista Home Diffuser Oil', emoji:'🫧', score:72 },
-      { asin:'B08CKMLDDT', name:'FRSH Fragrance Oil for Diffusers', emoji:'💨', score:66 },
+      {asin:'B003TMA3DU', name:'AROMALAND Essential Oil Fragrance Diffuser', emoji:'🌸', score:96, price:'$24.99', velocity:'~850/mo', rating:'4.5', reviews:'2,340'},
+      {asin:'B0CWVVDXNP', name:'Lampe Berger Refill Fragrance Oil', emoji:'🍋', score:93, price:'$18.50', velocity:'~1,200/mo', rating:'4.3', reviews:'1,890'},
+      {asin:'B0DZ73X829', name:'Yankee Candle Diffuser Oil Premium Blend', emoji:'🕯️', score:89, price:'$22.00', velocity:'~2,100/mo', rating:'4.7', reviews:'5,420'},
+      {asin:'B00P2S4XM6', name:'NEST Fragrances Reed Diffuser Oil', emoji:'🌿', score:85, price:'$38.00', velocity:'~620/mo', rating:'4.6', reviews:'3,100'},
+      {asin:'B0BYFDZXLZ', name:'Westin Hotels Signature Scent Oil', emoji:'🏨', score:82, price:'$45.00', velocity:'~340/mo', rating:'4.4', reviews:'890'},
+      {asin:'B0CBH48FSN', name:'Thymes Frasier Fir Diffuser Oil', emoji:'🌲', score:77, price:'$32.00', velocity:'~780/mo', rating:'4.6', reviews:'2,670'},
+      {asin:'B0D5RMVMWF', name:'Antica Farmacista Home Diffuser Oil', emoji:'🫧', score:72, price:'$58.00', velocity:'~210/mo', rating:'4.2', reviews:'560'},
+      {asin:'B08CKMLDDT', name:'FRSH Fragrance Oil for Diffusers', emoji:'💨', score:66, price:'$12.99', velocity:'~3,400/mo', rating:'4.1', reviews:'8,200'},
     ];
     res.innerHTML = `
       <div class="flex items-center justify-between mb-3">
@@ -16625,16 +16685,20 @@ function discoverCompetitors() {
         <button class="btn btn-ghost btn-xs" onclick="addAllSuggestions()">Add All</button>
       </div>
       ${sugs.map(s => `
-        <div class="comp-card${competitors.find(c=>c.asin===s.asin)?' selected':''}" id="sug-${s.asin}" onclick="toggleSug('${s.asin}','${s.name.replace(/'/g,"\\'")}','${s.emoji}',${s.score})">
-          <div class="chk-box">${competitors.find(c=>c.asin===s.asin)?'✓':''}</div>
-          <div class="thumb" style="font-size:20px">${s.emoji}</div>
-          <div style="flex:1;min-width:0">
-            <div style="font-size:11px;font-family:monospace;color:var(--muted)">${s.asin}</div>
-            <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:340px">${s.name}</div>
+        <div class="comp-card${competitors.find(c=>c.asin===s.asin)?' selected':''}" id="sug-${s.asin}" onclick="toggleSug('${s.asin}','${s.name.replace(/'/g,"\\'")}','${s.emoji}',${s.score})" style="padding:10px 14px;display:grid;grid-template-columns:40px 1fr auto;gap:10px;align-items:center;cursor:pointer">
+          <div style="width:36px;height:36px;border-radius:6px;background:var(--layer);display:flex;align-items:center;justify-content:center;font-size:18px;border:1px solid var(--border)">${s.emoji}</div>
+          <div style="min-width:0">
+            <div style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.name}</div>
+            <div style="font-size:10px;font-family:monospace;color:var(--muted)">${s.asin}</div>
+            <div style="display:flex;gap:12px;margin-top:3px;font-size:10px;color:var(--muted)">
+              <span style="color:var(--success);font-weight:600">${s.price}</span>
+              <span>${s.velocity}</span>
+              <span>★ ${s.rating} (${s.reviews})</span>
+            </div>
           </div>
-          <div class="flex items-center gap-2" style="flex-shrink:0">
-            <div class="rel-bar"><div class="rel-fill" style="width:${s.score}%"></div></div>
-            <span class="rel-score">${s.score}%</span>
+          <div style="text-align:right;flex-shrink:0">
+            <div class="rel-bar" style="width:60px"><div class="rel-fill" style="width:${s.score}%"></div></div>
+            <div class="rel-score" style="font-size:11px">${s.score}%</div>
           </div>
         </div>`).join('')}`;
   }, 2600);
@@ -19967,6 +20031,7 @@ function showAsinActionMenu(asin, triggerEl) {
     { label:'Launch Settings', icon:'&#128640;', action:function(){ openWizardForAsin(asin, 5); } },
     { divider:true },
     { header:'Post-Launch Settings' },
+    { label:'Keyword Research List', icon:'&#128273;', action:function(){ navigate('campaigns','nav-camp'); switchTab('main','kw-research'); showToast('Showing keyword research data for ' + asin, 'info'); } },
     { label:'KW Config', icon:'&#128221;', action:function(){ navigate('campaigns','nav-camp'); switchTab('main','kw-config'); showToast('Filtered to ' + asin, 'info'); } },
     { label:'SearchTerm Config', icon:'&#128270;', action:function(){ navigate('campaigns','nav-camp'); switchTab('main','st-config'); showToast('Filtered to ' + asin, 'info'); } }
   ];
