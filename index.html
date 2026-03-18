@@ -14746,7 +14746,8 @@ function loadKwGroupAsin(asin) {
 function initKwAutomation() {
   loadKwAutoAsin('B0BF8PNNJH');
   loadListingAsin('B0BF8PNNJH');
-  loadKwGroupAsin('B09L3NLDZ5');
+  // R3-3.14: Don't overwrite mockup content on page load — Tab 3 uses static Abdul mockup layout
+  // loadKwGroupAsin('B09L3NLDZ5');
 }
 
 function switchTab(group, tabId) {
@@ -20198,4 +20199,3 @@ window.iboNextStage = function(currentStage) {
 </div>
 </body>
 </html>
-<!-- cache bust Wed, Mar 18, 2026  5:40:42 PM -->
