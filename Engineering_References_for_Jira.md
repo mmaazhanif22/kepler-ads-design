@@ -302,6 +302,15 @@ Extracted from prototype tooltips and UI elements. Use when writing Jira ticket 
   - `group_rank`: integer ranking within scope
   - Campaign naming derives from scope + rank: `{relevancy_tag_id}-SPKW-{brand_code}-XX-S-{ASIN}-{match}-KW`
 
+## Wizard Complete Setup Flow
+- **Location:** Wizard Step 5 "Complete Setup & Go to Campaigns" button
+- **Function:** `completeSetup()` — validates ENABLED campaigns have ACOS + Budget, confirms bid optimization, shows loading state
+- **Backend:** `POST /api/amazon-ads/products/save-selection/` → `trigger_auto_campaign_creation.delay()` → RabbitMQ `advertising_create_campaign`
+- **Campaign creation:** `CampaignService.create_campaigns()` → batch creates campaigns/ad groups/products/keywords/negative keywords
+- **Toast on success:** "Setup complete! X campaigns set to ENABLED and being activated on Amazon."
+- **Flag:** `_wizSetupComplete = true` prevents `cancelResearch()` toast when closing wizard after launch
+- **Bid Opt confirm modal:** If no campaigns have optimize_bid enabled, shows warning. Backend: `AdvertisingCampaign.optimize_bid` (BooleanField). Can be enabled later per campaign.
+
 ## Bulk Campaign Selection & Actions
 - **Location:** Wizard Step 4 Campaign table — checkbox column, bulk action bar
 - **API:** POST `/api/amazon-ads/config/ad-campaign-config/` — bulk updates status, target_acos, daily_budget
