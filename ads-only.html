@@ -1967,8 +1967,8 @@ input[type="date"] { color-scheme: dark; }
         </div>
       </div>
 
-      <!-- Section Breadcrumb — sidebar is sole navigation authority -->
-      <div class="section-breadcrumb">
+      <!-- Section Breadcrumb — hidden on default tab, shown on sub-tabs -->
+      <div class="section-breadcrumb" id="main-breadcrumb" style="display:none">
         <span class="section-breadcrumb-parent" style="cursor:pointer" onclick="navigate('campaigns','nav-camp')">Manage Ads</span>
         <span class="section-breadcrumb-sep">›</span>
         <span class="section-breadcrumb-current" id="breadcrumb-main">Manage Ads</span>
@@ -11964,18 +11964,16 @@ function switchTab(group, tabId) {
   const btn  = document.getElementById('tab-' + tabId);
   if (pane) { pane.classList.add('active'); pane.setAttribute('aria-hidden', 'false'); }
   if (btn)  { btn.classList.add('active');  btn.setAttribute('aria-selected', 'true'); }
-  // Update breadcrumb label — hide child when it matches parent (e.g., "Manage Ads" default tab)
+  // Update breadcrumb — hide entire breadcrumb on default tab, show on sub-tabs
   const breadcrumbEl = document.getElementById(breadcrumbElMap[group]);
   if (breadcrumbEl && breadcrumbLabels[group] && breadcrumbLabels[group][tabId]) {
     var subLabel = breadcrumbLabels[group][tabId];
-    var parentEl = breadcrumbEl.previousElementSibling ? breadcrumbEl.previousElementSibling.previousElementSibling : null;
-    var sepEl = breadcrumbEl.previousElementSibling;
-    if (parentEl && parentEl.textContent.trim() === subLabel) {
-      breadcrumbEl.style.display = 'none';
-      if (sepEl) sepEl.style.display = 'none';
+    var breadcrumbContainer = breadcrumbEl.closest('.section-breadcrumb');
+    var groupTitleCheck = { main: 'Manage Ads', 'ads-perf': 'ADS Performance', logs: 'Logs & Analysis' };
+    if (groupTitleCheck[group] && groupTitleCheck[group] === subLabel) {
+      if (breadcrumbContainer) breadcrumbContainer.style.display = 'none';
     } else {
-      breadcrumbEl.style.display = '';
-      if (sepEl) sepEl.style.display = '';
+      if (breadcrumbContainer) breadcrumbContainer.style.display = '';
       breadcrumbEl.textContent = subLabel;
     }
   }
