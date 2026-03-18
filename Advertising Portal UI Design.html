@@ -12522,11 +12522,24 @@ input[type="date"] { color-scheme: dark; }
 
           <!-- Engineering Reference removed — saved to memory/engineering-reference-wizard-step4.md for Jira tickets -->
 
+          <!-- Bulk Action Bar (hidden until campaigns selected) -->
+          <div id="wizCampBulkBar" style="display:none;padding:8px 14px;background:rgba(79,70,229,.06);border:1px solid rgba(79,70,229,.2);border-radius:8px;margin-bottom:8px;display:none;align-items:center;gap:10px;font-size:12px">
+            <span id="wizCampSelCount" style="font-weight:700;color:var(--primary)">0 selected</span>
+            <span style="color:var(--border)">|</span>
+            <button class="btn btn-ghost btn-xs" onclick="wizBulkSetStatus('ENABLED')" style="color:var(--success);font-weight:600">Enable Selected</button>
+            <button class="btn btn-ghost btn-xs" onclick="wizBulkSetStatus('PAUSED')" style="color:var(--warning);font-weight:600">Pause Selected</button>
+            <button class="btn btn-ghost btn-xs" onclick="wizBulkSetAcos()" style="color:var(--primary)">Set ACOS</button>
+            <button class="btn btn-ghost btn-xs" onclick="wizBulkSetBudget()" style="color:var(--primary)">Set Budget</button>
+            <span style="flex:1"></span>
+            <button class="btn btn-ghost btn-xs" onclick="wizCampSelectAll(false)" style="color:var(--muted)">Clear Selection</button>
+          </div>
+
           <!-- Campaign Table -->
           <div style="overflow-x:auto;margin-bottom:8px">
             <table id="wizCampTable" style="width:100%;border-collapse:collapse;font-size:11.5px;min-width:900px;border:1px solid var(--border);border-radius:8px;overflow:hidden">
               <thead>
                 <tr style="background:var(--layer);border-bottom:2px solid var(--border)">
+                  <th style="padding:7px 6px;text-align:center;width:32px"><input type="checkbox" id="wizCampSelectAllCb" onchange="wizCampSelectAll(this.checked)" title="Select all campaigns" style="cursor:pointer"></th>
                   <th style="text-align:left;padding:7px 10px;font-weight:700;color:var(--muted)">Campaign Name</th>
                   <th style="text-align:center;padding:7px 6px;font-weight:700;color:var(--muted)">Type</th>
                   <th style="text-align:center;padding:7px 6px;font-weight:700;color:var(--muted)">Match</th>
@@ -15578,6 +15591,7 @@ function _buildCampRow(r, type) {
   var pacingBadge = (type === 'SPKW' || type === 'HP') ? ' <span style="font-size:8px;padding:1px 6px;border-radius:8px;background:rgba(245,158,11,.12);color:var(--warning);font-weight:600">Pacing</span>' : '';
   var negKwBtn = ' <span style="font-size:11px;cursor:pointer;color:var(--muted)" title="Negative keywords for this campaign" onclick="event.stopPropagation();showToast(\'Expand negative keywords for this campaign\',\'info\')">&#9998;</span>';
   return '<tr style="border-bottom:1px solid var(--border)" data-match="' + r.dataMatch + '" data-camp-type="' + type + '">'
+    + '<td style="padding:6px 6px;text-align:center"><input type="checkbox" class="wiz-camp-cb" onchange="wizCampSelectionChanged()" style="cursor:pointer"></td>'
     + '<td title="' + r.campName + '" style="padding:6px 10px;max-width:190px"><div style="font-size:11px;font-weight:600;color:var(--text)">' + r.displayName + pacingBadge + negKwBtn + '</div><div style="font-size:10px;color:var(--muted);font-family:monospace;margin-top:1px">' + r.campName + '</div></td>'
     + '<td style="padding:6px 6px;text-align:center"><span class="badge ' + typeClass + '" style="' + typeStyle + '">' + type + '</span></td>'
     + '<td style="padding:6px 6px;text-align:center"><span class="badge ' + r.matchBadge + '" style="' + matchStyle + '">' + r.matchLabel + '</span></td>'
@@ -15594,6 +15608,65 @@ function _buildCampRow(r, type) {
     + '<td style="padding:6px 6px;text-align:center"><select class="wiz-status-sel" style="padding:3px 4px;border:1px solid var(--border);border-radius:4px;background:var(--layer);color:var(--text);font-size:10px" onchange="showToast(\'Campaign status: \' + this.value)"><option>ENABLED</option><option>PAUSED</option><option>MANUAL_EDITED</option></select></td>'
     + '<td style="padding:6px 6px;text-align:center"><button class="toggle wiz-opt-tog" role="switch" aria-checked="false" onclick="this.classList.toggle(\'on\');this.setAttribute(\'aria-checked\',String(this.classList.contains(\'on\')))" style="transform:scale(.7)"></button></td>'
     + '</tr>';
+}
+
+// === Bulk Campaign Actions ===
+function wizCampSelectAll(checked) {
+  document.querySelectorAll('#wizCampTable .wiz-camp-cb').forEach(function(cb) { cb.checked = checked; });
+  var selAllCb = document.getElementById('wizCampSelectAllCb');
+  if (selAllCb) selAllCb.checked = checked;
+  wizCampSelectionChanged();
+}
+function wizCampSelectionChanged() {
+  var cbs = [...document.querySelectorAll('#wizCampTable .wiz-camp-cb')];
+  var checked = cbs.filter(function(cb) { return cb.checked; });
+  var bar = document.getElementById('wizCampBulkBar');
+  var countEl = document.getElementById('wizCampSelCount');
+  if (checked.length > 0) {
+    bar.style.display = 'flex';
+    countEl.textContent = checked.length + ' selected';
+  } else {
+    bar.style.display = 'none';
+  }
+  // Update select-all checkbox state
+  var selAllCb = document.getElementById('wizCampSelectAllCb');
+  if (selAllCb) selAllCb.checked = checked.length === cbs.length && cbs.length > 0;
+}
+function wizBulkSetStatus(status) {
+  document.querySelectorAll('#wizCampTable .wiz-camp-cb').forEach(function(cb) {
+    if (cb.checked) {
+      var row = cb.closest('tr');
+      var sel = row.querySelector('.wiz-status-sel');
+      if (sel) sel.value = status;
+    }
+  });
+  showToast('Set ' + document.querySelectorAll('#wizCampTable .wiz-camp-cb:checked').length + ' campaigns to ' + status, 'success');
+}
+function wizBulkSetAcos() {
+  var val = prompt('Set Target ACOS (%) for selected campaigns:');
+  if (!val) return;
+  document.querySelectorAll('#wizCampTable .wiz-camp-cb').forEach(function(cb) {
+    if (cb.checked) {
+      var row = cb.closest('tr');
+      var input = row.querySelector('.wiz-acos-input');
+      if (input) { input.value = val; input.style.borderColor = 'var(--border)'; }
+    }
+  });
+  showToast('Set ACOS to ' + val + '% for selected campaigns', 'success');
+  calcTotalBudget();
+}
+function wizBulkSetBudget() {
+  var val = prompt('Set Daily Budget ($) for selected campaigns:');
+  if (!val) return;
+  document.querySelectorAll('#wizCampTable .wiz-camp-cb').forEach(function(cb) {
+    if (cb.checked) {
+      var row = cb.closest('tr');
+      var input = row.querySelector('.wiz-budget-input');
+      if (input) input.value = val;
+    }
+  });
+  showToast('Set budget to $' + val + ' for selected campaigns', 'success');
+  calcTotalBudget();
 }
 
 // Derive competitor brand groups from Step 1 competitors array
