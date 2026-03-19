@@ -161,6 +161,62 @@ These enhancements extend the base infrastructure. Tracked as separate stories u
 - Internationalization (i18n) beyond English
 - Automated end-to-end testing framework setup
 
+## Engineering Notes
+
+**Codebase Pattern References:**
+- Existing table component: `client/src/app/features/amazon-ads/campaign-management/` has multiple table implementations. Use these as reference for the shared table component.
+- Existing date picker: `sp-rangepicker` component exists in the portal. Rebuild with presets (7D/14D/30D/60D/90D).
+- CSV export pattern: `downloadCampaignFile()`, `downloadSearchTermsAggregatedFile()` in existing services. Standardize into a shared `exportTableToCSV()` utility.
+- File upload: `apps/amazon_ads/api/views/file_views.py` handles all 7 upload strategies server-side. Frontend needs drag-and-drop UI + validation feedback.
+
+**Table Component Architecture:**
+Build a reusable `KeplerTableComponent` that accepts configuration:
+```typescript
+interface TableConfig {
+  columns: ColumnDef[];        // id, label, sortable, type (string/number/currency/percent)
+  endpoint: string;            // GET endpoint for data
+  exportEndpoint?: string;     // export URL
+  filters: FilterDef[];        // dropdown filters with column mapping
+  searchColumns: number[];     // which columns to search
+  pageSize: number;            // default 25
+  stickyHeaders: boolean;      // default true
+  frozenColumns: number;       // default 0
+}
+```
+This component is used by 17+ views. Getting it right is critical.
+
+**CSV Export Requirements:**
+- UTF-8 BOM: prepend `\uFEFF` to the CSV string before creating the Blob
+- Formula injection: escape cells starting with `=`, `+`, `-`, `@` by prepending a single quote
+- Respect current filter state: only export visible rows
+- Respect column visibility: only export visible columns
+- File naming: `{tableName}-{YYYY-MM-DD}.csv`
+
+**Theme System:**
+- Use CSS custom properties (already defined in the prototype): `--primary`, `--bg`, `--card`, `--border`, `--text`, `--muted`, `--success`, `--error`, `--warning`
+- Theme switching: update the `data-theme` attribute on `<body>` and persist to localStorage
+- All 6 themes are defined in the prototype CSS. Port the variable definitions directly.
+
+**Hash Routing:**
+- Listen for `hashchange` events
+- Map hash values to view IDs: `#dashboard` > dashboard-view, `#campaigns` > campaigns-view, etc.
+- Update hash on `navigate()` calls
+- Support deep links: `#campaigns/kw-config` should navigate to Manage Ads and switch to KW Config tab
+
+**Toast System:**
+- Create a singleton `ToastService` injectable
+- Stack multiple toasts vertically (newest on top)
+- Auto-dismiss after 4 seconds (configurable)
+- 4 variants: success (green border), error (red), warning (amber), info (blue)
+
+**Accessibility Checklist:**
+- All modals: `role="dialog"`, `aria-modal="true"`, trap focus inside, restore focus on close
+- All toggles: `role="switch"`, `aria-checked="true/false"`
+- All tabs: `role="tablist"`, `role="tab"`, `aria-selected`, `role="tabpanel"`
+- Table sort headers: `aria-sort="ascending/descending/none"`
+- Loading states: `aria-busy="true"` on the container
+- Skip decorative icons: `aria-hidden="true"` on SVGs that are purely visual
+
 ## Test Cases
 
 - Seller sorts a table by clicking column header. Rows reorder, click again reverses direction.

@@ -174,6 +174,60 @@ These enhancements are tracked as separate stories under PROD-2180. They extend 
 | PROD-4447 | Wizard Advanced Campaign Features: Auto Budget toggle, ASIN-Level Defaults grouping, bulk campaign select/enable/pause, per-campaign negative keywords, Pacing badges | Blocked by PROD-4120 |
 | PROD-4448 | Wizard UX Enhancements: rich competitor tiles (price, velocity, rating, reviews), "Review Fetched Keywords" link between phases, 3 post-wizard navigation cards, ads toggle tip | Blocked by PROD-4120 |
 
+## Engineering Notes
+
+**Codebase Starting Points:**
+- Product selection: `client/src/app/features/amazon-ads/add-product/select/` (ProductSelectionComponent). Currently a standalone page at route `/add-product/select`. Needs to be wrapped inside the wizard modal.
+- Competitor storage: `AdvertisingAsinConfig.competitor_asins` (SafeJSONField) at `apps/amazon_ads/models/config.py:62`. Save via PUT `/api/amazon-ads/config/asin-config/{id}/`.
+- KW Research trigger: `apps/amazon_ads/api/views/entity_views.py` (KwResearchApprovedApiViewV at line 1532). Approval endpoint: POST `/api/amazon-ads/approve-kw-stage` with body `{asin_id: int, prompt_type: int}`.
+- Campaign creation: `apps/amazon_ads/applications/campaigns/services/campaign_creation/orchestrator.py`. Triggered via RabbitMQ consumer `advertising_create_campaign`.
+- Campaign naming: `apps/amazon_ads/managers/utils.py:116` (`get_campaign_name()`). Pattern: `{relevancy_tag_id}-{ad_type}-{brand_code}-XX-S-{ASIN}-{match}-{suffix}`.
+
+**Campaign Generation Logic (Step 4):**
+Campaign count is dynamic, not fixed. The system generates campaigns based on:
+- `KwResearchGroupRank` groups (1 SPKW campaign per group per enabled match type)
+- Auto-targeting: 4 SPAU campaigns if auto-targeting enabled (Close Match, Loose Match, Substitutes, Complements)
+- Competitor brands: 1 SPAS campaign per unique brand from Step 2 competitors
+- Generation code: `CampaignService.create_campaigns()` in `apps/amazon_ads/applications/campaigns/services/`
+
+**Wizard State Management:**
+The wizard is a modal overlay, not a routed page. Recommended approach:
+- Store wizard state in an Angular service (not NgRx, since it's a temporary modal flow)
+- Persist draft to localStorage on each step transition so users can resume if they close the browser
+- On "Complete Setup", clear localStorage draft and POST to `/api/amazon-ads/products/save-selection/`
+- Step completion tracking: maintain a `completedSteps: Set<number>` in the service. Only allow forward navigation to the next uncompleted step.
+
+**KW Research Async Flow:**
+- Step 3 triggers research via POST `/api/amazon-ads/approve-kw-stage` with `prompt_type=1` (Phase 1)
+- Backend queues a Celery task via RabbitMQ (`keyword_research_automation` queue)
+- Frontend polls `GET /api/amazon-ads/config/asin-config/{id}/` checking `kw_research_status` field
+- Status values: 1=Insufficient Data, 2=Ready, 3=In Progress, 4=Pending Review, 5=Submitted
+- When status reaches 4 (Pending Review), Phase 1 is complete. Auto-trigger Phase 2 by calling approve with `prompt_type=2`, then `prompt_type=3`.
+
+**API Response Shape (Campaign Config - Step 4):**
+GET `/api/amazon-ads/config/ad-campaign-config/?asin_id={id}` returns:
+```json
+{
+  "results": [
+    {
+      "id": 123,
+      "campaign_name": "NBH1-SPKW-PB01-US-S-B09L4KWX6Q-E-KW",
+      "match_type": "exact",
+      "target_acos": 35.0,
+      "daily_budget": 5.00,
+      "ad_status": 1,
+      "relevancy_tag_id": 5,
+      "custom_negative_keywords": ["free", "wholesale"]
+    }
+  ]
+}
+```
+
+**Error Handling:**
+- If KW Research fails (status=4 with error): show error toast, offer "Retry Research" button that calls POST `/api/amazon-ads/reset-kw-stage`
+- If campaign creation fails: show error with details from the RabbitMQ response, allow retry
+- If SP-API token expired: redirect to Settings > Amazon Connection for re-auth
+
 ## Test Cases
 
 - Seller opens wizard, selects an ASIN, and completes all 5 steps successfully. Campaigns are created.

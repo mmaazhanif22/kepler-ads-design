@@ -192,6 +192,46 @@ IBO can be developed in parallel with the single-ASIN wizard. They share the sam
 - Marketplace expansion (launching same ASINs on multiple marketplaces simultaneously)
 - Automated scheduling of recurring batch launches
 
+## Engineering Notes
+
+**This is 100% net-new. No existing components to reuse.**
+
+**Codebase Entry Points:**
+- File upload: `apps/amazon_ads/api/views/file_views.py:19` (upload_file function). Strategy `asin-config` for Stage 1 bulk import.
+- KW Research per ASIN: same flow as wizard Step 3 but called in a loop. POST `/api/amazon-ads/approve-kw-stage` per ASIN.
+- Campaign creation: same `CampaignCreationOrchestrator` as wizard, but called per ASIN in the batch.
+- Competitor discovery: `apps/analytics/api/urls.py:78-80`. GET `/analytics/search_terms/competitor_asins` returns `{asin, clickShare, conversionShare, searchFrequencyRank}`.
+
+**Bulk Import CSV Template (Stage 1):**
+Columns: ASIN, TargetACOS, CompetitorASINs(SeparatedbyComma), DailyBudget, AutoBudgetStatus, AdStatus, AutoPacingStatus
+Download template: GET `/api/amazon-ads/download-config-file`
+Upload: POST `/api/amazon-ads/upload-file` with `file_type=asin-config`
+
+**Stage 3 Parallel Processing:**
+- Process up to 3 ASINs concurrently via separate RabbitMQ messages
+- Each ASIN goes through: trigger research > wait for completion > approve branding > approve attributes > approve grouping
+- Frontend polls status per ASIN. Recommended: poll every 10 seconds with `GET /api/amazon-ads/config/asin-config/?seller_country_id={id}` and check each ASIN's `kw_research_status`
+- Estimated total time: 20-30 minutes for 12 ASINs (3 parallel x ~8 min each)
+
+**Batch Persistence:**
+No backend endpoint exists for saving batch state. Use localStorage for the prototype phase. Structure:
+```json
+{
+  "batchId": "uuid",
+  "missionName": "Q2 2026 Launch",
+  "currentStage": 3,
+  "asins": ["B09L4KWX6Q"],
+  "groupConfig": {},
+  "createdAt": "2026-03-18T..."
+}
+```
+If a dedicated backend is needed later, propose a `BatchLaunchState` model.
+
+**Error Handling:**
+- Individual ASIN failure in Stage 3: mark that ASIN as FAILED in the progress cards, continue processing others
+- Bulk import validation errors: show row-level errors (row number + field + reason) so seller can fix the CSV
+- Stage 6 launch failure: show which campaigns failed and allow selective retry
+
 ## Test Cases
 
 - Seller pastes 12 ASINs, clicks Validate & Group. System produces 4 logical groups with reasons.
