@@ -192,24 +192,6 @@ IBO can be developed in parallel with the single-ASIN wizard. They share the sam
 - Marketplace expansion (launching same ASINs on multiple marketplaces simultaneously)
 - Automated scheduling of recurring batch launches
 
-## MVP vs. Enhancement Phasing
-
-**MVP (Phase 1): Core bulk flow**
-- Stage 1: ASIN batch input + basic config (Target ACOS, Competitors)
-- Stage 2: Per-group Campaign Skeleton
-- Stage 3: Async KW Research with progress tracking
-- Stage 4: Review Hub with approve/reject per ASIN
-- Stage 5: Campaign table with Apply to All (ACOS + Budget)
-- Stage 6: Launch with batch campaign creation
-
-**Enhancement (Phase 2): Advanced features**
-- AI Grouping in Stage 1
-- Bulk Import on both Stage 1 and Stage 2
-- Auto Pacing + Auto Budget toggles
-- Group filtering (NB Highly Relevant, NB Moderate, Own Brand, Competitor, Auto)
-- Per-campaign negative keywords
-- Batch History and Saved Batches
-
 ## Test Cases
 
 - Seller pastes 12 ASINs, clicks Validate & Group. System produces 4 logical groups with reasons.
