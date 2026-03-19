@@ -152,23 +152,6 @@ This ticket is foundational and should be built first or in parallel with featur
 - Internationalization (i18n) beyond English
 - Automated end-to-end testing framework setup
 
-## MVP vs. Enhancement Phasing
-
-**MVP (Phase 1): Core infrastructure**
-- Table sorting, filtering, pagination
-- CSV export with UTF-8 BOM
-- Confirmation modals for destructive actions
-- Toast notification system
-- URL hash routing
-
-**Enhancement (Phase 2): Polish**
-- Date range picker with presets
-- Theme system (6 themes)
-- Accessibility (ARIA roles, keyboard navigation)
-- Column visibility toggle
-- Sticky headers and frozen columns
-- CSV import with validation
-
 ## Test Cases
 
 - Seller sorts a table by clicking column header. Rows reorder, click again reverses direction.

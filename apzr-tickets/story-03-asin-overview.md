@@ -103,6 +103,11 @@ The ASIN Overview is the new default landing page for the advertising section. I
 ## Implementation Notes
 
 - The Ads On/Off toggle should send an immediate API call to enable/disable advertising for that ASIN.
+
+**Ads Toggle Behavior:**
+- **OFF:** Sets `AdvertisingAsinConfig.ad_status = PAUSED (2)`. All campaigns under this ASIN are synced to PAUSED on Amazon via SP-API. In-flight impressions stop serving. Spend already recorded is not reversed. No confirmation dialog required.
+- **ON:** Sets `ad_status = ENABLED (1)`. Campaigns resume on Amazon. Re-activation may take up to 1 hour due to Amazon sync delay.
+- This is a real Amazon API state change, not a local UI flag. No warning about in-flight spend is needed.
 - Setup status must reflect real-time wizard completion data per ASIN.
 - The original views (Campaigns, ASIN Config, KW Research) remain accessible but are not primary sidebar items.
 - The checklist panel can be a slide-out panel or an inline expansion.

@@ -52,10 +52,11 @@ A 5-step wizard overlay that guides the seller through the full ASIN advertising
 - If the seller navigated away, they can return to the wizard via the notification or Manage Ads resume flow.
 
 **Step 4: Campaign Config**
-- System displays 16 pre-built campaigns in 3 sections:
-  - 8 manual keyword campaigns (SPKW)
-  - 4 auto-targeting campaigns for Close Match, Loose Match, Substitutes, and Complements (SPAU)
-  - 4 product targeting campaigns for competitor brands (SPAS)
+- System displays dynamically generated campaigns organized in 3 sections:
+  - SPKW (manual keyword campaigns): 1 campaign per keyword group per enabled match type. Count depends on how many groups KW Research produced and which match types are selected.
+  - SPAU (auto-targeting campaigns): Close Match, Loose Match, Substitutes, Complements. Created when auto-targeting is enabled.
+  - SPAS (product targeting campaigns): 1 per competitor brand identified in Step 2. Count depends on number of unique competitor brands.
+- Campaign count varies per ASIN based on keyword research results, branding scope configuration (NB/OB/CB), and match type selection. The generation logic is in `CampaignService.create_campaigns()` using `KwResearchGroupRank` groups and `AdvertisingCampaignConfig` match type settings.
 - Each campaign row shows: Type, Targeting strategy, keyword count, search volume, and an Optimize toggle.
 - **Auto Budget toggle**: system calculates recommended daily budgets based on keyword volume and Target ACOS.
 - **ASIN-Level Defaults**: sellers can set defaults that apply across all campaigns for this ASIN.
@@ -162,30 +163,11 @@ The wizard is foundational. It must be delivered before sellers can set up adver
 - Search term harvesting and negative keyword management post-launch (covered by PROD-4125: Search Term Settings)
 - Campaign budget pacing (covered by PROD-4127: Pacing Management)
 
-## MVP vs. Enhancement Phasing
-
-**MVP (Phase 1): Core wizard flow**
-- Step 1: Product Selection (select ASIN, set Target ACOS)
-- Step 2: Automated Competitor Research (manual entry + AI discovery)
-- Step 3: Automated Keyword Research (Phase 1 fetch + Phase 2 analysis, auto-trigger)
-- Step 4: Campaign Config (campaign table with ACOS/Budget/Status per campaign)
-- Step 5: Activate (launch summary + Complete Setup button)
-- Basic notification when KW Research completes
-
-**Enhancement (Phase 2): Advanced features**
-- Auto Budget toggle and ASIN-Level Defaults grouping
-- Bulk campaign select/enable/pause with bulk action bar
-- Per-campaign negative keywords (inline textarea)
-- Pacing badges on campaigns
-- Wizard Edit Mode (re-enter for launched ASINs)
+**Future Enhancements (not in scope for this story, create separate stories if needed):**
+- PROD-4390: Notification Bell (full dropdown panel with history)
+- PROD-4391: Wizard Edit Mode (re-enter for launched ASINs)
 - Rich competitor tiles (price, velocity, rating, reviews)
 - "Review Fetched Keywords" link between phases
-- 3 post-wizard navigation cards
-- Ads toggle tip on Activate page
-
-**Separate Stories (not part of this ticket):**
-- PROD-4390: Notification Bell (full dropdown panel with history)
-- PROD-4391: Wizard Edit Mode
 
 ## Test Cases
 
@@ -195,7 +177,7 @@ The wizard is foundational. It must be delivered before sellers can set up adver
 - Seller enters Step 3. Research auto-triggers without manual action, progress shows Phase 1 then Phase 2, auto-advances to Step 4.
 - Seller navigates away during Step 3 research. Notification bell updates with "Automated Keyword Research complete" when research finishes.
 - Seller clicks the notification. Navigates back to wizard at Step 4 (Campaign Config).
-- Seller in Step 4 sees 16 campaigns in 3 sections (SPKW, SPAU, SPAS) with correct columns.
+- Seller in Step 4 sees the generated campaigns in 3 sections (SPKW, SPAU, SPAS) with correct columns.
 - Seller toggles Auto Budget in Step 4. Recommended budgets populate for all campaigns.
 - Seller adds per-campaign negative keywords in Step 4. Negatives saved per campaign.
 - Seller closes wizard with unsaved changes. Discard confirmation appears.
@@ -212,11 +194,11 @@ The wizard is foundational. It must be delivered before sellers can set up adver
 - [ ] Step 3 auto-triggers Automated Keyword Research with Phase 1 + Phase 2 progress and auto-advances to Step 4 on completion
 - [ ] Step 3 sends a notification to the Notification Bell when research completes
 - [ ] Seller can navigate away during research and return via the notification when research is done
-- [ ] Step 4 displays 16 campaigns in 3 sections (SPKW, SPAU, SPAS) with Auto Budget, ASIN-Level Defaults, bulk select, per-campaign neg KWs, and Pacing badges
+- [ ] Step 4 displays the generated campaigns in 3 sections (SPKW, SPAU, SPAS) with Auto Budget, ASIN-Level Defaults, bulk select, per-campaign neg KWs, and Pacing badges
 - [ ] Step 5 shows activate summary with non-technical Bid Opt text, ads toggle note, checklist, and 3 navigation cards
 - [ ] Wizard supports edit mode for previously launched ASINs with pre-populated data
 - [ ] Discard confirmation appears when closing wizard with unsaved changes
 - [ ] Wizard is accessible: focus managed, step changes announced to screen readers
-- [ ] All 16 campaign names follow the Kepler naming convention and are not editable
+- [ ] All campaign names follow the Kepler naming convention and are not editable
 - [ ] Tests passed (unit + integration)
 - [ ] UI matches approved mockup
