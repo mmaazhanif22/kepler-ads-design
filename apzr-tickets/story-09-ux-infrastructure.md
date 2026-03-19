@@ -151,8 +151,8 @@ These enhancements extend the base infrastructure. Tracked as separate stories u
 
 | PROD Key | Enhancement | Dependency |
 |----------|------------|------------|
-| TBD | Advanced Table Features: editable cells with pencil-on-hover, column reordering via drag-and-drop, saved filter presets per table | PROD-4128 must ship first |
-| TBD | Advanced Import/Export: import progress bar with row-level error reporting, import history timeline view, scheduled exports | PROD-4128 must ship first |
+| PROD-4449 | Advanced Table Features: editable cells with pencil-on-hover, column reordering via drag-and-drop, saved filter presets per table | Blocked by PROD-4128 |
+| PROD-4450 | Advanced Import/Export: import progress bar with row-level error reporting, import history timeline view, scheduled exports | Blocked by PROD-4128 |
 
 ## Out of Scope
 

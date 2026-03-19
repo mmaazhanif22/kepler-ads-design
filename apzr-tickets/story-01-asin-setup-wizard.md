@@ -171,8 +171,8 @@ These enhancements are tracked as separate stories under PROD-2180. They extend 
 |----------|------------|------------|
 | PROD-4390 | Notification Bell: full dropdown panel with history, clickable resume | This story benefits from it (Step 3 notify on completion) |
 | PROD-4391 | Wizard Edit Mode: re-enter wizard for launched ASINs | This story provides the base wizard flow |
-| TBD | Wizard Advanced Campaign Features: Auto Budget toggle, ASIN-Level Defaults grouping, bulk campaign select/enable/pause, per-campaign negative keywords, Pacing badges | PROD-4120 must ship first |
-| TBD | Wizard UX Enhancements: rich competitor tiles (price, velocity, rating, reviews), "Review Fetched Keywords" link between phases, 3 post-wizard navigation cards, ads toggle tip | PROD-4120 must ship first |
+| PROD-4447 | Wizard Advanced Campaign Features: Auto Budget toggle, ASIN-Level Defaults grouping, bulk campaign select/enable/pause, per-campaign negative keywords, Pacing badges | Blocked by PROD-4120 |
+| PROD-4448 | Wizard UX Enhancements: rich competitor tiles (price, velocity, rating, reviews), "Review Fetched Keywords" link between phases, 3 post-wizard navigation cards, ads toggle tip | Blocked by PROD-4120 |
 
 ## Test Cases
 
