@@ -53,6 +53,9 @@ As a seller, I want the advertising portal to have consistent, accessible UI pat
 - Export endpoints: `GET /amazon-ads/ad-campaign/export/`, `GET /amazon-ads/keywords-config/export/`, `POST /amazon-ads/search-terms/aggregated/export/`, `GET /amazon-ads/keyword-branding-scope/export/`, `GET /amazon-ads/bid-strategy-logs/export/`, and others.
 - Theme variables already defined in prototype CSS. Port directly.
 - Hash routing: listen for `hashchange`, map hash to view IDs, update on `navigate()`.
+- **Sequencing: this ticket must ship before PROD-4124, PROD-4125, and PROD-4126.** Those stories depend on the shared table, export, and modal patterns built here.
+
+**Related enhancement stories:** [PROD-4449](https://keplercommerce.atlassian.net/browse/PROD-4449) (Advanced Table Features), [PROD-4450](https://keplercommerce.atlassian.net/browse/PROD-4450) (Advanced Import/Export).
 
 # Out of Scope
 

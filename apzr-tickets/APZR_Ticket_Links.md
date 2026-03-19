@@ -114,5 +114,5 @@ PROD-4124 (KW Settings) + PROD-4125/4408 (ST Settings) + PROD-4126/4409/4410 (Ca
 PROD-4127/4411/4412 (Pacing/Bid Opt/Logs) -- depend on PROD-4120
     |
     v
-PROD-4123 (Dashboards) -- independent, check with Bilal
+PROD-4123 (Dashboards) -- independent
 ```

@@ -72,6 +72,8 @@ As a seller, I want a guided 5-step wizard for setting up ASIN advertising so th
 - KW Research async: frontend polls every 10s via `GET /api/amazon-ads/config/asin-config/{id}/` checking `kw_research_status`. When status=4, Phase 1 complete. Auto-trigger Phase 2.
 - Campaign Config API response (GET /api/amazon-ads/config/ad-campaign-config/?asin_id=X): id, asin, relevancy_tag, match_type, target_acos, daily_budget, ad_status, campaign_name (computed), campaign_strategy, custom_negative_keywords, target_spec, brand_group_name, nested asin_config object. Paginated: {count, next, results[]}.
 
+**Related enhancement stories:** [PROD-4390](https://keplercommerce.atlassian.net/browse/PROD-4390) (Notification Bell), [PROD-4391](https://keplercommerce.atlassian.net/browse/PROD-4391) (Wizard Edit Mode), [PROD-4447](https://keplercommerce.atlassian.net/browse/PROD-4447) (Advanced Campaign Features), [PROD-4448](https://keplercommerce.atlassian.net/browse/PROD-4448) (Wizard UX Enhancements).
+
 # Out of Scope
 
 - Bulk ASIN setup (PROD-4121: IBO)
