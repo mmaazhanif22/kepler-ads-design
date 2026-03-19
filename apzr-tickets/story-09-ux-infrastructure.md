@@ -1,6 +1,6 @@
 # UX Infrastructure & Accessibility
 
-> **Note:** This ticket should be re-typed as **Task** (not Story). It must be sequenced FIRST before PROD-4124, PROD-4125, and PROD-4126, as those stories depend on shared table, export, and modal patterns built here.
+> **Sequencing:** Must be completed before PROD-4124, PROD-4125, and PROD-4126, as those stories depend on shared table, export, and modal patterns built here.
 
 ## User Story
 
