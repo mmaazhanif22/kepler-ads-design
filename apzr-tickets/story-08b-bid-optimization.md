@@ -1,88 +1,57 @@
-# Bid Optimization (PROD-4411)
+# Bid Optimization
 
-## User Story
+# User Story
 
-As a seller, I want a bid optimization monitoring view that shows keyword-level bid changes with before/after values and optimization reasons, so that I can understand what the automated system is doing and override when needed.
+As a seller, I want a bid optimization monitoring view showing keyword-level bid changes with before/after values and reasons so that I can understand what the automated system is doing and override when needed.
 
-## Problem / Context
+# Problem / Context
 
-- Bid optimization is an automated system, but sellers need transparency into what changes are being made and why.
-- Without visibility into bid changes, sellers cannot validate whether the optimization algorithm is working correctly for their products.
-- Sellers need the ability to review and override automated bid decisions.
+- Bid optimization runs automatically in the backend. Bid change data exists (`GET /amazon-ads/keyword-bid-status/{id}/` for recommendations, `GET /amazon-ads/bid-strategy-logs/` for history) but is not surfaced in a dedicated view.
+- Sellers cannot see what bid changes the system made, when, or why. Without transparency, they cannot validate whether the algorithm is performing correctly for their products.
+- Bid editing exists in Keyword Settings, but there is no way to review automated decisions in context (previous bid, new bid, ACOS at time of change, optimization reason) and override from that context.
 
-## Existing vs. Net-New
+# Solution Outline
 
-| Area | Status | Notes |
-|------|--------|-------|
-| Bid change data | EXISTS | Bid optimization data exists in backend. `GET /amazon-ads/keyword-bid-status/{id}/` provides bid recommendations. |
-| Bid optimization dashboard UI | NEW | No dedicated bid optimization monitoring view exists. |
-| Bid override capability | EXISTS (rebuild) | Bid editing exists in KW Settings. Add override context to bid optimization view. |
-
-## Solution Outline
-
-**Bid Optimization Dashboard:**
-- Keyword-level bid changes displayed in a table.
+**Bid Optimization Table:**
 - Columns: Keyword, ASIN, Campaign, Previous Bid, Current Bid, Bid Delta, ACOS, Target ACOS, Optimization Reason.
-- Sellers can review what the optimization system has done and override if needed.
-- Filter by optimization date range, campaign, bid direction (increase/decrease).
+- Optimization Reason in human-readable text (e.g., "ACOS above target, bid reduced 10%").
+- Filter by: date range (7D/14D/30D/60D/90D), campaign, bid direction (increase/decrease).
+- Seller can override bids directly from this view via `PUT /amazon-ads/keywords-config/`.
+- Export bid optimization data as CSV.
 
-**UI Requirements:**
-- Mockup: [Prototype](https://mmaazhanif22.github.io/kepler-ads-design/ads-only.html) | Bid Optimization in sidebar
-- Date range presets (7D, 14D, 30D, 60D, 90D) for filtering optimization history.
+**Behavior flow:**
+1. Seller opens Bid Optimization > sees recent bid changes with old/new values and reasons.
+2. Seller filters by "Increased" > only bid increases shown.
+3. Seller overrides a bid > new value saved, reflected in Keyword Settings.
 
-## Sub-Tasks
+# Connected Work Items
 
-| # | Sub-Task | Exists / New | Backend Reference |
-|---|----------|-------------|-------------------|
-| 1 | **Bid optimization table** with keyword-level bid changes, before/after values, and optimization reasons | NEW (UI) / EXISTS (data) | `GET /amazon-ads/keyword-bid-status/{id}/` for bid recommendations. Bid change history from `GET /amazon-ads/bid-strategy-logs/`. |
-| 2 | **Filter controls** for date range, campaign, and bid direction (increase/decrease) | NEW | Client-side filtering on bid change data. Date params passed to GET endpoints. |
-| 3 | **Bid override** allowing sellers to manually adjust bids from the optimization view | EXISTS (rebuild) | `PUT /amazon-ads/keywords-config/` for bid updates. Same endpoint as Keyword Settings. |
+**Blocked By:** [PROD-4120](https://keplercommerce.atlassian.net/browse/PROD-4120) (campaigns and keywords must exist), [PROD-4124](https://keplercommerce.atlassian.net/browse/PROD-4124) (bid data flows from KW Settings)
+**Relates To:** [PROD-4127](https://keplercommerce.atlassian.net/browse/PROD-4127) (Pacing), [PROD-4412](https://keplercommerce.atlassian.net/browse/PROD-4412) (bid changes in log)
 
-## Backend References
+# Implementation Notes
 
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/amazon-ads/keyword-bid-status/{id}/` | GET | Bid recommendations and status per keyword |
-| `/amazon-ads/bid-strategy-logs/` | GET | Bid strategy change history |
-| `/amazon-ads/bid-strategy-logs/export/` | GET | Export bid strategy logs as CSV |
-| `/amazon-ads/keywords-config/` | PUT | Override bid value for a keyword |
-| `/amazon-ads/bidding/analytics/rules/effectiveness/` | GET | Bid rule effectiveness analytics |
-| `/amazon-ads/bidding/analytics/dashboard/summary/` | GET | Bidding analytics summary |
+- Bid recommendations: `GET /amazon-ads/keyword-bid-status/{id}/`. Bid history: `GET /amazon-ads/bid-strategy-logs/`. Export: `GET /amazon-ads/bid-strategy-logs/export/`.
+- Bid override: `PUT /amazon-ads/keywords-config/`. Same endpoint as Keyword Settings bid editing.
+- Bid rule effectiveness: `GET /amazon-ads/bidding/analytics/rules/effectiveness/`. Dashboard summary: `GET /amazon-ads/bidding/analytics/dashboard/summary/`.
+- Optimization Reason should be derived from the bid strategy log, translated to human-readable format.
 
-## Connected Work Items
+# Test Cases
 
-**Blocks:** None.
-**Is Blocked By:** PROD-4120 (Wizard), campaigns and keywords must exist. PROD-4124 (KW Settings), bid data flows from keyword settings.
-**Relates To:** PROD-4127 (Pacing Management). PROD-4412 (Config Change Log), bid changes appear in log. PROD-4124 (KW Settings), bid changes reflect in keyword settings.
+1. Seller opens Bid Optimization. Recent bid changes shown with old/new values and reasons.
+2. Seller filters by "Increased". Only bid increases shown.
+3. Seller filters by specific campaign. Only that campaign's changes shown.
+4. Seller overrides a bid. New value saved, reflected in Keyword Settings.
+5. Seller exports bid data. CSV includes all visible columns.
 
-## Implementation Notes
+# Acceptance Criteria
 
-- Bid optimization data comes from the automated bidding system's decision log.
-- Override capability uses the same endpoint as Keyword Settings bid editing.
-- Optimization Reason should be human-readable (e.g., "ACOS above target, bid reduced 10%").
-
-## Out of Scope
-
-- Pacing management (covered by PROD-4127)
-- Config change log (covered by PROD-4412)
-- Automatic bid optimization algorithm (backend concern)
-- Custom report builder or scheduled report delivery
-
-## Test Cases
-
-- Seller opens Bid Optimization. Sees recent bid changes with old/new values and reasons.
-- Seller filters bid changes by "Increased". Only bid increases shown.
-- Seller filters by campaign "NBH1-SPKW-PB01-US-S-B09L4KWX6Q-E-KW". Only that campaign's bid changes shown.
-- Seller overrides a bid from the optimization view. New bid saved, reflected in Keyword Settings.
-- Seller changes date range to 30D. Table updates to show last 30 days of bid changes.
-- Seller exports bid optimization data. CSV includes all visible columns.
-
-## Acceptance Criteria
-
-- [ ] Bid Optimization view shows keyword-level bid changes with old/new values and reasons
-- [ ] Filters available for date range, campaign, and bid direction (increase/decrease)
-- [ ] Seller can override automated bid decisions from this view
+- [ ] Bid changes shown with old/new values and human-readable reasons
+- [ ] Filters for date range, campaign, bid direction (increase/decrease)
+- [ ] Seller can override automated bids from this view
 - [ ] Export available for bid optimization data
-- [ ] Date range presets (7D, 14D, 30D, 60D, 90D) filter optimization history
+- [ ] Date range presets (7D-90D)
 - [ ] Tests passed (unit + integration)
-- [ ] UI matches approved mockup
+- [ ] UI matches prototype
+
+Prototype: https://mmaazhanif22.github.io/kepler-ads-design/ads-only.html

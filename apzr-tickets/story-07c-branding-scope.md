@@ -1,92 +1,59 @@
-# Branding Scope (PROD-4410)
+# Branding Scope
 
-## User Story
+# User Story
 
-As a seller, I want to classify keyword brand relationships (Non-Branded, Own Brand, Competitor Branded) with relationship types, so that keywords are automatically assigned to the correct campaign type following the Kepler naming convention.
+As a seller, I want to classify keyword brand relationships (Non-Branded, Own Brand, Competitor Branded) with relationship types so that keywords are automatically assigned to the correct campaign type following the Kepler naming convention.
 
-## Problem / Context
+# Problem / Context
 
-- The Branding Scope feature (NB/OB/CB classification) is essential for the Kepler campaign naming convention but lacks a dedicated management interface in the redesign.
-- Correct brand classification drives which campaign type (NB/OBH/CB) a keyword belongs to.
-- Sellers need to review and override auto-classified branding scope values.
+- The Kepler campaign naming convention relies on NB/OB/CB classification to determine which campaign type a keyword belongs to. The `KeywordBrandingScope` model and GET/PUT endpoints exist, but there is no dedicated management interface in the redesign.
+- Branding scope values are auto-classified by the backend, but sellers have no way to review or override classifications without direct API calls or CSV uploads.
+- Without a visible Branding Scope table, sellers cannot verify that keywords are assigned to the correct campaign types.
 
-## Existing vs. Net-New
-
-| Area | Status | Notes |
-|------|--------|-------|
-| Branding Scope data | EXISTS (rebuild) | `KeywordBrandingScope` model exists. GET/PUT endpoints exist. Rebuild as dedicated table with inline dropdowns. |
-| Branding Scope import/export | EXISTS (rebuild) | Export: `GET /amazon-ads/keyword-branding-scope/export/`. Import: `POST /amazon-ads/upload-file` type=kw-branding-scope. CSV: ASIN, Keyword, Branding Scope, Relationship. |
-| Relationship dropdown | EXISTS (rebuild) | Relationship values (N/R/S/C) exist in model. Rebuild as inline editable dropdown. |
-
-## Solution Outline
+# Solution Outline
 
 **Branding Scope Table:**
-- Columns: Keyword, Branding Scope (NB/OB/CB), Relationship (N/R/S/C), Logs, Actions.
-- Branding Scope dropdown values: NB (Non-Branded), OB (Own Brand), CB (Competitor Branded).
-- Relationship dropdown values: N (Neutral), R (Related), S (Substitute), C (Complementary).
-- Inline editable dropdowns.
-- Branding classification drives which campaign type (NB/OBH/CB) a keyword belongs to.
-- Bulk import/export with 4-column CSV: ASIN, Keyword, Branding Scope, Relationship.
+- Columns: Keyword, Branding Scope (NB/OB/CB dropdown), Relationship (N/R/S/C dropdown), Logs, Actions.
+- NB = Non-Branded, OB = Own Brand, CB = Competitor Branded.
+- N = Neutral, R = Related, S = Substitute, C = Complementary.
+- Inline editable dropdowns. Classification changes feed into campaign naming (NB/OBH/CB prefix).
+- Bulk import/export: 4-column CSV (ASIN, Keyword, Branding Scope, Relationship).
+- Logs column shows classification change history per keyword.
 
-**UI Requirements:**
-- Mockup: [Prototype](https://mmaazhanif22.github.io/kepler-ads-design/ads-only.html) | Branding Scope accessible from Manage Ads
-- Branding Scope dropdowns match portal values exactly.
+**Behavior flow:**
+1. Seller opens Branding Scope > sees keyword table with current classifications.
+2. Seller changes keyword from NB to CB via dropdown > campaign assignment updates.
+3. Seller imports 4-column CSV > system validates and applies changes.
 
-## Sub-Tasks
+# Connected Work Items
 
-| # | Sub-Task | Exists / New | Backend Reference |
-|---|----------|-------------|-------------------|
-| 1 | **Branding Scope table** with 5 columns, inline editable NB/OB/CB and N/R/S/C dropdowns | EXISTS (rebuild) | `GET /amazon-ads/keyword-branding-scope` for data. `PUT /amazon-ads/keyword-branding-scope` for updates. |
-| 2 | **Bulk import/export** with 4-column CSV (ASIN, Keyword, Branding Scope, Relationship) | EXISTS (rebuild) | Export: `GET /amazon-ads/keyword-branding-scope/export/`. Import: `POST /amazon-ads/upload-file` type=kw-branding-scope. |
-| 3 | **Logs column** showing classification change history per keyword | NEW | Change log derived from branding scope update history. |
+**Blocked By:** [PROD-4120](https://keplercommerce.atlassian.net/browse/PROD-4120) (keywords must exist), [PROD-4409](https://keplercommerce.atlassian.net/browse/PROD-4409) (keywords discovered through research)
+**Relates To:** [PROD-4126](https://keplercommerce.atlassian.net/browse/PROD-4126) (branding scope drives campaign naming)
 
-## Backend References
+# Implementation Notes
 
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/amazon-ads/keyword-branding-scope` | GET | Retrieve all keywords with branding scope data |
-| `/amazon-ads/keyword-branding-scope` | PUT | Update branding scope and relationship for keywords |
-| `/amazon-ads/keyword-branding-scope/export/` | GET | Export branding scope as CSV |
-| `/amazon-ads/upload-file` (type=kw-branding-scope) | POST | Import branding scope CSV (4 columns: ASIN, Keyword, Branding Scope, Relationship) |
+- Current data: `GET /amazon-ads/keyword-branding-scope` for keyword branding data. `PUT /amazon-ads/keyword-branding-scope` for updates.
+- Export: `GET /amazon-ads/keyword-branding-scope/export/`. Import: `POST /amazon-ads/upload-file` type=kw-branding-scope.
+- Model: `KeywordBrandingScope`. Prompt Type: BRANDING_SCOPE=1.
+- Dropdown values must match portal exactly. Classification changes should trigger campaign reassignment logic.
 
-**Model:** `KeywordBrandingScope`
-**Prompt Type:** BRANDING_SCOPE=1
+# Test Cases
 
-## Connected Work Items
+1. Seller opens Branding Scope. Table shows Keyword, Branding Scope, Relationship, Logs, Actions.
+2. Seller sets keyword "lavender oil" to NB, Relationship N. Saves.
+3. Seller changes keyword from NB to CB. Campaign assignment updates.
+4. Seller imports 4-column CSV. System validates and applies.
+5. Logs column shows change history for a keyword.
 
-**Blocks:** None.
-**Is Blocked By:** PROD-4120 (Wizard), keywords must exist. PROD-4409 (Keyword Research), keywords discovered through research.
-**Relates To:** PROD-4126 (Campaign List & Config), branding scope drives campaign naming. PROD-4121 (IBO), bulk launch uses branding scope for campaign structure.
+# Acceptance Criteria
 
-## Implementation Notes
-
-- Branding Scope classifications feed into the campaign naming convention (NB/OBH/CB prefix).
-- Dropdown values must match portal exactly: NB, OB, CB for scope. N, R, S, C for relationship.
-- Bulk import/export uses 4 columns: ASIN, Keyword, Branding Scope, Relationship.
-
-## Out of Scope
-
-- Campaign list and config (covered by PROD-4126)
-- Keyword research and discovery (covered by PROD-4409)
-- Keyword bid management (covered by PROD-4124)
-- Auto-classification algorithm (backend concern)
-
-## Test Cases
-
-- Seller opens Branding Scope. Sees table with Keyword, Branding Scope, Relationship, Logs, Actions columns.
-- Seller sets keyword "lavender oil" to NB, Relationship N. Saves successfully.
-- Seller changes keyword from NB to CB. Campaign assignment updates accordingly.
-- Seller imports 4-column CSV. System validates and applies branding scope changes.
-- Seller exports branding scope. CSV includes ASIN, Keyword, Branding Scope, Relationship.
-- Logs column shows history of classification changes for a keyword.
-
-## Acceptance Criteria
-
-- [ ] Branding Scope table supports NB/OB/CB and N/R/S/C dropdown values matching portal
-- [ ] Inline editable dropdowns save changes immediately
-- [ ] Branding classifications feed into campaign naming convention
-- [ ] Bulk import/export uses 4-column CSV format (ASIN, Keyword, Branding Scope, Relationship)
+- [ ] Table supports NB/OB/CB and N/R/S/C dropdown values matching portal
+- [ ] Inline dropdowns save changes immediately
+- [ ] Classifications feed into campaign naming convention
+- [ ] Bulk import/export uses 4-column CSV
 - [ ] Logs column shows classification change history
-- [ ] Table supports sorting, filtering, pagination, and export
+- [ ] Sorting, filtering, pagination, export
 - [ ] Tests passed (unit + integration)
-- [ ] UI matches approved mockup
+- [ ] UI matches prototype
+
+Prototype: https://mmaazhanif22.github.io/kepler-ads-design/ads-only.html

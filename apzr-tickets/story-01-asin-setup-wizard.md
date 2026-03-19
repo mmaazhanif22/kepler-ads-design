@@ -1,263 +1,105 @@
 # ASIN Advertising Setup Wizard
 
-## User Story
+# User Story
 
-As a seller, I want a guided step-by-step wizard that walks me through the complete ASIN advertising setup, so that I can configure and launch ad campaigns for any product without needing to understand the full advertising system upfront.
+As a seller, I want a guided 5-step wizard for setting up ASIN advertising so that I can launch campaigns without navigating disconnected configuration pages.
 
-## Problem / Context
+# Problem / Context
 
-- Setting up advertising for a new ASIN requires configuring multiple interdependent settings: product selection, competitor research, keyword research, campaign structure, and launch parameters.
-- Currently, sellers must navigate multiple disconnected screens to complete a setup, leading to incomplete configurations and support requests.
-- New sellers especially struggle to understand which settings matter and in what order they should be configured.
-- There is no guided flow that ensures all required steps are completed before campaigns go live.
-- Automated Keyword Research (Step 3) takes approximately 20 minutes to complete. Sellers need to be notified when it finishes so they can leave the page and return later.
+- Setting up advertising for a new ASIN requires configuring multiple interdependent settings across separate pages: product selection, competitor research, keyword research, campaign structure, and launch parameters.
+- Sellers navigate to ASIN Config, then a sub-tab for competitors, then trigger KW research manually, then configure campaigns on yet another page. There is no enforced order or completion tracking.
+- Automated Keyword Research takes approximately 20 minutes. There is no notification when it finishes, so sellers must manually poll the page.
+- New sellers do not know which settings matter or in what order to configure them. Support requests are frequent.
+- There is no way to resume a partially completed setup. Closing the page loses all progress.
 
-## Existing vs. Net-New
+# Solution Outline
 
-| Step | Status | Notes |
-|------|--------|-------|
-| Step 1: Product Selection | EXISTS (rebuild) | ASIN Config page exists. Rebuild as wizard step with Target ACOS, Auto Pacing, Bid Ceiling. |
-| Step 2: Automated Competitor Research | EXISTS (rebuild) | Competitor ASIN entry exists in current flow. Elevate from sub-tab to dedicated step with validation. |
-| Step 3: Automated Keyword Research | EXISTS (rebuild) | KW Research trigger exists (`POST /amazon-ads/approve-kw-stage`). Rebuild with Phase 1 Fetching + Phase 2 Analysis progress UI, notification bell integration. |
-| Step 4: Campaign Config | NEW | New unified campaign config step. Auto Budget toggle, ASIN-Level Defaults, bulk select/enable, per-campaign neg KWs, Pacing badges. |
-| Step 5: Activate | NEW | New launch confirmation step with non-technical Bid Opt text, ads toggle note, 3 nav cards. |
-| Wizard Edit Mode | NEW | Re-entry to edit specific steps for launched ASINs. |
-| Notification Bell | NEW | Dynamic notifications for background process completion. |
+**5-step modal wizard overlay:**
+- Wizard opens over the main portal content. Not a routed page. State stored in an Angular service with localStorage backup for resume.
+- Progress indicator at the top showing current step and completion state.
 
-## Solution Outline
+**Step 1 - Product Selection:**
+- Seller selects ASIN from product catalog. Sets Target ACOS (required, no default). Optional: Auto Pacing toggle, Bid Ceiling field.
+- Data: `GET /api/amazon-ads/config/asin-config/` for ASIN list. `PUT /api/amazon-ads/config/asin-config/` to save.
 
-A 5-step wizard overlay that guides the seller through the full ASIN advertising setup process. The wizard opens as a modal dialog over the main portal content.
+**Step 2 - Automated Competitor Research:**
+- Seller enters competitor ASINs. System validates they exist on the marketplace. Multiple competitors supported.
+- Data: `GET /analytics/search_terms/competitor_asins` for existing competitor data. Competitors saved to `AdvertisingAsinConfig.competitor_asins` (SafeJSONField).
 
-**Step 1: Product Selection**
-- Seller selects which ASIN to set up from their product catalog.
-- Seller sets a Target ACOS (no default value, must be set explicitly).
-- Optional: Auto Pacing toggle to automatically pause/resume campaigns based on daily spend targets.
-- Optional: Bid Ceiling field as a maximum bid safety cap.
-- Both optional fields clearly labeled as "Optional" or "Conditional".
+**Step 3 - Automated Keyword Research:**
+- Phase 1 (Fetching) triggers via `POST /api/amazon-ads/approve-kw-stage` with `prompt_type=1`. Phase 2 (Analysis) auto-triggers with `prompt_type=2`, then `prompt_type=3`.
+- Frontend polls `kw_research_status` on the ASIN config endpoint. Status values: 1=Insufficient Data, 2=Ready, 3=In Progress, 4=Pending Review, 5=Submitted.
+- On completion, auto-advances to Step 4. If seller navigated away, Notification Bell fires an alert so they can return.
 
-**Step 2: Automated Competitor Research**
-- Elevated from a sub-tab to a dedicated wizard step.
-- Seller enters competitor ASINs for the selected product.
-- System validates competitor ASINs exist on the marketplace.
-- Sellers can add multiple competitors to inform keyword and targeting strategies.
+**Step 4 - Campaign Config:**
+- System displays dynamically generated campaigns in 3 sections: SPKW (1 per keyword group per match type), SPAU (4 auto-targeting campaigns), SPAS (1 per competitor brand).
+- Campaign count varies per ASIN. Generation logic: `CampaignService.create_campaigns()` using `KwResearchGroupRank` groups and `AdvertisingCampaignConfig` match type settings.
+- Auto Budget toggle, ASIN-Level Defaults, bulk select/enable, per-campaign negative keywords, Pacing badges.
+- Campaign names follow Kepler convention (`NBH1-SPKW-PB01-{Country}-S-{ASIN}-{Match}-KW`), system-generated and read-only.
+- Listing Quality Score panel shows quality gauge from `GET /api/amazon-ads/attribute-ranking?asin=<id>`.
 
-**Step 3: Automated Keyword Research**
-- Merges the previous "KW Research" and "Keyword Automation" steps into a single step.
-- **Phase 1 (Fetching):** System triggers keyword data collection from marketplace sources.
-- **Phase 2 (Analysis):** System processes, groups, and ranks the fetched keywords.
-- Animated progress indicator shows research status for both phases.
-- On completion, system auto-advances to Step 4.
-- **Notification on Completion:** When research finishes, the system adds a notification to the Notification Bell (e.g., "Automated Keyword Research complete for {ASIN}: 156 keywords found. Ready for review.") so the seller is alerted even if they navigated away during the ~20-minute research period.
-- If the seller stays on the wizard, auto-advance to Step 4 still occurs as normal.
-- If the seller navigated away, they can return to the wizard via the notification or Manage Ads resume flow.
-
-**Step 4: Campaign Config**
-- System displays dynamically generated campaigns organized in 3 sections:
-  - SPKW (manual keyword campaigns): 1 campaign per keyword group per enabled match type. Count depends on how many groups KW Research produced and which match types are selected.
-  - SPAU (auto-targeting campaigns): Close Match, Loose Match, Substitutes, Complements. Created when auto-targeting is enabled.
-  - SPAS (product targeting campaigns): 1 per competitor brand identified in Step 2. Count depends on number of unique competitor brands.
-- Campaign count varies per ASIN based on keyword research results, branding scope configuration (NB/OB/CB), and match type selection. The generation logic is in `CampaignService.create_campaigns()` using `KwResearchGroupRank` groups and `AdvertisingCampaignConfig` match type settings.
-- Each campaign row shows: Type, Targeting strategy, keyword count, search volume, and an Optimize toggle.
-- **Auto Budget toggle**: system calculates recommended daily budgets based on keyword volume and Target ACOS.
-- **ASIN-Level Defaults**: sellers can set defaults that apply across all campaigns for this ASIN.
-- **Bulk select/enable**: checkbox column for bulk-enabling or disabling campaigns.
-- **Per-campaign Negative Keywords**: each campaign row allows adding campaign-specific negative keywords.
-- **Pacing badges**: visual indicators showing projected pacing status per campaign.
-- Campaign names follow the Kepler naming convention and are system-generated (not editable by the seller).
-- Listing Quality Score panel shows a score gauge and per-dimension quality bars.
-
-**Step 5: Activate**
-- Non-technical Bid Optimization explanation text (seller-friendly language, no engineering jargon).
-- Ads toggle note explaining what enabling/disabling ads does post-launch.
-- Pre-launch checklist shows all completed items with green checkmarks.
-- Optional skipped items (Bid Ceiling, Negative Keywords) shown with amber indicators.
-- Single "Complete Setup" button to activate campaigns.
-- **3 navigation cards** after completion: go to Manage Ads, go to Keyword Settings, go to Search Term Settings.
+**Step 5 - Activate:**
+- Non-technical Bid Optimization explanation. Ads toggle note. Pre-launch checklist with green/amber indicators for completed/skipped items.
+- "Complete Setup" button activates campaigns via `AdvertisingCampaignConfigService.bulk_update()`.
+- 3 navigation cards after completion: Manage Ads, Keyword Settings, Search Term Settings.
 
 **Wizard Edit Mode:**
-- Sellers who have already launched an ASIN can re-enter the wizard to edit specific steps.
-- An "Edit" button appears next to launched ASINs in the ASIN Config table.
-- Edit menu offers direct navigation to: Competitors (Step 2), Automated Keyword Research (Step 3), Campaigns (Step 4), or Activate Settings (Step 5).
-- Wizard shows an "Edit Mode" indicator when editing a previously launched ASIN.
-- All previously saved settings are pre-populated when editing.
+- Launched ASINs show "Edit" button in ASIN Config table. Edit menu offers direct navigation to Steps 2-5.
+- "Edit Mode" indicator shown. All previously saved settings pre-populated.
 
-**Notification Bell Integration:**
-- The portal header includes a Notification Bell with a dropdown panel.
-- Notifications are added dynamically when background processes complete (e.g., Automated Keyword Research).
-- Each notification shows: icon, message, timestamp, and unread indicator.
-- Bell badge shows unread count. "Mark all read" clears all unread indicators.
-- Notification types: success (green), warning (amber), info (blue), error (red).
-- Bell icon pulses briefly when a new notification arrives.
+**Behavior flow:**
+1. Seller clicks "ASIN Launch" in sidebar > wizard modal opens at Step 1.
+2. Seller selects ASIN, sets Target ACOS > clicks Next > Step 2 loads.
+3. Seller enters competitor ASINs > clicks Next > Step 3 auto-triggers research.
+4. Research completes (~20 min) > wizard auto-advances to Step 4. If seller left, Notification Bell alerts them.
+5. Seller reviews generated campaigns, adjusts budgets > clicks Next > Step 5 shows checklist.
+6. Seller clicks "Complete Setup" > campaigns activate on Amazon.
 
-**UI Requirements:**
-- Mockup: [Prototype: ASIN Setup Wizard](https://mmaazhanif22.github.io/kepler-ads-design/ads-only.html) (open wizard from sidebar "ASIN Launch")
-- Wizard opens as a modal overlay with backdrop.
-- Progress indicator shows current step and completion status.
-- "Back" and "Next" navigation between steps.
-- Discard confirmation when closing wizard with unsaved changes.
-- Accessible: screen reader announces step changes, focus management on open/close.
+# Connected Work Items
 
-## Sub-Tasks
+**Blocks:** [PROD-4124](https://keplercommerce.atlassian.net/browse/PROD-4124), [PROD-4125](https://keplercommerce.atlassian.net/browse/PROD-4125) (wizard creates config these views manage)
+**Relates To:** [PROD-4121](https://keplercommerce.atlassian.net/browse/PROD-4121) (IBO, the bulk equivalent), [PROD-4122](https://keplercommerce.atlassian.net/browse/PROD-4122) (Manage Ads, alternative entry point)
 
-| # | Sub-Task | Exists / New | Backend Reference |
-|---|----------|-------------|-------------------|
-| 1 | **Step 1: Product Selection** with Target ACOS, Auto Pacing toggle, Bid Ceiling | EXISTS (rebuild) | `GET /amazon-ads/asin-config/` for ASIN list. `PUT /amazon-ads/asin-config/` to save settings. |
-| 2 | **Step 2: Automated Competitor Research** with ASIN validation and multi-competitor entry | EXISTS (rebuild) | `GET /analytics/search_terms/competitor_asins` for competitor data. Validation via Amazon catalog API. |
-| 3 | **Step 3: Automated Keyword Research** with Phase 1 + Phase 2 progress, notification bell | EXISTS (rebuild) | `POST /amazon-ads/approve-kw-stage` to trigger research. `POST /amazon-ads/reset-kw-stage` to reset. Stage status model: PENDING(0), IN_QUEUE(1), RECEIVED(2), APPROVED(3), FAILED(4). |
-| 4 | **Step 4: Campaign Config** with Auto Budget, ASIN-Level Defaults, bulk select, per-campaign neg KWs, Pacing badges | NEW | Campaign creation: RabbitMQ consumer `advertising_create_campaign` triggers `CampaignService.create_campaigns()`. Neg KWs: `CustomNegativeKeywordsManager`. |
-| 5 | **Step 5: Activate** with non-technical Bid Opt text, ads toggle note, 3 nav cards | NEW | Campaign activation via `AdvertisingCampaignConfigService.bulk_update()`. |
-| 6 | **Wizard Edit Mode**: re-entry for launched ASINs with step-specific navigation | NEW | Same endpoints as Steps 1-5. Pre-populate from existing ASIN config data. |
-| 7 | **Notification Bell**: dynamic notification dropdown with unread count and bell pulse | NEW | Backend event queue for notification state (new endpoint needed, or client-side polling of stage status). |
+# Implementation Notes
 
-**Separate Stories (not sub-tasks of this story):**
-- **Listing Quality Score panel** (Step 4): depends on `GET /amazon-ads/attribute-ranking?asin=<id>`. Can be delivered independently.
-- **Wizard progress persistence / resume**: auto-save and resume flow for interrupted wizards. Requires new backend state storage.
-
-## Backend References
-
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/amazon-ads/asin-config/` | GET | Retrieve ASIN list and existing config |
-| `/amazon-ads/asin-config/` | PUT | Save ASIN configuration (Target ACOS, Bid Ceiling, Auto Pacing) |
-| `/amazon-ads/approve-kw-stage` | POST | Trigger keyword research for an ASIN (`{asin_id, prompt_type}`) |
-| `/amazon-ads/reset-kw-stage` | POST | Reset keyword research stage (`{asin_id, check_only, confirm_external}`) |
-| `/analytics/search_terms/competitor_asins` | GET | Competitor ASIN data (clickShare, conversionShare, searchFrequencyRank) |
-| `/analytics/search_terms/competitor_brands` | GET | Competitor brand data |
-| `/amazon-ads/attribute-ranking` | GET | Listing attributes for quality score (`?asin=<id>`) |
-| `/amazon-ads/attribute-ranking` | PUT | Update listing attribute rankings |
-| `advertising_create_campaign` (RabbitMQ) | Consumer | Batch campaign creation via `CampaignService.create_campaigns()` |
-| `/amazon-ads/ad-campaign-config/` | GET/PUT | Campaign config CRUD |
-| `AdvertisingCampaignConfigService.bulk_update()` | Service | Bulk campaign config updates with validation and duplicate detection |
-
-**Models:** `KeywordResearchAutomationBatch` (table: `amazon_ads.kw_rs_batch`), `KeywordResearchAutomationBatchHistory`, `KeywordBrandingScope`, `AttributeRanking`, `KwResearchGroupRank`
-
-**Stage Status Enum:** PENDING(0), IN_QUEUE(1), RECEIVED(2), APPROVED(3), FAILED(4)
-
-**Prompt Types:** BRANDING_SCOPE=1, ATTRIBUTES_RANKING=2, GROUPING_RANKING=3
-
-## Connected Work Items
-
-**Blocks:** PROD-4124 (Keyword Settings), PROD-4125 (Search Term Settings). Wizard creates the initial configuration that these views manage.
-**Is Blocked By:** None. This is the primary entry point for ASIN advertising setup.
-**Relates To:** PROD-4121 (IBO), the bulk equivalent of this single-ASIN wizard. PROD-4122 (Manage Ads), which provides an alternative entry point to the wizard.
-
-The wizard is foundational. It must be delivered before sellers can set up advertising for individual ASINs.
-
-## Implementation Notes
-
-- The wizard must support both "new setup" and "edit existing" modes.
-- Step 3 auto-research should show real-time progress and auto-advance.
-- Step 3 must fire a notification to the Notification Bell when research completes, so sellers who navigate away during the ~20-minute research window are alerted when results are ready.
-- Campaign naming follows the Kepler convention: `{Type}H1-SPKW-PB01-{Country}-S-{ASIN}-{Match}-KW`
-- Campaign names are read-only in the UI (system-generated).
-- The wizard must save progress so sellers can resume if they close it.
-- Negative Keywords scope selector applies negatives to the selected campaign subset.
-- Listing Quality Score is calculated from product listing attributes (title, bullets, images, etc.).
-- The wizard is for single-ASIN setup only. Bulk operations use the IBO (PROD-4121).
-
-## Out of Scope
-
-- Bulk ASIN setup (covered by PROD-4121: IBO)
-- Post-launch campaign performance monitoring (covered by PROD-4123: Dashboards)
-- Keyword bid adjustments after launch (covered by PROD-4124: Keyword Settings)
-- Search term harvesting and negative keyword management post-launch (covered by PROD-4125: Search Term Settings)
-- Campaign budget pacing (covered by PROD-4127: Pacing Management)
-
-## Related Enhancement Stories
-
-These enhancements are tracked as separate stories under PROD-2180. They extend the wizard but are not required for the core flow to ship.
-
-| PROD Key | Enhancement | Dependency |
-|----------|------------|------------|
-| PROD-4390 | Notification Bell: full dropdown panel with history, clickable resume | This story benefits from it (Step 3 notify on completion) |
-| PROD-4391 | Wizard Edit Mode: re-enter wizard for launched ASINs | This story provides the base wizard flow |
-| PROD-4447 | Wizard Advanced Campaign Features: Auto Budget toggle, ASIN-Level Defaults grouping, bulk campaign select/enable/pause, per-campaign negative keywords, Pacing badges | Blocked by PROD-4120 |
-| PROD-4448 | Wizard UX Enhancements: rich competitor tiles (price, velocity, rating, reviews), "Review Fetched Keywords" link between phases, 3 post-wizard navigation cards, ads toggle tip | Blocked by PROD-4120 |
-
-## Engineering Notes
-
-**Codebase Starting Points:**
-- Product selection: `client/src/app/features/amazon-ads/add-product/select/` (ProductSelectionComponent). Currently a standalone page at route `/add-product/select`. Needs to be wrapped inside the wizard modal.
+- Current component: `ProductSelectionComponent` at `client/src/app/features/amazon-ads/add-product/select/`. Currently a standalone page. Wrap inside new `WizardDialogComponent` modal overlay.
 - Competitor storage: `AdvertisingAsinConfig.competitor_asins` (SafeJSONField) at `apps/amazon_ads/models/config.py:62`. Save via PUT `/api/amazon-ads/config/asin-config/{id}/`.
-- KW Research trigger: `apps/amazon_ads/api/views/entity_views.py` (KwResearchApprovedApiViewV at line 1532). Approval endpoint: POST `/api/amazon-ads/approve-kw-stage` with body `{asin_id: int, prompt_type: int}`.
-- Campaign creation: `apps/amazon_ads/applications/campaigns/services/campaign_creation/orchestrator.py`. Triggered via RabbitMQ consumer `advertising_create_campaign`.
-- Campaign naming: `apps/amazon_ads/managers/utils.py:116` (`get_campaign_name()`). Pattern: `{relevancy_tag_id}-{ad_type}-{brand_code}-XX-S-{ASIN}-{match}-{suffix}`.
+- KW Research trigger: `KwResearchApprovedApiViewV` at `apps/amazon_ads/api/views/entity_views.py:1532`. POST `/api/amazon-ads/approve-kw-stage` with `{asin_id, prompt_type}`.
+- Campaign creation: `CampaignCreationOrchestrator` at `apps/amazon_ads/applications/campaigns/services/campaign_creation/orchestrator.py`. Triggered via RabbitMQ consumer `advertising_create_campaign`.
+- Campaign naming: `get_campaign_name()` at `apps/amazon_ads/managers/utils.py:116`. Pattern: `{relevancy_tag_id}-{ad_type}-{brand_code}-XX-S-{ASIN}-{match}-{suffix}`.
+- Wizard state: store in Angular service, persist draft to localStorage on each step transition. Clear on "Complete Setup".
+- Stage Status Enum: PENDING(0), IN_QUEUE(1), RECEIVED(2), APPROVED(3), FAILED(4). Prompt Types: BRANDING_SCOPE=1, ATTRIBUTES_RANKING=2, GROUPING_RANKING=3.
+- KW Research async: frontend polls every 10s via `GET /api/amazon-ads/config/asin-config/{id}/` checking `kw_research_status`. When status=4, Phase 1 complete. Auto-trigger Phase 2.
 
-**Campaign Generation Logic (Step 4):**
-Campaign count is dynamic, not fixed. The system generates campaigns based on:
-- `KwResearchGroupRank` groups (1 SPKW campaign per group per enabled match type)
-- Auto-targeting: 4 SPAU campaigns if auto-targeting enabled (Close Match, Loose Match, Substitutes, Complements)
-- Competitor brands: 1 SPAS campaign per unique brand from Step 2 competitors
-- Generation code: `CampaignService.create_campaigns()` in `apps/amazon_ads/applications/campaigns/services/`
+# Out of Scope
 
-**Wizard State Management:**
-The wizard is a modal overlay, not a routed page. Recommended approach:
-- Store wizard state in an Angular service (not NgRx, since it's a temporary modal flow)
-- Persist draft to localStorage on each step transition so users can resume if they close the browser
-- On "Complete Setup", clear localStorage draft and POST to `/api/amazon-ads/products/save-selection/`
-- Step completion tracking: maintain a `completedSteps: Set<number>` in the service. Only allow forward navigation to the next uncompleted step.
+- Bulk ASIN setup (PROD-4121: IBO)
+- Post-launch keyword bid adjustments (PROD-4124)
+- Post-launch search term management (PROD-4125)
 
-**KW Research Async Flow:**
-- Step 3 triggers research via POST `/api/amazon-ads/approve-kw-stage` with `prompt_type=1` (Phase 1)
-- Backend queues a Celery task via RabbitMQ (`keyword_research_automation` queue)
-- Frontend polls `GET /api/amazon-ads/config/asin-config/{id}/` checking `kw_research_status` field
-- Status values: 1=Insufficient Data, 2=Ready, 3=In Progress, 4=Pending Review, 5=Submitted
-- When status reaches 4 (Pending Review), Phase 1 is complete. Auto-trigger Phase 2 by calling approve with `prompt_type=2`, then `prompt_type=3`.
+# Test Cases
 
-**API Response Shape (Campaign Config - Step 4):**
-GET `/api/amazon-ads/config/ad-campaign-config/?asin_id={id}` returns:
-```json
-{
-  "results": [
-    {
-      "id": 123,
-      "campaign_name": "NBH1-SPKW-PB01-US-S-B09L4KWX6Q-E-KW",
-      "match_type": "exact",
-      "target_acos": 35.0,
-      "daily_budget": 5.00,
-      "ad_status": 1,
-      "relevancy_tag_id": 5,
-      "custom_negative_keywords": ["free", "wholesale"]
-    }
-  ]
-}
-```
+1. Seller opens wizard, selects ASIN, completes all 5 steps. Campaigns created on Amazon.
+2. Seller sets Target ACOS to 35%, enables Auto Pacing, sets Bid Ceiling to $3.00. All values saved correctly.
+3. Step 3 auto-triggers research. Progress shows Phase 1 then Phase 2. Auto-advances to Step 4.
+4. Seller navigates away during Step 3. Notification bell fires "KW Research complete". Seller clicks notification, returns to Step 4.
+5. Step 4 shows campaigns in SPKW/SPAU/SPAS sections. Seller toggles Auto Budget. Budgets populate.
+6. Seller closes wizard with unsaved changes. Discard confirmation appears.
+7. Seller clicks "Edit" on launched ASIN. Wizard opens in edit mode with pre-populated data.
+8. Step 5 shows 3 navigation cards after completion.
 
-**Error Handling:**
-- If KW Research fails (status=4 with error): show error toast, offer "Retry Research" button that calls POST `/api/amazon-ads/reset-kw-stage`
-- If campaign creation fails: show error with details from the RabbitMQ response, allow retry
-- If SP-API token expired: redirect to Settings > Amazon Connection for re-auth
+# Acceptance Criteria
 
-## Test Cases
-
-- Seller opens wizard, selects an ASIN, and completes all 5 steps successfully. Campaigns are created.
-- Seller sets Target ACOS to 35%, enables Auto Pacing, and sets Bid Ceiling to $3.00. All values saved.
-- Seller skips optional Bid Ceiling. Step 5 shows amber indicator for skipped item.
-- Seller enters Step 3. Research auto-triggers without manual action, progress shows Phase 1 then Phase 2, auto-advances to Step 4.
-- Seller navigates away during Step 3 research. Notification bell updates with "Automated Keyword Research complete" when research finishes.
-- Seller clicks the notification. Navigates back to wizard at Step 4 (Campaign Config).
-- Seller in Step 4 sees the generated campaigns in 3 sections (SPKW, SPAU, SPAS) with correct columns.
-- Seller toggles Auto Budget in Step 4. Recommended budgets populate for all campaigns.
-- Seller adds per-campaign negative keywords in Step 4. Negatives saved per campaign.
-- Seller closes wizard with unsaved changes. Discard confirmation appears.
-- Seller clicks "Edit" on a launched ASIN. Wizard opens in edit mode with pre-populated data at the selected step.
-- Seller navigates back from Step 4 to Step 2. Previous inputs are preserved.
-- Screen reader user navigates the wizard. Step changes are announced, focus is managed.
-- Step 5 shows 3 navigation cards after completion: Manage Ads, Keyword Settings, Search Term Settings.
-
-## Acceptance Criteria
-
-- [ ] Wizard provides a 5-step guided flow for complete ASIN advertising setup
-- [ ] Step 1 requires explicit Target ACOS (no default) and offers optional Auto Pacing and Bid Ceiling
-- [ ] Step 2 provides dedicated Automated Competitor Research with ASIN validation
-- [ ] Step 3 auto-triggers Automated Keyword Research with Phase 1 + Phase 2 progress and auto-advances to Step 4 on completion
-- [ ] Step 3 sends a notification to the Notification Bell when research completes
-- [ ] Seller can navigate away during research and return via the notification when research is done
-- [ ] Step 4 displays the generated campaigns in 3 sections (SPKW, SPAU, SPAS) with Auto Budget, ASIN-Level Defaults, bulk select, per-campaign neg KWs, and Pacing badges
-- [ ] Step 5 shows activate summary with non-technical Bid Opt text, ads toggle note, checklist, and 3 navigation cards
-- [ ] Wizard supports edit mode for previously launched ASINs with pre-populated data
-- [ ] Discard confirmation appears when closing wizard with unsaved changes
-- [ ] Wizard is accessible: focus managed, step changes announced to screen readers
-- [ ] All campaign names follow the Kepler naming convention and are not editable
+- [ ] 5-step wizard guides seller through complete ASIN advertising setup
+- [ ] Step 1 requires explicit Target ACOS with optional Auto Pacing and Bid Ceiling
+- [ ] Step 3 auto-triggers keyword research with Phase 1 + Phase 2 progress
+- [ ] Step 3 fires Notification Bell alert on completion
+- [ ] Step 4 displays generated campaigns in 3 sections with Auto Budget, bulk select, per-campaign neg KWs
+- [ ] Step 5 shows activate summary with non-technical Bid Opt text and 3 navigation cards
+- [ ] Wizard supports edit mode for launched ASINs
+- [ ] Campaign names follow Kepler convention and are not editable
+- [ ] Discard confirmation on close with unsaved changes
 - [ ] Tests passed (unit + integration)
-- [ ] UI matches approved mockup
+- [ ] UI matches prototype
+
+Prototype: https://mmaazhanif22.github.io/kepler-ads-design/ads-only.html

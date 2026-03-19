@@ -1,249 +1,91 @@
-# UX Infrastructure & Accessibility
+# UX Infrastructure and Accessibility
 
-> **Sequencing:** Must be completed before PROD-4124, PROD-4125, and PROD-4126, as those stories depend on shared table, export, and modal patterns built here.
+# User Story
 
-## User Story
+As a seller, I want the advertising portal to have consistent, accessible UI patterns across all views so that I can work efficiently regardless of which section I am in.
 
-As a seller, I want the advertising portal to have consistent, accessible, and performant UI patterns across all views, including sortable/filterable/paginated tables, CSV exports/imports, date pickers, confirmation dialogs, and theme support, so that I can work efficiently regardless of which section I am in.
+# Problem / Context
 
-## Problem / Context
+- The advertising section has 17+ data tables. Each currently implements its own sorting, filtering, and pagination logic with inconsistent behavior. There is no shared table component.
+- CSV exports use different formatting. Some include UTF-8 BOM, some do not. No formula injection protection exists (cells starting with `=`, `+`, `-`, `@` are not escaped).
+- Destructive actions use browser-native `confirm()` dialogs. No custom confirmation modals exist.
+- There is no unified date range picker component. Each view implements its own date controls.
+- No toast notification system exists. Users get no feedback after save/error actions.
+- The portal has a single light theme. No dark mode or theme switching capability.
+- Minimal ARIA support. Modals lack `role="dialog"`, toggles lack `role="switch"`, no focus management on modal open/close.
+- No client-side hash routing. Direct URL navigation to specific views is not possible.
 
-- The advertising section has 17+ data tables. They all need consistent sorting, filtering, pagination, empty states, and export capabilities.
-- Sellers work in both light and dark mode. All UI elements must adapt correctly to the active theme.
-- CSV exports must be compatible with Excel (UTF-8 BOM) and include proper data sanitization.
-- Destructive actions (delete, discard, overwrite) need confirmation dialogs to prevent accidental data loss.
-- Accessibility requirements (WCAG) mandate keyboard navigation, screen reader support, and focus management.
-- Date range selection is used across dashboards, analytics, and table filters. A unified date picker with presets is needed.
+# Solution Outline
 
-## Existing vs. Net-New
+**1. Table Component:** Reusable `KeplerTableComponent` used by 17+ views. Sortable columns (click header), pagination (25/50/100), empty state messages, column visibility toggle, sticky headers, frozen first 2 columns for wide tables, reset filters button, editable cells with pencil icon on hover.
 
-| Area | Status | Notes |
-|------|--------|-------|
-| Table sorting/filtering | EXISTS (rebuild) | Current portal has basic table sorting. Rebuild with sticky headers, frozen columns, column visibility. |
-| CSV export | EXISTS (rebuild) | Export endpoints exist. Rebuild frontend with UTF-8 BOM, filter-awareness, template vs. report modes. |
-| CSV import | EXISTS (rebuild) | Upload endpoint exists (`POST /amazon-ads/upload-file`). Rebuild with validation UI and error reporting. |
-| Confirmation modals | NEW | No custom modals today. Browser-native `confirm()` used in some places. |
-| Date range picker | NEW | No unified date picker component today. |
-| Toast notifications | NEW | No toast notification system today. |
-| Theme system | NEW | No multi-theme support today. Single light theme only. |
-| Accessibility (ARIA) | NEW | Minimal ARIA support in current portal. |
-| URL hash routing | NEW | No client-side hash routing today. |
+**2. CSV Export/Import:** UTF-8 BOM for Excel. Formula injection escaping (`=`, `+`, `-`, `@` prefixed with single quote). Export respects current filter and column visibility. Import with validation and row-level error reporting. Import History link on all 7 import sections. Template vs. Filtered Report export modes. Upload endpoint: `POST /amazon-ads/upload-file` with 7 strategies (asin-config, ad-campaign-config, k-research, k-config, search-term-config, listing-attributes-ranking, kw-branding-scope).
 
-## Solution Outline
+**3. Confirmation Modals:** Custom styled dialog replacing browser `confirm()`. Danger variant (red) for destructive actions. Discard guard on forms with unsaved changes (5 touchpoints). Returns Promise for async/await.
 
-Deliver 8 shared infrastructure capabilities that all feature stories depend on.
+**4. Date Range Picker:** Unified component across 4+ views. Presets: 7D, 14D, 30D, 60D, 90D. Custom date range. Min/max boundaries.
 
-**1. Table Component:**
-- Sellers can sort any column by clicking the header. Clicking again reverses direction.
-- Pagination with configurable page size (25/50/100 rows) and prev/next controls.
-- Empty state messages when no data matches filters.
-- Column visibility toggle per table (Columns dropdown with checkbox list).
-- Sticky table headers that remain visible during vertical scrolling.
-- Frozen first 2 columns for wide tables during horizontal scrolling.
-- Reset Filters button on every table (22 instances).
-- Editable cells with pencil icon on hover for applicable tables.
+**5. Toast Notifications:** 4 variants: success (green), error (red), warning (amber), info (blue). Auto-dismiss after timeout. Stacks multiple toasts.
 
-**2. CSV Export/Import System:**
-- Export to CSV with UTF-8 BOM for Excel compatibility.
-- Data sanitization to prevent formula injection (`=`, `+`, `-`, `@` escaped).
-- Export respects current filter and column visibility state.
-- Import with format validation and error reporting.
-- Import History link on all 7 import sections.
-- Template downloads matching portal format for each table.
-- Keyword Settings export dropdown: Template vs. Filtered Report.
+**6. Theme System:** Dark mode + 5 light themes (6 total). CSS custom properties (`--primary`, `--bg`, `--card`, `--border`, `--text`, `--muted`, `--success`, `--error`, `--warning`). Theme switching via `data-theme` attribute on `<body>`, persisted to localStorage. Sidebar badges white text on all themes.
 
-**3. Confirmation Modals:**
-- Custom styled confirmation dialog (not browser native).
-- Supports danger variant for destructive actions (red styling).
-- Discard guard on forms with unsaved changes (5 touchpoints).
-- Used for campaign launch, keyword deletion, settings changes, etc.
+**7. Accessibility (ARIA):** All modals: `role="dialog"`, `aria-modal="true"`, focus trap, restore focus on close. Toggles: `role="switch"`, `aria-checked`. Tabs: `role="tablist/tab/tabpanel"`, `aria-selected`. Sort headers: `aria-sort`. Loading: `aria-busy`. Decorative icons: `aria-hidden="true"`. Reduced-motion support for skeleton animations.
 
-**4. Date Range Picker:**
-- Unified range picker component used across 4+ views.
-- Preset buttons: 7D, 14D, 30D, 60D, 90D.
-- Custom date range selection.
-- Min/max date boundaries.
+**8. URL Hash Routing:** Direct navigation via hash (e.g., `#keyword-settings`). Browser back/forward support. Deep linking to tabs (e.g., `#campaigns/kw-config`).
 
-**5. Toast Notification System:**
-- 4 variants: success (green), error (red), warning (amber), info (blue).
-- Auto-dismisses after timeout.
-- Used for save confirmations, error alerts, action feedback.
+**Behavior flow:**
+1. Seller sorts table by clicking header > rows reorder > clicks again > reverses.
+2. Seller exports CSV > opens in Excel > special characters intact, no formula injection.
+3. Seller closes form with unsaved changes > custom discard confirmation appears.
+4. Seller navigates to `#keyword-settings` URL > Keyword Settings loads directly.
 
-**6. Theme System:**
-- Dark mode and 5+ light themes (6 total).
-- All UI elements adapt to active theme via CSS custom properties.
-- Chart colors, badge colors, and gradient colors are theme-aware.
-- Sidebar badges show white text on ALL themes.
+# Connected Work Items
 
-**7. Accessibility (ARIA):**
-- All interactive elements keyboard-navigable.
-- Screen reader announcements for dynamic content changes (wizard steps, tab switches, modal open/close).
-- `role="dialog"` and `aria-modal` on all modal overlays.
-- `role="switch"` and `aria-checked` on all toggle controls.
-- `aria-hidden="true"` on decorative elements.
-- Global search supports keyboard navigation (arrow keys, Enter).
-- Reduced-motion support for skeleton animations.
-- Focus management: save and restore focus when modals open/close.
-
-**8. URL Hash Routing:**
-- Direct navigation to any view via URL hash (e.g., `#keyword-settings`, `#manage-ads`).
-- Browser back/forward navigation works between views.
-- Hash updates when navigating between sections.
-- Deep linking to specific tabs within views.
-
-**UI Requirements:**
-- Mockup: [Prototype](https://mmaazhanif22.github.io/kepler-ads-design/ads-only.html) | all views demonstrate these patterns
-- Consistency: same button styles, spacing, typography, and color usage across all views.
-- Loading states use skeleton animation (shimmer), not spinning loaders.
-- Error states show descriptive messages with retry options.
-
-## Sub-Tasks
-
-| # | Sub-Task | Exists / New | Backend Reference |
-|---|----------|-------------|-------------------|
-| 1 | **Table component**: sortable, filterable, paginated tables with sticky headers and frozen columns | EXISTS (rebuild) | All GET list endpoints return paginated data. Sorting/filtering applied client-side or via query params. |
-| 2 | **CSV export**: users can export any table data as CSV with UTF-8 BOM | EXISTS (rebuild) | 10+ export endpoints: `GET /amazon-ads/ad-campaign/export/`, `GET /amazon-ads/keywords-config/export/`, `POST /amazon-ads/search-terms/aggregated/export/`, etc. |
-| 3 | **CSV import**: upload validated CSV files with error reporting | EXISTS (rebuild) | `POST /amazon-ads/upload-file` with 7 upload strategies: asin-config, ad-campaign-config, k-research, k-config, search-term-config, listing-attributes-ranking, kw-branding-scope. |
-| 4 | **Confirmation modals**: destructive actions require user confirmation before execution | NEW | No backend dependency. Client-side UX pattern. |
-| 5 | **Date range picker**: preset ranges (7D/14D/30D/60D/90D) + custom date selection | NEW | Date params passed to existing GET endpoints as query filters. |
-| 6 | **Toast notification system**: success/error/warning/info feedback for all user actions | NEW | No backend dependency. Client-side UX pattern. |
-| 7 | **Theme system**: users can switch between 6 themes (dark + 5 light) | NEW | Theme preference stored client-side (localStorage). |
-| 8 | **Accessibility (ARIA)**: screen reader support for modals, tabs, toggles, and dynamic content | NEW | No backend dependency. Semantic HTML + ARIA attributes. |
-| 9 | **URL hash routing**: browser back/forward navigation between sections and deep-link support | NEW | No backend dependency. Client-side routing. |
-
-## Backend References
-
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/amazon-ads/upload-file` | POST | Unified file upload (7 strategies: asin-config, ad-campaign-config, k-research, k-config, search-term-config, listing-attributes-ranking, kw-branding-scope) |
-| `/amazon-ads/ad-campaign/export/` | GET | Campaign list CSV export |
-| `/amazon-ads/keywords-research/export/` | GET/POST | Keyword research CSV export |
-| `/amazon-ads/keywords-config/export/` | GET/POST | Keyword config CSV export |
-| `/amazon-ads/search-terms/aggregated/export/` | POST | Search term aggregated CSV export |
-| `/amazon-ads/targeting-list/export/` | POST | Targeting list CSV export |
-| `/amazon-ads/products-report/export/` | POST | Products report CSV export |
-| `/amazon-ads/download-config-file` | GET | ASIN config template download |
-| `/amazon-ads/download-campaign-config-file` | GET | Campaign config template download |
-| `/amazon-ads/keyword-branding-scope/export/` | GET | Branding scope CSV export |
-| `/amazon-ads/bid-strategy-logs/export/` | GET | Bid strategy logs CSV export |
-
-## Connected Work Items
-
-**Blocks:** PROD-4124 (KW Settings), PROD-4125 (ST Settings), PROD-4126 (Campaigns & KW Research). All depend on table infrastructure.
-**Is Blocked By:** None. This is foundational infrastructure.
+**Blocks:** [PROD-4124](https://keplercommerce.atlassian.net/browse/PROD-4124), [PROD-4125](https://keplercommerce.atlassian.net/browse/PROD-4125), [PROD-4126](https://keplercommerce.atlassian.net/browse/PROD-4126) (all depend on table infrastructure)
 **Relates To:** All stories. Every view uses these shared patterns.
 
-This ticket is foundational and should be built first or in parallel with feature stories.
+# Implementation Notes
 
-## Implementation Notes
+- Existing table implementations in `client/src/app/features/amazon-ads/campaign-management/` serve as reference for the shared component.
+- Existing date picker: `sp-rangepicker` component in portal. Rebuild with presets.
+- CSV export pattern: standardize existing `downloadCampaignFile()`, `downloadSearchTermsAggregatedFile()` into shared `exportTableToCSV()` utility.
+- File upload: `apps/amazon_ads/api/views/file_views.py` handles all 7 strategies server-side. Frontend needs drag-and-drop UI + validation feedback.
+- Export endpoints: `GET /amazon-ads/ad-campaign/export/`, `GET /amazon-ads/keywords-config/export/`, `POST /amazon-ads/search-terms/aggregated/export/`, `GET /amazon-ads/keyword-branding-scope/export/`, `GET /amazon-ads/bid-strategy-logs/export/`, and others.
+- Theme variables already defined in prototype CSS. Port directly.
+- Hash routing: listen for `hashchange`, map hash to view IDs, update on `navigate()`.
 
-- Table component should be reusable across all 17+ tables with configuration for columns, sorting, pagination, and export.
-- CSV sanitization must escape values starting with `=`, `+`, `-`, `@` to prevent formula injection.
-- Theme system uses CSS custom properties (`--primary`, `--error`, `--success`, `--muted`, etc.).
-- Confirmation modal should return a Promise for async/await usage patterns.
-- Toast system should support stacking multiple toasts.
-- Hash routing should support deep linking to specific tabs within views.
-- Loading directive should accept size options (small/medium/large) and opacity toggle.
-
-## Related Enhancement Stories
-
-These enhancements extend the base infrastructure. Tracked as separate stories under PROD-2180.
-
-| PROD Key | Enhancement | Dependency |
-|----------|------------|------------|
-| PROD-4449 | Advanced Table Features: editable cells with pencil-on-hover, column reordering via drag-and-drop, saved filter presets per table | Blocked by PROD-4128 |
-| PROD-4450 | Advanced Import/Export: import progress bar with row-level error reporting, import history timeline view, scheduled exports | Blocked by PROD-4128 |
-
-## Out of Scope
+# Out of Scope
 
 - Backend API design or data layer architecture
-- Mobile-responsive layouts (desktop-first for this phase)
-- Internationalization (i18n) beyond English
-- Automated end-to-end testing framework setup
+- Mobile-responsive layouts (desktop-first this phase)
+- Internationalization beyond English
 
-## Engineering Notes
+# Test Cases
 
-**Codebase Pattern References:**
-- Existing table component: `client/src/app/features/amazon-ads/campaign-management/` has multiple table implementations. Use these as reference for the shared table component.
-- Existing date picker: `sp-rangepicker` component exists in the portal. Rebuild with presets (7D/14D/30D/60D/90D).
-- CSV export pattern: `downloadCampaignFile()`, `downloadSearchTermsAggregatedFile()` in existing services. Standardize into a shared `exportTableToCSV()` utility.
-- File upload: `apps/amazon_ads/api/views/file_views.py` handles all 7 upload strategies server-side. Frontend needs drag-and-drop UI + validation feedback.
+1. Seller sorts table by column. Rows reorder. Click again reverses.
+2. Table with no matching filters. Empty state message displays.
+3. Seller exports CSV. Opens in Excel with special characters intact.
+4. Seller imports malformed CSV. Validation error with row/column details.
+5. Seller closes form with unsaved changes. Discard confirmation appears.
+6. Keyboard-only user navigates portal. All buttons, toggles, menus accessible.
+7. Screen reader user opens modal. Focus moves to modal, "dialog" role announced.
+8. Seller switches to dark mode. All elements adapt.
+9. Seller navigates to `#keyword-settings` URL. View loads directly.
 
-**Table Component Architecture:**
-Build a reusable `KeplerTableComponent` that accepts configuration:
-```typescript
-interface TableConfig {
-  columns: ColumnDef[];        // id, label, sortable, type (string/number/currency/percent)
-  endpoint: string;            // GET endpoint for data
-  exportEndpoint?: string;     // export URL
-  filters: FilterDef[];        // dropdown filters with column mapping
-  searchColumns: number[];     // which columns to search
-  pageSize: number;            // default 25
-  stickyHeaders: boolean;      // default true
-  frozenColumns: number;       // default 0
-}
-```
-This component is used by 17+ views. Getting it right is critical.
+# Acceptance Criteria
 
-**CSV Export Requirements:**
-- UTF-8 BOM: prepend `\uFEFF` to the CSV string before creating the Blob
-- Formula injection: escape cells starting with `=`, `+`, `-`, `@` by prepending a single quote
-- Respect current filter state: only export visible rows
-- Respect column visibility: only export visible columns
-- File naming: `{tableName}-{YYYY-MM-DD}.csv`
-
-**Theme System:**
-- Use CSS custom properties (already defined in the prototype): `--primary`, `--bg`, `--card`, `--border`, `--text`, `--muted`, `--success`, `--error`, `--warning`
-- Theme switching: update the `data-theme` attribute on `<body>` and persist to localStorage
-- All 6 themes are defined in the prototype CSS. Port the variable definitions directly.
-
-**Hash Routing:**
-- Listen for `hashchange` events
-- Map hash values to view IDs: `#dashboard` > dashboard-view, `#campaigns` > campaigns-view, etc.
-- Update hash on `navigate()` calls
-- Support deep links: `#campaigns/kw-config` should navigate to Manage Ads and switch to KW Config tab
-
-**Toast System:**
-- Create a singleton `ToastService` injectable
-- Stack multiple toasts vertically (newest on top)
-- Auto-dismiss after 4 seconds (configurable)
-- 4 variants: success (green border), error (red), warning (amber), info (blue)
-
-**Accessibility Checklist:**
-- All modals: `role="dialog"`, `aria-modal="true"`, trap focus inside, restore focus on close
-- All toggles: `role="switch"`, `aria-checked="true/false"`
-- All tabs: `role="tablist"`, `role="tab"`, `aria-selected`, `role="tabpanel"`
-- Table sort headers: `aria-sort="ascending/descending/none"`
-- Loading states: `aria-busy="true"` on the container
-- Skip decorative icons: `aria-hidden="true"` on SVGs that are purely visual
-
-## Test Cases
-
-- Seller sorts a table by clicking column header. Rows reorder, click again reverses direction.
-- Seller on page 2 of a 500-row table. Prev/next pagination works, page size change resets to page 1.
-- Table with no matching filter results. Empty state message displays.
-- Seller exports CSV. File opens correctly in Excel with special characters intact (no encoding issues).
-- Seller imports malformed CSV. Validation error message appears with specific row/column details.
-- Seller starts closing a form with unsaved changes. Discard confirmation modal appears with danger styling.
-- Seller navigates the portal using keyboard only. All buttons, toggles, and menus accessible.
-- Screen reader user opens a modal. Focus moves to modal, "dialog" role announced.
-- Seller switches to dark mode. All tables, charts, badges, and buttons adapt correctly.
-- Seller navigates to `#keyword-settings` URL directly. Keyword Settings view loads.
-- Seller with reduced motion preference. Skeleton animations show static placeholders instead.
-
-## Acceptance Criteria
-
-- [ ] All 17+ tables support sorting, filtering, pagination, empty states, and column visibility
-- [ ] Sticky headers and frozen columns work for horizontal/vertical scrolling
-- [ ] CSV exports include UTF-8 BOM and sanitize formula injection characters
-- [ ] Import validates format and shows error details for malformed files
-- [ ] Custom confirmation modals replace all native browser confirm dialogs
-- [ ] Discard guard prevents accidental data loss on forms with unsaved changes
-- [ ] Date picker with 5 presets (7D-90D) is used consistently across all date range controls
-- [ ] Toast notifications appear for all user actions (save, error, warning, info)
-- [ ] Dark mode and all light themes render all UI elements correctly
-- [ ] All interactive elements are keyboard accessible with proper ARIA roles
-- [ ] Screen reader users receive announcements for dynamic content changes
-- [ ] URL hash routing enables direct navigation and browser back/forward support
+- [ ] All 17+ tables support sorting, filtering, pagination, empty states, column visibility
+- [ ] Sticky headers and frozen columns work for scrolling
+- [ ] CSV exports include UTF-8 BOM and sanitize formula injection
+- [ ] Import validates format with row-level error details
+- [ ] Custom confirmation modals replace browser confirm() dialogs
+- [ ] Discard guard on forms with unsaved changes
+- [ ] Date picker with 5 presets used across all date range controls
+- [ ] Toast notifications for all user actions
+- [ ] Dark mode and all light themes render correctly
+- [ ] All interactive elements keyboard accessible with ARIA roles
+- [ ] URL hash routing with browser back/forward and deep linking
 - [ ] Tests passed (unit + integration)
-- [ ] UI matches approved mockup
+- [ ] UI matches prototype
+
+Prototype: https://mmaazhanif22.github.io/kepler-ads-design/ads-only.html
