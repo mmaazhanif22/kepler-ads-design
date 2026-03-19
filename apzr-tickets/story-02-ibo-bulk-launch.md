@@ -164,7 +164,7 @@ A 6-stage progressive workflow for bulk ASIN launch, accessible from the sidebar
 
 **Blocks:** None directly. IBO is an alternative path to campaign creation.
 **Is Blocked By:** None. IBO is independent of the single-ASIN wizard.
-**Relates To:** Story 1 (Wizard), the single-ASIN equivalent. Story 3 (Manage Ads), which provides entry point. Story 5 (KW Settings), Story 6 (ST Settings) for post-launch management.
+**Relates To:** PROD-4120 (Wizard), the single-ASIN equivalent. PROD-4122 (Manage Ads), which provides entry point. PROD-4124 (KW Settings), PROD-4125 (ST Settings) for post-launch management.
 
 IBO can be developed in parallel with the single-ASIN wizard. They share the same campaign naming convention and output format but are independent workflows.
 
@@ -187,10 +187,28 @@ IBO can be developed in parallel with the single-ASIN wizard. They share the sam
 
 ## Out of Scope
 
-- Single-ASIN setup (covered by Story 1: Wizard)
-- Post-launch campaign monitoring and optimization (covered by Stories 4, 5, 6, 8)
+- Single-ASIN setup (covered by PROD-4120: Wizard)
+- Post-launch campaign monitoring and optimization (covered by PROD-4123, PROD-4124, PROD-4125, PROD-4127)
 - Marketplace expansion (launching same ASINs on multiple marketplaces simultaneously)
 - Automated scheduling of recurring batch launches
+
+## MVP vs. Enhancement Phasing
+
+**MVP (Phase 1): Core bulk flow**
+- Stage 1: ASIN batch input + basic config (Target ACOS, Competitors)
+- Stage 2: Per-group Campaign Skeleton
+- Stage 3: Async KW Research with progress tracking
+- Stage 4: Review Hub with approve/reject per ASIN
+- Stage 5: Campaign table with Apply to All (ACOS + Budget)
+- Stage 6: Launch with batch campaign creation
+
+**Enhancement (Phase 2): Advanced features**
+- AI Grouping in Stage 1
+- Bulk Import on both Stage 1 and Stage 2
+- Auto Pacing + Auto Budget toggles
+- Group filtering (NB Highly Relevant, NB Moderate, Own Brand, Competitor, Auto)
+- Per-campaign negative keywords
+- Batch History and Saved Batches
 
 ## Test Cases
 

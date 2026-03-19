@@ -1,4 +1,4 @@
-# Search Term Settings (Story A): Active Search Terms Table
+# Search Term Settings (PROD-4125): Active Search Terms Table
 
 ## User Story
 
@@ -52,7 +52,7 @@ As a seller, I want a comprehensive Active Search Terms table with all 105 data 
 | 1 | **105-column table with 10+ grouped headers**, sticky first 2 columns, collapsible groups | EXISTS (rebuild) | `GET /amazon-ads/search-terms/` returns all search term data. Column groups are UI-only. |
 | 2 | **Column visibility toggle** with per-column and per-group show/hide | NEW | No backend dependency. Client-side (localStorage). |
 | 3 | **Bulk export** with template and filtered report modes | EXISTS (rebuild) | `POST /amazon-ads/search-terms/aggregated/export/` for CSV export. |
-| 4 | **Sub-tab shell** rendering Active Search Terms as default tab, with tab slots for Story 6B tabs | NEW | No backend dependency. Client-side tab routing. |
+| 4 | **Sub-tab shell** rendering Active Search Terms as default tab, with tab slots for PROD-4408 tabs | NEW | No backend dependency. Client-side tab routing. |
 
 ## Backend References
 
@@ -67,8 +67,8 @@ As a seller, I want a comprehensive Active Search Terms table with all 105 data 
 ## Connected Work Items
 
 **Blocks:** None.
-**Is Blocked By:** Story 1 (Wizard), search terms are generated from campaign activity. Story 9 (UX Infrastructure), table patterns.
-**Relates To:** Story 6B (Search Term Workflow Tabs), which adds Harvest Queue, Negative Keywords, and High Performers tabs. Story 5 (Keyword Settings), same table structure and column patterns.
+**Is Blocked By:** PROD-4120 (Wizard), search terms are generated from campaign activity. PROD-4128 (UX Infrastructure), table patterns.
+**Relates To:** PROD-4408 (Search Term Workflow Tabs), which adds Harvest Queue, Negative Keywords, and High Performers tabs. PROD-4124 (Keyword Settings), same table structure and column patterns.
 
 Search Term Settings follows the same table patterns as Keyword Settings. Development of both can be parallelized.
 
@@ -77,12 +77,12 @@ Search Term Settings follows the same table patterns as Keyword Settings. Develo
 - Time-series data sourced from the same advertising data pipeline as Keyword Settings.
 - Column groups must match Keyword Settings visual pattern for consistency.
 - Organic Rank split: "Avg. Organic Rank" and "Median Organic Rank" as separate columns.
-- The sub-tab shell must support the 3 additional tabs from Story 6B (Harvest Queue, Negative Keywords, High Performers).
+- The sub-tab shell must support the 3 additional tabs from PROD-4408 (Harvest Queue, Negative Keywords, High Performers).
 
 ## Out of Scope
 
-- Harvest Queue, Negative Keywords, and High Performers tabs (covered by Story 6B)
-- Keyword-level bid management (covered by Story 5)
+- Harvest Queue, Negative Keywords, and High Performers tabs (covered by PROD-4408)
+- Keyword-level bid management (covered by PROD-4124)
 - Automated harvesting rules (backend automation)
 - Search term data collection from Amazon (backend data pipeline)
 
@@ -103,6 +103,6 @@ Search Term Settings follows the same table patterns as Keyword Settings. Develo
 - [ ] Organic Rank and Bid Suggestion data shown as separate columns (not combined)
 - [ ] Column visibility, sorting, filtering, pagination, and export work consistently
 - [ ] Sticky first 2 columns (Search Term + ASIN) during horizontal scroll
-- [ ] Sub-tab shell supports additional tabs from Story 6B
+- [ ] Sub-tab shell supports additional tabs from PROD-4408
 - [ ] Tests passed (unit + integration)
 - [ ] UI matches approved mockup

@@ -1,4 +1,4 @@
-# Pacing Management (Story 8A)
+# Pacing Management (PROD-4127)
 
 ## User Story
 
@@ -30,7 +30,7 @@ As a seller, I want a dedicated pacing management view showing all campaigns wit
 
 **UI Requirements:**
 - Mockup: [Prototype](https://mmaazhanif22.github.io/kepler-ads-design/ads-only.html) | Pacing Management in sidebar
-- Pacing status uses color-coded indicators matching the dashboard pacing card (Story 4).
+- Pacing status uses color-coded indicators matching the dashboard pacing card (PROD-4123).
 - Date range presets (7D, 14D, 30D, 60D, 90D) for historical pacing review.
 
 ## Sub-Tasks
@@ -55,8 +55,8 @@ As a seller, I want a dedicated pacing management view showing all campaigns wit
 ## Connected Work Items
 
 **Blocks:** None.
-**Is Blocked By:** Story 1 (Wizard), campaigns must exist for pacing data.
-**Relates To:** Story 4 (Dashboards), dashboard pacing card is a summary of this full pacing view. Story 8B (Bid Optimization), related campaign management. Story 8C (Config Change Log), pacing changes appear in log.
+**Is Blocked By:** PROD-4120 (Wizard), campaigns must exist for pacing data.
+**Relates To:** PROD-4123 (Dashboards), dashboard pacing card is a summary of this full pacing view. PROD-4411 (Bid Optimization), related campaign management. PROD-4412 (Config Change Log), pacing changes appear in log.
 
 ## Implementation Notes
 
@@ -67,8 +67,8 @@ As a seller, I want a dedicated pacing management view showing all campaigns wit
 
 ## Out of Scope
 
-- Bid optimization monitoring (covered by Story 8B)
-- Config change log (covered by Story 8C)
+- Bid optimization monitoring (covered by PROD-4411)
+- Config change log (covered by PROD-4412)
 - Automatic bid optimization logic (backend algorithm)
 - Budget allocation across portfolios or accounts
 

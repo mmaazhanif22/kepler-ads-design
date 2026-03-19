@@ -1,4 +1,4 @@
-# Search Term Workflow Tabs (Story 6B): Harvest Queue, Negative Keywords, High Performers
+# Search Term Workflow Tabs (PROD-4408): Harvest Queue, Negative Keywords, High Performers
 
 ## User Story
 
@@ -23,7 +23,7 @@ As a seller, I want workflow-specific tabs for harvesting promising search terms
 
 ## Solution Outline
 
-Three additional tabs within the Search Term Settings view (alongside the Active Search Terms tab from Story 6A).
+Three additional tabs within the Search Term Settings view (alongside the Active Search Terms tab from PROD-4125).
 
 **Tab 2: Harvest Queue**
 - Search terms that meet harvesting criteria (e.g., 3+ conversions, ACOS below target).
@@ -52,8 +52,8 @@ Three additional tabs within the Search Term Settings view (alongside the Active
 
 **UI Requirements:**
 - Mockup: [Prototype: Search Term Settings](https://mmaazhanif22.github.io/kepler-ads-design/ads-only.html) (navigate to Manage Ads > Search Term Settings, switch tabs)
-- Tabs render within the sub-tab shell built in Story 6A.
-- Consistent styling with Story 6A Active Search Terms table.
+- Tabs render within the sub-tab shell built in PROD-4125.
+- Consistent styling with PROD-4125 Active Search Terms table.
 
 ## Sub-Tasks
 
@@ -89,8 +89,8 @@ Three additional tabs within the Search Term Settings view (alongside the Active
 ## Connected Work Items
 
 **Blocks:** None.
-**Is Blocked By:** Story 6A (Active Search Terms table and sub-tab shell must exist first). Story 9 (UX Infrastructure) for table patterns.
-**Relates To:** Story 5 (Keyword Settings), harvested terms become keywords. Story 1 (Wizard), wizard creates initial campaign structure that generates search terms.
+**Is Blocked By:** PROD-4125 (Active Search Terms table and sub-tab shell must exist first). PROD-4128 (UX Infrastructure) for table patterns.
+**Relates To:** PROD-4124 (Keyword Settings), harvested terms become keywords. PROD-4120 (Wizard), wizard creates initial campaign structure that generates search terms.
 
 ## Implementation Notes
 
@@ -102,8 +102,8 @@ Three additional tabs within the Search Term Settings view (alongside the Active
 
 ## Out of Scope
 
-- Active Search Terms table (covered by Story 6A)
-- Keyword-level bid management (covered by Story 5)
+- Active Search Terms table (covered by PROD-4125)
+- Keyword-level bid management (covered by PROD-4124)
 - Automated harvesting rule configuration (backend concern)
 - Search term data collection from Amazon (backend data pipeline)
 - Cross-marketplace search term comparison

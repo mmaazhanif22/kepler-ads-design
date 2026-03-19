@@ -58,7 +58,7 @@ As a seller, I want intelligent dashboards with KPI cards, trend visualizations,
 
 **Blocks:** None.
 **Is Blocked By:** None. Dashboards can be built with data from existing advertising data sources.
-**Relates To:** Story 5 (KW Settings), Story 6 (ST Settings). Dashboards may link to detailed keyword/search term views. Story 8 (Pacing). Pacing card is a summary of the full Pacing Management view.
+**Relates To:** PROD-4124 (KW Settings), PROD-4125 (ST Settings). Dashboards may link to detailed keyword/search term views. PROD-4127 (Pacing). Pacing card is a summary of the full Pacing Management view.
 
 Dashboards can be developed independently and integrated once data sources are available.
 
@@ -73,9 +73,9 @@ Dashboards can be developed independently and integrated once data sources are a
 
 ## Out of Scope
 
-- Detailed campaign-level analytics (covered by Story 8C: Config Change Log)
-- Keyword-level bid optimization (covered by Story 5: Keyword Settings)
-- Full pacing management controls (covered by Story 8A: Pacing Management)
+- Detailed campaign-level analytics (covered by PROD-4412: Config Change Log)
+- Keyword-level bid optimization (covered by PROD-4124: Keyword Settings)
+- Full pacing management controls (covered by PROD-4127: Pacing Management)
 - Custom dashboard builder or widget configuration
 - Email or SMS notification delivery
 

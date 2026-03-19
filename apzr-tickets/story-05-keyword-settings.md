@@ -95,10 +95,10 @@ As a seller, I want a comprehensive Keyword Settings view with all data columns 
 ## Connected Work Items
 
 **Blocks:** None.
-**Is Blocked By:** Story 1 (Wizard), keywords are created during wizard setup. Story 9 (UX Infrastructure), table component patterns.
-**Relates To:** Story 6 (Search Term Settings), similar table structure. Story 1 (Wizard), wizard Step 5 links to Keyword Settings post-setup.
+**Is Blocked By:** PROD-4120 (Wizard), keywords are created during wizard setup. PROD-4128 (UX Infrastructure), table component patterns.
+**Relates To:** PROD-4125 (Search Term Settings), similar table structure. PROD-4120 (Wizard), wizard Step 5 links to Keyword Settings post-setup.
 
-Keyword Settings depends on the table infrastructure from Story 9 and keyword data created by the wizard.
+Keyword Settings depends on the table infrastructure from PROD-4128 and keyword data created by the wizard.
 
 ## Implementation Notes
 
@@ -111,9 +111,9 @@ Keyword Settings depends on the table infrastructure from Story 9 and keyword da
 
 ## Out of Scope
 
-- Search term management (covered by Story 6)
-- Bid optimization logic or automatic bid changes (covered by Story 8B)
-- Keyword research and discovery (covered by Story 7B)
+- Search term management (covered by PROD-4125)
+- Bid optimization logic or automatic bid changes (covered by PROD-4411)
+- Keyword research and discovery (covered by PROD-4409)
 - Real-time bid change propagation to Amazon (backend concern)
 
 ## Test Cases

@@ -1,4 +1,4 @@
-# Keyword Research (Story 7B)
+# Keyword Research (PROD-4409)
 
 ## User Story
 
@@ -54,8 +54,8 @@ As a seller, I want a keyword research view with competitive intelligence data f
 ## Connected Work Items
 
 **Blocks:** None.
-**Is Blocked By:** Story 1 (Wizard), ASIN setup must be complete before research can run. Story 9 (UX Infrastructure), table patterns.
-**Relates To:** Story 7A (Campaign List & Config). Story 5 (KW Settings), manages keywords post-research. Story 7C (Branding Scope), classifies researched keywords.
+**Is Blocked By:** PROD-4120 (Wizard), ASIN setup must be complete before research can run. PROD-4128 (UX Infrastructure), table patterns.
+**Relates To:** PROD-4126 (Campaign List & Config). PROD-4124 (KW Settings), manages keywords post-research. PROD-4410 (Branding Scope), classifies researched keywords.
 
 ## Implementation Notes
 
@@ -65,9 +65,9 @@ As a seller, I want a keyword research view with competitive intelligence data f
 
 ## Out of Scope
 
-- Campaign list and config (covered by Story 7A)
-- Branding Scope classification (covered by Story 7C)
-- Keyword bid management (covered by Story 5)
+- Campaign list and config (covered by PROD-4126)
+- Branding Scope classification (covered by PROD-4410)
+- Keyword bid management (covered by PROD-4124)
 - Third-party data provider integration setup (backend concern)
 
 ## Test Cases

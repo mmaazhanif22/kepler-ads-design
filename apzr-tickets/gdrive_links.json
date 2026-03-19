@@ -1,161 +1,111 @@
 {
-  "PROD-4120 \u2014 ASIN Setup Wizard": {
-    "folder_id": "1zAECUfgInFvgwqrjvPpk7X5T6hqyyRDv",
+  "PROD-4120 - ASIN Setup Wizard": {
+    "folder_id": "1aKUhdoTa7TuaHAkRa3YbTjjhJCmOiQnA",
     "files": [
       {
-        "name": "Step 1 \u2014 Product & Global Settings.png",
-        "id": "1Lnn-8AsBFlEX1OXbsKLMiStIgsFfA7Ij",
-        "webViewLink": "https://drive.google.com/file/d/1Lnn-8AsBFlEX1OXbsKLMiStIgsFfA7Ij/view?usp=drivesdk"
+        "name": "Step 1: Product Selection.png",
+        "id": "1eKbcuITNOzbLumK0cBjftZKhry2EfzX7",
+        "webViewLink": "https://drive.google.com/file/d/1eKbcuITNOzbLumK0cBjftZKhry2EfzX7/view?usp=drivesdk"
       },
       {
-        "name": "Step 2 \u2014 Competitor Research.png",
-        "id": "17qBt8doqlbBSmPVZV57M7fGGv0hJJPYV",
-        "webViewLink": "https://drive.google.com/file/d/17qBt8doqlbBSmPVZV57M7fGGv0hJJPYV/view?usp=drivesdk"
+        "name": "Step 2: Automated Competitor Research.png",
+        "id": "1aayD5dvbiRan9Pgx7JUrFlUsV-sDzLTf",
+        "webViewLink": "https://drive.google.com/file/d/1aayD5dvbiRan9Pgx7JUrFlUsV-sDzLTf/view?usp=drivesdk"
       },
       {
-        "name": "Step 3 \u2014 Generate Keyword Research.png",
-        "id": "1M7Xjn-tGztZ-tWg-ChzZIoRTWKZR_HP0",
-        "webViewLink": "https://drive.google.com/file/d/1M7Xjn-tGztZ-tWg-ChzZIoRTWKZR_HP0/view?usp=drivesdk"
+        "name": "Step 3: Automated Keyword Research.png",
+        "id": "1OqgBpm4Ub3OlTR3YJ54N_H5w7J5mtvdn",
+        "webViewLink": "https://drive.google.com/file/d/1OqgBpm4Ub3OlTR3YJ54N_H5w7J5mtvdn/view?usp=drivesdk"
       },
       {
-        "name": "Step 4 \u2014 KW Automation Review.png",
-        "id": "1lEpZ_O6xWlfBOUvrYE4KSsOnpWo52UZu",
-        "webViewLink": "https://drive.google.com/file/d/1lEpZ_O6xWlfBOUvrYE4KSsOnpWo52UZu/view?usp=drivesdk"
+        "name": "Step 4: Campaign Config.png",
+        "id": "1W5RF4v7VIroZ0ruw31whxHArp6KsHi15",
+        "webViewLink": "https://drive.google.com/file/d/1W5RF4v7VIroZ0ruw31whxHArp6KsHi15/view?usp=drivesdk"
       },
       {
-        "name": "Step 5 \u2014 Campaign Configuration.png",
-        "id": "1_Q_bymKU-xG_3-mDHxCtmetg6KFegPWT",
-        "webViewLink": "https://drive.google.com/file/d/1_Q_bymKU-xG_3-mDHxCtmetg6KFegPWT/view?usp=drivesdk"
-      },
-      {
-        "name": "Step 6 \u2014 Activate Campaigns.png",
-        "id": "1oCAiSAwlZFwbXN0CsVGzZ9uo3Ze0_QDS",
-        "webViewLink": "https://drive.google.com/file/d/1oCAiSAwlZFwbXN0CsVGzZ9uo3Ze0_QDS/view?usp=drivesdk"
+        "name": "Step 5: Activate.png",
+        "id": "10LG6KMEoIF5-feZFp8WjBCG3Z1GoJLSW",
+        "webViewLink": "https://drive.google.com/file/d/10LG6KMEoIF5-feZFp8WjBCG3Z1GoJLSW/view?usp=drivesdk"
       }
     ]
   },
-  "PROD-4121 \u2014 IBO Bulk Launch": {
-    "folder_id": "10I_DxvatzLE9qr0dlf5p72nHOBn722cT",
+  "PROD-4121 - IBO Bulk Launch": {
+    "folder_id": "1LnP3wqGx5ySsdfWu3Ikod-5G3UpQlob-",
     "files": [
       {
-        "name": "Stage 1 \u2014 Mission Setup (Empty).png",
-        "id": "1GWBL3v6bA83jHL2tYqL84dUK-EjbT8Pb",
-        "webViewLink": "https://drive.google.com/file/d/1GWBL3v6bA83jHL2tYqL84dUK-EjbT8Pb/view?usp=drivesdk"
-      },
-      {
-        "name": "Stage 1 \u2014 AI Grouping Results.png",
-        "id": "1m_evX6MAkcs8-E3u8Tx2ifvdxSU-KCqh",
-        "webViewLink": "https://drive.google.com/file/d/1m_evX6MAkcs8-E3u8Tx2ifvdxSU-KCqh/view?usp=drivesdk"
-      },
-      {
-        "name": "Stage 2 \u2014 Per-Group Config with Auto Competitors.png",
-        "id": "1EUEty_1cK_x_MXseAkjy8ZLuDKVLazfN",
-        "webViewLink": "https://drive.google.com/file/d/1EUEty_1cK_x_MXseAkjy8ZLuDKVLazfN/view?usp=drivesdk"
-      },
-      {
-        "name": "Stage 3 \u2014 Async Processing (In Progress).png",
-        "id": "1Kxzvu4rEh8tsExielKfIf7PO3nhEBHfk",
-        "webViewLink": "https://drive.google.com/file/d/1Kxzvu4rEh8tsExielKfIf7PO3nhEBHfk/view?usp=drivesdk"
-      },
-      {
-        "name": "Stage 3 \u2014 All Processing Complete.png",
-        "id": "1EvBAlpm2LTv0xbRp20ElsyRv5tgPuIAu",
-        "webViewLink": "https://drive.google.com/file/d/1EvBAlpm2LTv0xbRp20ElsyRv5tgPuIAu/view?usp=drivesdk"
-      },
-      {
-        "name": "Stage 4 \u2014 Review Hub.png",
-        "id": "1klshSBoMOWJOvppDiGC7jsO3gVH25sta",
-        "webViewLink": "https://drive.google.com/file/d/1klshSBoMOWJOvppDiGC7jsO3gVH25sta/view?usp=drivesdk"
-      },
-      {
-        "name": "Stage 5 \u2014 Campaign Configuration.png",
-        "id": "1-I1xkIjBOpvnFROXfMWKRHlhdO3J-j9q",
-        "webViewLink": "https://drive.google.com/file/d/1-I1xkIjBOpvnFROXfMWKRHlhdO3J-j9q/view?usp=drivesdk"
-      },
-      {
-        "name": "Stage 6 \u2014 Launch Confirmation.png",
-        "id": "1Ov1LG4Jka1xt_lYFdx4c64Wy_awFwt47",
-        "webViewLink": "https://drive.google.com/file/d/1Ov1LG4Jka1xt_lYFdx4c64Wy_awFwt47/view?usp=drivesdk"
+        "name": "Stage 1: Mission Setup.png",
+        "id": "1KPyR0UCEqkmdY8tK68ePiHEEqq7FfUSf",
+        "webViewLink": "https://drive.google.com/file/d/1KPyR0UCEqkmdY8tK68ePiHEEqq7FfUSf/view?usp=drivesdk"
       }
     ]
   },
-  "PROD-4122 \u2014 ASIN Overview": {
-    "folder_id": "1TOPz1nLfhr2B7kiqSy8rmA2oHqtVMXO9",
+  "PROD-4122 - Manage Ads": {
+    "folder_id": "141dvOYe8fKMg0Y8Q_3JG4T6xsLh-RPbP",
     "files": [
       {
-        "name": "ASIN Overview \u2014 Status Table with Setup Badges.png",
-        "id": "15sYQ1CSH81OyLJwiYmxsHm5dDilaE2BA",
-        "webViewLink": "https://drive.google.com/file/d/15sYQ1CSH81OyLJwiYmxsHm5dDilaE2BA/view?usp=drivesdk"
+        "name": "Manage Ads: ASIN Table.png",
+        "id": "1cEHihxFspvY7V7K1sa2nmKyuW68sq59_",
+        "webViewLink": "https://drive.google.com/file/d/1cEHihxFspvY7V7K1sa2nmKyuW68sq59_/view?usp=drivesdk"
       }
     ]
   },
-  "PROD-4123 \u2014 Dashboards": {
-    "folder_id": "1zxIBIMwWA4NKrsGk1ho26gi6A1Rd1Kth",
+  "PROD-4123 - Dashboards": {
+    "folder_id": "1RpBpLomZOnYan8AssX3XyRav1VF4fXWg",
     "files": [
       {
-        "name": "Dashboard \u2014 KPI Cards, AI Recommendations, Budget Pacing.png",
-        "id": "1CoreUQg9g8wbDPb2YyELb-RfEM284AmO",
-        "webViewLink": "https://drive.google.com/file/d/1CoreUQg9g8wbDPb2YyELb-RfEM284AmO/view?usp=drivesdk"
-      }
-    ]
-  },
-  "PROD-4124 \u2014 Keyword Settings": {
-    "folder_id": "1fhKReS-Kl67aeFWiEgropw1Rdq7lf6Ao",
-    "files": [
-      {
-        "name": "Keyword Settings \u2014 Full Table with Column Groups.png",
-        "id": "19e9MpbLTu-8sps_r2muaFrjWeA9b2Ney",
-        "webViewLink": "https://drive.google.com/file/d/19e9MpbLTu-8sps_r2muaFrjWeA9b2Ney/view?usp=drivesdk"
-      }
-    ]
-  },
-  "PROD-4125 \u2014 Search Term Settings": {
-    "folder_id": "1IlHXRY3BqtrcmjlqHINQK-qYKFpuKFsb",
-    "files": [
-      {
-        "name": "Search Term Settings \u2014 Active Terms with Sub-Tabs.png",
-        "id": "1XGiPtTg3-TaC6ohAPz7Hx2UCgt1KrPj6",
-        "webViewLink": "https://drive.google.com/file/d/1XGiPtTg3-TaC6ohAPz7Hx2UCgt1KrPj6/view?usp=drivesdk"
-      }
-    ]
-  },
-  "PROD-4126 \u2014 Campaign Mgmt & KW Research": {
-    "folder_id": "12L-wu25alw_FIt891tf2SeUHe1iuwUks",
-    "files": [
-      {
-        "name": "Campaign Config \u2014 Inline Editable Table.png",
-        "id": "1B_vwZVVEXdzJqqEsgaeIX_awJynvM9xY",
-        "webViewLink": "https://drive.google.com/file/d/1B_vwZVVEXdzJqqEsgaeIX_awJynvM9xY/view?usp=drivesdk"
+        "name": "Dashboard: Performance Overview.png",
+        "id": "16NUDpLyTF_otuUMcCTwU5Y7b4ICXVKjJ",
+        "webViewLink": "https://drive.google.com/file/d/16NUDpLyTF_otuUMcCTwU5Y7b4ICXVKjJ/view?usp=drivesdk"
       },
       {
-        "name": "Keyword Research \u2014 Search Volume & Bid Data.png",
-        "id": "1KR7L812KPIC9EWN_G1LxIo9lc3SkbSrK",
-        "webViewLink": "https://drive.google.com/file/d/1KR7L812KPIC9EWN_G1LxIo9lc3SkbSrK/view?usp=drivesdk"
+        "name": "ADS Performance: ASIN Dashboard.png",
+        "id": "1GCwNDCennrhFJSeT7cKDX7Z_KRnh2IVj",
+        "webViewLink": "https://drive.google.com/file/d/1GCwNDCennrhFJSeT7cKDX7Z_KRnh2IVj/view?usp=drivesdk"
       }
     ]
   },
-  "PROD-4127 \u2014 Pacing & Bid Optimization": {
-    "folder_id": "1DGUCpqZZPJ_FH3K0YWVwvlqIYXx2Z7qY",
+  "PROD-4124 - Keyword Settings": {
+    "folder_id": "1jAIhYbFQdjX-FmxVfl2B51-Gw3GGcYFL",
     "files": [
       {
-        "name": "Pacing Management \u2014 Auto Pacing & Budget Allocation.png",
-        "id": "1Y6xbu10N4MA7HHTXPQ0sXPR6UmKrb3mp",
-        "webViewLink": "https://drive.google.com/file/d/1Y6xbu10N4MA7HHTXPQ0sXPR6UmKrb3mp/view?usp=drivesdk"
+        "name": "Keyword Settings: Full Table.png",
+        "id": "1tJ4P6QHteeqK39HUL5JtCDd7V67OglB7",
+        "webViewLink": "https://drive.google.com/file/d/1tJ4P6QHteeqK39HUL5JtCDd7V67OglB7/view?usp=drivesdk"
+      }
+    ]
+  },
+  "PROD-4125 - Search Term Settings": {
+    "folder_id": "1fbHQKRTYv7YTRaMghLnaWmJA424sqJfS",
+    "files": [
+      {
+        "name": "Search Term Settings: Active Terms.png",
+        "id": "12UkUIDGZe40wom-_ZOXIOYM1J8cdXPEY",
+        "webViewLink": "https://drive.google.com/file/d/12UkUIDGZe40wom-_ZOXIOYM1J8cdXPEY/view?usp=drivesdk"
+      }
+    ]
+  },
+  "PROD-4126 - Campaigns and KW Research": {
+    "folder_id": "1kvC6Va-28HT1KJdcCD6s5KdoJPyxXJlB",
+    "files": [
+      {
+        "name": "Campaign List.png",
+        "id": "14Xhz7lA6eVVyxWMv6z2JsO2WZvJV4fA9",
+        "webViewLink": "https://drive.google.com/file/d/14Xhz7lA6eVVyxWMv6z2JsO2WZvJV4fA9/view?usp=drivesdk"
+      }
+    ]
+  },
+  "PROD-4127 - Pacing Bids Logs": {
+    "folder_id": "1QheadU3o4v5zBwPTfZe_Sm4J2tvxuYC6",
+    "files": [
+      {
+        "name": "Bid Optimization Analytics.png",
+        "id": "1n7ZGRJOgjJoiWmKSJzXMTBKFB6EcoHox",
+        "webViewLink": "https://drive.google.com/file/d/1n7ZGRJOgjJoiWmKSJzXMTBKFB6EcoHox/view?usp=drivesdk"
       },
       {
-        "name": "Bid Optimization \u2014 Analytics & Trends.png",
-        "id": "1WOL60yxH-rG6SPsOUL8MlQZ1GuoTExcQ",
-        "webViewLink": "https://drive.google.com/file/d/1WOL60yxH-rG6SPsOUL8MlQZ1GuoTExcQ/view?usp=drivesdk"
-      }
-    ]
-  },
-  "PROD-4128 \u2014 UX Infrastructure": {
-    "folder_id": "1lSdverZ2RRS7pCNxB11J5hknQ48MHuqT",
-    "files": [
-      {
-        "name": "Notification Bell \u2014 Dynamic Dropdown Panel.png",
-        "id": "1xBzQhMuFFQad7R4bqJLZK69hGJhpecak",
-        "webViewLink": "https://drive.google.com/file/d/1xBzQhMuFFQad7R4bqJLZK69hGJhpecak/view?usp=drivesdk"
+        "name": "Config Change Log.png",
+        "id": "1AkdPfAPB0S_akA5vq5m8_Xr2HLuPaZ0y",
+        "webViewLink": "https://drive.google.com/file/d/1AkdPfAPB0S_akA5vq5m8_Xr2HLuPaZ0y/view?usp=drivesdk"
       }
     ]
   }

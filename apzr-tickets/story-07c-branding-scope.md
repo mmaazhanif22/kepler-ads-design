@@ -1,4 +1,4 @@
-# Branding Scope (Story 7C)
+# Branding Scope (PROD-4410)
 
 ## User Story
 
@@ -55,8 +55,8 @@ As a seller, I want to classify keyword brand relationships (Non-Branded, Own Br
 ## Connected Work Items
 
 **Blocks:** None.
-**Is Blocked By:** Story 1 (Wizard), keywords must exist. Story 7B (Keyword Research), keywords discovered through research.
-**Relates To:** Story 7A (Campaign List & Config), branding scope drives campaign naming. Story 2 (IBO), bulk launch uses branding scope for campaign structure.
+**Is Blocked By:** PROD-4120 (Wizard), keywords must exist. PROD-4409 (Keyword Research), keywords discovered through research.
+**Relates To:** PROD-4126 (Campaign List & Config), branding scope drives campaign naming. PROD-4121 (IBO), bulk launch uses branding scope for campaign structure.
 
 ## Implementation Notes
 
@@ -66,9 +66,9 @@ As a seller, I want to classify keyword brand relationships (Non-Branded, Own Br
 
 ## Out of Scope
 
-- Campaign list and config (covered by Story 7A)
-- Keyword research and discovery (covered by Story 7B)
-- Keyword bid management (covered by Story 5)
+- Campaign list and config (covered by PROD-4126)
+- Keyword research and discovery (covered by PROD-4409)
+- Keyword bid management (covered by PROD-4124)
 - Auto-classification algorithm (backend concern)
 
 ## Test Cases

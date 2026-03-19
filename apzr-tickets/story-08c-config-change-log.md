@@ -1,4 +1,4 @@
-# Config Change Log (Story 8C)
+# Config Change Log (PROD-4412)
 
 ## User Story
 
@@ -64,20 +64,20 @@ As a seller, I want a comprehensive, human-readable change log of all advertisin
 ## Connected Work Items
 
 **Blocks:** None.
-**Is Blocked By:** Story 1 (Wizard), campaigns must exist for change log data.
-**Relates To:** Story 8A (Pacing Management), pacing changes appear in log. Story 8B (Bid Optimization), bid changes appear in log. Story 5 (KW Settings), keyword changes appear in log.
+**Is Blocked By:** PROD-4120 (Wizard), campaigns must exist for change log data.
+**Relates To:** PROD-4127 (Pacing Management), pacing changes appear in log. PROD-4411 (Bid Optimization), bid changes appear in log. PROD-4124 (KW Settings), keyword changes appear in log.
 
 ## Implementation Notes
 
 - Config Change Log must aggregate related mutations into single events (e.g., multiple bid changes in a batch become one "Bid Optimization" event).
 - Change Log should NOT show raw database column changes. Always human-readable event descriptions.
-- Analytics views use the same charting library and theme system as dashboards (Story 4).
+- Analytics views use the same charting library and theme system as dashboards (PROD-4123).
 - Event source should distinguish between "Manual" (seller action) and "Automated" (system optimization).
 
 ## Out of Scope
 
-- Pacing management (covered by Story 8A)
-- Bid optimization monitoring (covered by Story 8B)
+- Pacing management (covered by PROD-4127)
+- Bid optimization monitoring (covered by PROD-4411)
 - Automatic bid optimization logic (backend algorithm)
 - Real-time Amazon Advertising API integration (backend concern)
 - Budget allocation across portfolios or accounts

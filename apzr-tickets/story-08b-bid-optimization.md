@@ -1,4 +1,4 @@
-# Bid Optimization (Story 8B)
+# Bid Optimization (PROD-4411)
 
 ## User Story
 
@@ -52,8 +52,8 @@ As a seller, I want a bid optimization monitoring view that shows keyword-level 
 ## Connected Work Items
 
 **Blocks:** None.
-**Is Blocked By:** Story 1 (Wizard), campaigns and keywords must exist. Story 5 (KW Settings), bid data flows from keyword settings.
-**Relates To:** Story 8A (Pacing Management). Story 8C (Config Change Log), bid changes appear in log. Story 5 (KW Settings), bid changes reflect in keyword settings.
+**Is Blocked By:** PROD-4120 (Wizard), campaigns and keywords must exist. PROD-4124 (KW Settings), bid data flows from keyword settings.
+**Relates To:** PROD-4127 (Pacing Management). PROD-4412 (Config Change Log), bid changes appear in log. PROD-4124 (KW Settings), bid changes reflect in keyword settings.
 
 ## Implementation Notes
 
@@ -63,8 +63,8 @@ As a seller, I want a bid optimization monitoring view that shows keyword-level 
 
 ## Out of Scope
 
-- Pacing management (covered by Story 8A)
-- Config change log (covered by Story 8C)
+- Pacing management (covered by PROD-4127)
+- Config change log (covered by PROD-4412)
 - Automatic bid optimization algorithm (backend concern)
 - Custom report builder or scheduled report delivery
 

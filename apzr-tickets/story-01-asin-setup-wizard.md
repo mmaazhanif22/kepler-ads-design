@@ -136,9 +136,9 @@ A 5-step wizard overlay that guides the seller through the full ASIN advertising
 
 ## Connected Work Items
 
-**Blocks:** Story 5 (Keyword Settings), Story 6 (Search Term Settings). Wizard creates the initial configuration that these views manage.
+**Blocks:** PROD-4124 (Keyword Settings), PROD-4125 (Search Term Settings). Wizard creates the initial configuration that these views manage.
 **Is Blocked By:** None. This is the primary entry point for ASIN advertising setup.
-**Relates To:** Story 2 (IBO), the bulk equivalent of this single-ASIN wizard. Story 3 (Manage Ads), which provides an alternative entry point to the wizard.
+**Relates To:** PROD-4121 (IBO), the bulk equivalent of this single-ASIN wizard. PROD-4122 (Manage Ads), which provides an alternative entry point to the wizard.
 
 The wizard is foundational. It must be delivered before sellers can set up advertising for individual ASINs.
 
@@ -152,15 +152,40 @@ The wizard is foundational. It must be delivered before sellers can set up adver
 - The wizard must save progress so sellers can resume if they close it.
 - Negative Keywords scope selector applies negatives to the selected campaign subset.
 - Listing Quality Score is calculated from product listing attributes (title, bullets, images, etc.).
-- The wizard is for single-ASIN setup only. Bulk operations use the IBO (Story 2).
+- The wizard is for single-ASIN setup only. Bulk operations use the IBO (PROD-4121).
 
 ## Out of Scope
 
-- Bulk ASIN setup (covered by Story 2: IBO)
-- Post-launch campaign performance monitoring (covered by Story 4: Dashboards)
-- Keyword bid adjustments after launch (covered by Story 5: Keyword Settings)
-- Search term harvesting and negative keyword management post-launch (covered by Story 6: Search Term Settings)
-- Campaign budget pacing (covered by Story 8: Pacing Management)
+- Bulk ASIN setup (covered by PROD-4121: IBO)
+- Post-launch campaign performance monitoring (covered by PROD-4123: Dashboards)
+- Keyword bid adjustments after launch (covered by PROD-4124: Keyword Settings)
+- Search term harvesting and negative keyword management post-launch (covered by PROD-4125: Search Term Settings)
+- Campaign budget pacing (covered by PROD-4127: Pacing Management)
+
+## MVP vs. Enhancement Phasing
+
+**MVP (Phase 1): Core wizard flow**
+- Step 1: Product Selection (select ASIN, set Target ACOS)
+- Step 2: Automated Competitor Research (manual entry + AI discovery)
+- Step 3: Automated Keyword Research (Phase 1 fetch + Phase 2 analysis, auto-trigger)
+- Step 4: Campaign Config (campaign table with ACOS/Budget/Status per campaign)
+- Step 5: Activate (launch summary + Complete Setup button)
+- Basic notification when KW Research completes
+
+**Enhancement (Phase 2): Advanced features**
+- Auto Budget toggle and ASIN-Level Defaults grouping
+- Bulk campaign select/enable/pause with bulk action bar
+- Per-campaign negative keywords (inline textarea)
+- Pacing badges on campaigns
+- Wizard Edit Mode (re-enter for launched ASINs)
+- Rich competitor tiles (price, velocity, rating, reviews)
+- "Review Fetched Keywords" link between phases
+- 3 post-wizard navigation cards
+- Ads toggle tip on Activate page
+
+**Separate Stories (not part of this ticket):**
+- PROD-4390: Notification Bell (full dropdown panel with history)
+- PROD-4391: Wizard Edit Mode
 
 ## Test Cases
 

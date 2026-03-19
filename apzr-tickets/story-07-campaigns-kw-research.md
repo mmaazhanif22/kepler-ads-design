@@ -1,4 +1,4 @@
-# Campaign List & Config (Story 7A)
+# Campaign List & Config (PROD-4126)
 
 ## User Story
 
@@ -61,8 +61,8 @@ As a seller, I want a campaign list view with performance context and a campaign
 ## Connected Work Items
 
 **Blocks:** None.
-**Is Blocked By:** Story 1 (Wizard), campaigns are created via wizard. Story 3 (Manage Ads), provides navigation entry point.
-**Relates To:** Story 7B (Keyword Research), Story 7C (Branding Scope). Story 5 (KW Settings), manages keywords post-research. Story 2 (IBO), creates campaigns in bulk.
+**Is Blocked By:** PROD-4120 (Wizard), campaigns are created via wizard. PROD-4122 (Manage Ads), provides navigation entry point.
+**Relates To:** PROD-4409 (Keyword Research), PROD-4410 (Branding Scope). PROD-4124 (KW Settings), manages keywords post-research. PROD-4121 (IBO), creates campaigns in bulk.
 
 ## Implementation Notes
 
@@ -71,11 +71,11 @@ As a seller, I want a campaign list view with performance context and a campaign
 
 ## Out of Scope
 
-- Keyword research and discovery (covered by Story 7B)
-- Branding Scope management (covered by Story 7C)
-- Keyword bid management (covered by Story 5)
-- Search term analysis (covered by Story 6)
-- Campaign creation flow (covered by Stories 1 and 2)
+- Keyword research and discovery (covered by PROD-4409)
+- Branding Scope management (covered by PROD-4410)
+- Keyword bid management (covered by PROD-4124)
+- Search term analysis (covered by PROD-4125)
+- Campaign creation flow (covered by PROD-4120 and PROD-4121)
 
 ## Test Cases
 

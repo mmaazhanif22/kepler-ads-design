@@ -129,7 +129,7 @@ Deliver 8 shared infrastructure capabilities that all feature stories depend on.
 
 ## Connected Work Items
 
-**Blocks:** Story 5 (KW Settings), Story 6 (ST Settings), Story 7 (Campaigns & KW Research). All depend on table infrastructure.
+**Blocks:** PROD-4124 (KW Settings), PROD-4125 (ST Settings), PROD-4126 (Campaigns & KW Research). All depend on table infrastructure.
 **Is Blocked By:** None. This is foundational infrastructure.
 **Relates To:** All stories. Every view uses these shared patterns.
 
@@ -151,6 +151,23 @@ This ticket is foundational and should be built first or in parallel with featur
 - Mobile-responsive layouts (desktop-first for this phase)
 - Internationalization (i18n) beyond English
 - Automated end-to-end testing framework setup
+
+## MVP vs. Enhancement Phasing
+
+**MVP (Phase 1): Core infrastructure**
+- Table sorting, filtering, pagination
+- CSV export with UTF-8 BOM
+- Confirmation modals for destructive actions
+- Toast notification system
+- URL hash routing
+
+**Enhancement (Phase 2): Polish**
+- Date range picker with presets
+- Theme system (6 themes)
+- Accessibility (ARIA roles, keyboard navigation)
+- Column visibility toggle
+- Sticky headers and frozen columns
+- CSV import with validation
 
 ## Test Cases
 

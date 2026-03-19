@@ -24,9 +24,9 @@
 - Discard confirmation when closing wizard with unsaved changes
 
 **Connected Work Items:**
-- Blocks: Story 5 (KW Settings), Story 6 (ST Settings)
+- Blocks: PROD-4124 (KW Settings), PROD-4125 (ST Settings)
 - Is Blocked By: None (foundational entry point)
-- Relates To: Story 2 (IBO), Story 3 (ASIN Overview)
+- Relates To: PROD-4121 (IBO), PROD-4122 (ASIN Overview)
 
 ---
 
@@ -48,7 +48,7 @@
 **Connected Work Items:**
 - Blocks: None
 - Is Blocked By: None (independent of wizard)
-- Relates To: Story 1 (Wizard), Story 3 (ASIN Overview), Story 5 (KW Settings), Story 6 (ST Settings)
+- Relates To: PROD-4120 (Wizard), PROD-4122 (ASIN Overview), PROD-4124 (KW Settings), PROD-4125 (ST Settings)
 
 ---
 
@@ -67,8 +67,8 @@
 
 **Connected Work Items:**
 - Blocks: None
-- Is Blocked By: Story 1 (Wizard)
-- Relates To: Story 1 (Wizard), Story 2 (IBO)
+- Is Blocked By: PROD-4120 (Wizard)
+- Relates To: PROD-4120 (Wizard), PROD-4121 (IBO)
 
 ---
 
@@ -89,7 +89,7 @@
 **Connected Work Items:**
 - Blocks: None
 - Is Blocked By: None
-- Relates To: Story 5 (KW Settings), Story 6 (ST Settings), Story 8 (Pacing)
+- Relates To: PROD-4124 (KW Settings), PROD-4125 (ST Settings), PROD-4127 (Pacing)
 
 ---
 
@@ -118,8 +118,8 @@
 
 **Connected Work Items:**
 - Blocks: None
-- Is Blocked By: Story 1 (Wizard), Story 9 (UX Infrastructure)
-- Relates To: Story 6 (ST Settings), Story 1 (Wizard)
+- Is Blocked By: PROD-4120 (Wizard), PROD-4128 (UX Infrastructure)
+- Relates To: PROD-4125 (ST Settings), PROD-4120 (Wizard)
 
 ---
 
@@ -141,8 +141,8 @@
 
 **Connected Work Items:**
 - Blocks: None
-- Is Blocked By: Story 1 (Wizard), Story 9 (UX Infrastructure)
-- Relates To: Story 5 (KW Settings), Story 1 (Wizard)
+- Is Blocked By: PROD-4120 (Wizard), PROD-4128 (UX Infrastructure)
+- Relates To: PROD-4124 (KW Settings), PROD-4120 (Wizard)
 
 ---
 
@@ -158,8 +158,8 @@
 
 **Connected Work Items:**
 - Blocks: None
-- Is Blocked By: Story 1 (Wizard), Story 3 (ASIN Overview)
-- Relates To: Story 5 (KW Settings), Story 2 (IBO)
+- Is Blocked By: PROD-4120 (Wizard), PROD-4122 (ASIN Overview)
+- Relates To: PROD-4124 (KW Settings), PROD-4121 (IBO)
 
 ---
 
@@ -175,8 +175,8 @@
 
 **Connected Work Items:**
 - Blocks: None
-- Is Blocked By: Story 1 (Wizard)
-- Relates To: Story 4 (Dashboards), Story 5 (KW Settings)
+- Is Blocked By: PROD-4120 (Wizard)
+- Relates To: PROD-4123 (Dashboards), PROD-4124 (KW Settings)
 
 ---
 
@@ -195,7 +195,7 @@
 - URL Hash Routing: direct navigation via hash, browser back/forward support, hash updates on navigation
 
 **Connected Work Items:**
-- Blocks: Story 5 (KW Settings), Story 6 (ST Settings), Story 7 (Campaigns & KW Research)
+- Blocks: PROD-4124 (KW Settings), PROD-4125 (ST Settings), PROD-4126 (Campaigns & KW Research)
 - Is Blocked By: None (foundational infrastructure)
 - Relates To: All stories
 
@@ -204,15 +204,15 @@
 ## Dependency Map
 
 ```
-Story 9 (UX Infrastructure) ──blocks──> Stories 5, 6, 7
-Story 1 (Wizard) ──blocks──> Stories 5, 6, 7, 8
-Story 3 (ASIN Overview) ──blocked by──> Story 1
-Stories 2, 4 ──independent──> can be built in parallel
+PROD-4128 (UX Infrastructure) ──blocks──> PROD-4124, PROD-4125, PROD-4126
+PROD-4120 (Wizard) ──blocks──> PROD-4124, PROD-4125, PROD-4126, PROD-4127
+PROD-4122 (ASIN Overview) ──blocked by──> PROD-4120
+PROD-4121, PROD-4123 ──independent──> can be built in parallel
 ```
 
 **Recommended Build Order:**
-1. Story 9 (UX Infrastructure) — foundational, unblocks 3 stories
-2. Story 1 (Wizard) — foundational, unblocks 4 stories
-3. Stories 2, 3, 4 — can be parallelized
-4. Stories 5, 6, 7 — depend on Stories 1 and 9
-5. Story 8 — depends on Story 1
+1. PROD-4128 (UX Infrastructure) - foundational, unblocks 3 stories
+2. PROD-4120 (Wizard) - foundational, unblocks 4 stories
+3. PROD-4121, PROD-4122, PROD-4123 - can be parallelized
+4. PROD-4124, PROD-4125, PROD-4126 - depend on PROD-4120 and PROD-4128
+5. PROD-4127 - depends on PROD-4120

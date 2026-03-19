@@ -95,8 +95,8 @@ Replace the current fragmented navigation with a restructured "Manage Ads" secti
 ## Connected Work Items
 
 **Blocks:** None directly.
-**Is Blocked By:** Story 1 (Wizard). The setup status and resume buttons depend on the wizard being available.
-**Relates To:** Story 1 (Wizard), which provides alternative entry points to wizard steps. Story 2 (IBO), which the sidebar houses alongside single launch.
+**Is Blocked By:** PROD-4120 (Wizard). The setup status and resume buttons depend on the wizard being available.
+**Relates To:** PROD-4120 (Wizard), which provides alternative entry points to wizard steps. PROD-4121 (IBO), which the sidebar houses alongside single launch.
 
 The ASIN Overview is the new default landing page for the advertising section. It depends on the wizard for setup status and resume functionality.
 
@@ -110,9 +110,9 @@ The ASIN Overview is the new default landing page for the advertising section. I
 
 ## Out of Scope
 
-- Campaign-level management (covered by Story 7: Campaign List & Config)
-- Keyword-level management (covered by Story 5 and 6)
-- Performance dashboards and KPI views (covered by Story 4)
+- Campaign-level management (covered by PROD-4126: Campaign List & Config)
+- Keyword-level management (covered by PROD-4124 and PROD-4125)
+- Performance dashboards and KPI views (covered by PROD-4123)
 - New ASIN onboarding or product catalog management
 
 ## Test Cases
