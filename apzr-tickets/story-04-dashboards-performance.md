@@ -12,6 +12,19 @@ As a seller, I want intelligent dashboards with KPI cards, trend visualizations,
 - Budget pacing information (whether campaigns are on track, overspending, or underspending) is not visible.
 - There is no notification system to alert sellers to important changes or required actions.
 
+## Existing vs. Net-New
+
+| Area | Status | Notes |
+|------|--------|-------|
+| ASIN Dashboard | EXISTS (rebuild) | AsinDashboardComponent at /analytics/asin. Chart toggles + date picker. |
+| Targeting Dashboard | EXISTS (rebuild) | TargetDashboardComponent at /analytics/targeting. Match type breakdown. |
+| Search Terms Dashboard | EXISTS (rebuild) | SearchTermDashboardComponent at /analytics/search-term. |
+| Targeting Records | EXISTS (rebuild) | TargetListComponent at /analytics/targeting-records. |
+| Search Term Records | EXISTS (rebuild) | SearchTermListComponent at /analytics/search-term-records. |
+| ASIN Deep Dive | EXISTS (rebuild) | Deep dive view at /analytics/deep-dive. |
+| AI Recommendations | NEW | Smart Recommendations cards on Dashboard. No existing component. |
+| Budget Pacing widget | NEW | Real-time pacing display. No existing component. |
+
 ## Solution Outline
 
 **Dashboard KPI Cards (5x2 Grid):**
@@ -53,6 +66,32 @@ As a seller, I want intelligent dashboards with KPI cards, trend visualizations,
 - Sparklines use theme-aware colors (adapt to dark/light mode).
 - AI cards are dismissible and refreshable.
 - Loading states use skeleton animation, not spinners.
+
+## Sub-Tasks
+
+| # | Sub-Task | Exists / New | Backend Reference |
+|---|----------|-------------|-------------------|
+| 1 | ASIN Dashboard with chart toggles, date range picker, weekly performance table | EXISTS (rebuild) | GET /amazon-ads/dashboard/target-chart/ |
+| 2 | Targeting Dashboard with match type breakdown table and chart | EXISTS (rebuild) | GET /amazon-ads/targeting-list/ |
+| 3 | Search Terms Dashboard with search term aggregation | EXISTS (rebuild) | GET /amazon-ads/search-terms/aggregated/ |
+| 4 | Targeting Records table with sortable columns, filters, export | EXISTS (rebuild) | GET /amazon-ads/targeting-list/. POST /amazon-ads/targeting-list/export/ |
+| 5 | Search Term Records table with sortable columns, filters, export | EXISTS (rebuild) | GET /amazon-ads/search-terms/. POST /amazon-ads/search-terms/aggregated/export/ |
+| 6 | ASIN Deep Dive with per-ASIN detailed metrics | EXISTS (rebuild) | Multiple GET endpoints aggregated per ASIN |
+
+## Backend References
+
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| /amazon-ads/dashboard/target-chart/ | POST | Dashboard chart data |
+| /amazon-ads/targeting-list/ | GET | Targeting records list |
+| /amazon-ads/targeting-list/export/ | POST | Targeting list CSV export |
+| /amazon-ads/targeting/asin-aggregated/export/ | POST | Targeting ASIN aggregated export |
+| /amazon-ads/search-terms/aggregated/ | GET | Search terms aggregated data |
+| /amazon-ads/search-terms/aggregated/export/ | POST | Search terms aggregated export |
+| /amazon-ads/products-report/export/ | POST | Products report export |
+| /amazon-ads/bidding/analytics/dashboard/summary/ | GET | AI Recommendations data |
+| /amazon-ads/bidding/analytics/rules/effectiveness/ | GET | Bid rule effectiveness data |
+| /amazon-ads/bidding/analytics/campaigns/top/ | GET | Top campaigns analytics |
 
 ## Connected Work Items
 

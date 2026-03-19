@@ -1,4 +1,4 @@
-# APZR Story Tickets — Advertising UI/UX Revamp
+# APZR Story Tickets -- Advertising UI/UX Revamp
 
 **Epic:** PROD-2180 (UI/UX Modernization & Redesign)
 **Task:** PROD-3983 (Write APZR Requirement Tickets)
@@ -6,18 +6,18 @@
 
 ---
 
-## PROD-4120 — ASIN Advertising Setup Wizard — 6-Step Guided Flow
+## PROD-4120 -- ASIN Advertising Setup Wizard -- 5-Step Guided Flow
 
 **User Story:** As a seller, I want a guided step-by-step wizard that walks me through the complete ASIN advertising setup, so that I can configure and launch ad campaigns for any product without needing to understand the full advertising system upfront.
 
 **Solution Summary:**
-- 6-step modal wizard: Product & Global Settings, Competitor Research, Auto Keyword Research, Keyword Review, Campaign Configuration, Launch Summary
+- 5-step modal wizard: Product Selection, Automated Competitor Research, Automated Keyword Research (Phase 1 + Phase 2), Campaign Config, Activate
 - Step 1: ASIN selection, Target ACOS (required), optional Auto Pacing and Bid Ceiling
-- Step 3: Auto-triggers keyword research with progress indicator, auto-advances to Step 4
-- Step 5: 16 pre-built campaigns in 3 sections (8 SPKW, 4 SPAU, 4 SPAS)
+- Step 3: Auto-triggers keyword research with progress indicator (Phase 1 Fetching + Phase 2 Analysis)
+- Step 4: 16 pre-built campaigns in 3 sections (8 SPKW, 4 SPAU, 4 SPAS)
 - Negative Keywords section with scope selector (All/Manual/Auto/PT)
 - Listing Quality Score panel with gauge and per-dimension bars
-- Step 6: Launch summary with pre-launch checklist, amber indicators for skipped items
+- Step 5: Launch summary with pre-launch checklist, amber indicators for skipped items
 - Wizard Edit Mode for previously launched ASINs with pre-populated data
 - Campaign names follow Kepler naming convention (system-generated, not editable)
 - Accessible: screen reader announces step changes, focus management on open/close
@@ -30,18 +30,18 @@
 
 ---
 
-## PROD-4121 — Intelligent Batch Orchestrator (IBO) — Bulk ASIN Launch
+## PROD-4121 -- Intelligent Batch Orchestrator (IBO) -- Bulk ASIN Launch
 
 **User Story:** As a seller with a large catalog, I want to launch advertising campaigns for multiple ASINs simultaneously with AI-powered grouping and unified campaign activation, so that I can scale my advertising setup from one ASIN at a time to dozens in a single workflow.
 
 **Solution Summary:**
 - 6-stage progressive workflow for bulk ASIN launch
-- Stage 1 — Mission Setup & AI Grouping: paste or import ASINs, system auto-groups by product type, brand, price band. AI handles bundles, singletons, price outliers, size splits. Each group card shows plain-language grouping reason
-- Stage 2 — Per-Group Configuration: tab selector per group, Tier 1 (category) and Tier 2 (per-ASIN) competitors, KW Research Approval Mode toggle (Auto-Approve skips Stage 4)
-- Stage 3 — Async Parallel Processing: real-time per-ASIN progress cards, activity log stream
-- Stage 4 — Review Hub: KW review and approval, bulk actions toolbar (export/import spreadsheet, bulk approve)
-- Stage 5 — Campaign Configuration: NB/OBH/CB color-coded rows, Kepler naming convention (locked), negative keywords with scope selector, outlier flagging
-- Stage 6 — Launch Confirmation: single Launch All button, pre-launch checklist, launch date picker
+- Stage 1 -- Mission Setup & AI Grouping: paste or import ASINs, system auto-groups by product type, brand, price band. AI handles bundles, singletons, price outliers, size splits. Each group card shows plain-language grouping reason
+- Stage 2 -- Per-Group Configuration: tab selector per group, Tier 1 (category) and Tier 2 (per-ASIN) competitors, KW Research Approval Mode toggle (Auto-Approve skips Stage 4)
+- Stage 3 -- Async Parallel Processing: real-time per-ASIN progress cards, activity log stream
+- Stage 4 -- Review Hub: KW review and approval, bulk actions toolbar (export/import spreadsheet, bulk approve)
+- Stage 5 -- Campaign Configuration: NB/OBH/CB color-coded rows, Kepler naming convention (locked), negative keywords with scope selector, outlier flagging
+- Stage 6 -- Launch Confirmation: single Launch All button, pre-launch checklist, launch date picker
 - Batch History: auto-save after each stage, resume any saved batch, delete old ones
 - Bulk CSV import supports 20+ ASINs with template download
 
@@ -52,14 +52,14 @@
 
 ---
 
-## PROD-4122 — Ads Management — ASIN Overview & Navigation Restructure
+## PROD-4122 -- Manage Ads -- ASIN Overview & Navigation Restructure
 
 **User Story:** As a seller, I want a unified ASIN Overview as my default landing page in the advertising section, so that I can see every product's advertising status at a glance and quickly access any configuration action without navigating through multiple tabs.
 
 **Solution Summary:**
-- Sidebar restructure: rename "Campaign Management" to "Ads Management", reduce 7 sub-items to 4 (ASIN Overview, Campaign Config, Keyword Settings, Search Term Settings)
+- Sidebar restructure: rename "Campaign Management" to "Manage Ads", reduce 7 sub-items to 4 (ASIN Overview, Campaign Config, Keyword Settings, Search Term Settings)
 - ASIN Overview table: ASIN, product name, setup status badge, ads on/off toggle, campaign count, budget, Target ACOS
-- Setup Status Checklist: click badge to see 6 wizard steps with completion state, Resume buttons for incomplete steps
+- Setup Status Checklist: click badge to see 5 wizard steps with completion state, Resume buttons for incomplete steps
 - Actions Dropdown per ASIN: quick navigation to Competitors, KW Research, Campaign Config, Launch Settings, Keyword Settings (filtered), Search Term Settings (filtered)
 - Ads toggle works instantly without page reload
 - Color-coded status badges: green (Complete), amber (In Progress), gray (Not Started)
@@ -72,7 +72,7 @@
 
 ---
 
-## PROD-4123 — Advertising Dashboards & Performance Intelligence
+## PROD-4123 -- Advertising Dashboards & Performance Intelligence
 
 **User Story:** As a seller, I want intelligent dashboards with KPI cards, trend visualizations, AI recommendations, and budget pacing indicators, so that I can monitor advertising performance and take action on optimization opportunities without manually analyzing data.
 
@@ -93,7 +93,7 @@
 
 ---
 
-## PROD-4124 — Keyword Settings — Full Portal Parity with Enhancements
+## PROD-4124 -- Keyword Settings -- Full Portal Parity with Enhancements
 
 **User Story:** As a seller, I want a comprehensive Keyword Settings view with all data columns from the portal organized in logical groups, including time-series performance data, so that I can manage keyword bids, analyze performance across time periods, and make informed optimization decisions.
 
@@ -123,7 +123,7 @@
 
 ---
 
-## PROD-4125 — Search Term Settings — Full Portal Parity with Enhancements
+## PROD-4125 -- Search Term Settings -- Full Portal Parity with Enhancements
 
 **User Story:** As a seller, I want a comprehensive Search Term Settings view with multiple sub-tabs for active terms, harvest queue, negative keywords, and high performers, so that I can manage the full search term lifecycle from discovery through optimization.
 
@@ -146,7 +146,7 @@
 
 ---
 
-## PROD-4126 — Campaign Management, Keyword Research & Branding Scope
+## PROD-4126 -- Campaign Management, Keyword Research & Branding Scope
 
 **User Story:** As a seller, I want to view and manage my campaigns, research new keywords, and classify keyword brand relationships, so that I can maintain full control over campaign structure, discover growth opportunities, and ensure proper brand targeting.
 
@@ -163,7 +163,7 @@
 
 ---
 
-## PROD-4127 — Pacing Management, Bid Optimization & Config Change Log
+## PROD-4127 -- Pacing Management, Bid Optimization & Config Change Log
 
 **User Story:** As a seller, I want dedicated views for budget pacing control, bid optimization monitoring, and a comprehensive change log, so that I can ensure campaigns stay within budget, track how bids are being optimized, and audit all configuration changes.
 
@@ -180,9 +180,9 @@
 
 ---
 
-## PROD-4128 — UX Infrastructure & Accessibility — Shared Patterns
+## PROD-4128 -- UX Infrastructure & Accessibility -- Shared Patterns
 
-**User Story:** As a seller, I want the advertising portal to have consistent, accessible, and performant UI patterns across all views — including sortable/filterable/paginated tables, CSV exports/imports, date pickers, confirmation dialogs, and theme support — so that I can work efficiently regardless of which section I'm in.
+**User Story:** As a seller, I want the advertising portal to have consistent, accessible, and performant UI patterns across all views -- including sortable/filterable/paginated tables, CSV exports/imports, date pickers, confirmation dialogs, and theme support -- so that I can work efficiently regardless of which section I'm in.
 
 **Solution Summary:**
 - Table Infrastructure (17+ tables): universal sorting (267+ columns), pagination (25/50/100 rows), empty states, column visibility toggle, sticky headers, frozen first 2 columns, Reset Filters on every table, editable cells with pencil icon
