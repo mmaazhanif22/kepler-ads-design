@@ -145,6 +145,15 @@ This ticket is foundational and should be built first or in parallel with featur
 - Hash routing should support deep linking to specific tabs within views.
 - Loading directive should accept size options (small/medium/large) and opacity toggle.
 
+## Related Enhancement Stories
+
+These enhancements extend the base infrastructure. Tracked as separate stories under PROD-2180.
+
+| PROD Key | Enhancement | Dependency |
+|----------|------------|------------|
+| TBD | Advanced Table Features: editable cells with pencil-on-hover, column reordering via drag-and-drop, saved filter presets per table | PROD-4128 must ship first |
+| TBD | Advanced Import/Export: import progress bar with row-level error reporting, import history timeline view, scheduled exports | PROD-4128 must ship first |
+
 ## Out of Scope
 
 - Backend API design or data layer architecture

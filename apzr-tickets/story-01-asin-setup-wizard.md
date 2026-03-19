@@ -163,11 +163,16 @@ The wizard is foundational. It must be delivered before sellers can set up adver
 - Search term harvesting and negative keyword management post-launch (covered by PROD-4125: Search Term Settings)
 - Campaign budget pacing (covered by PROD-4127: Pacing Management)
 
-**Future Enhancements (not in scope for this story, create separate stories if needed):**
-- PROD-4390: Notification Bell (full dropdown panel with history)
-- PROD-4391: Wizard Edit Mode (re-enter for launched ASINs)
-- Rich competitor tiles (price, velocity, rating, reviews)
-- "Review Fetched Keywords" link between phases
+## Related Enhancement Stories
+
+These enhancements are tracked as separate stories under PROD-2180. They extend the wizard but are not required for the core flow to ship.
+
+| PROD Key | Enhancement | Dependency |
+|----------|------------|------------|
+| PROD-4390 | Notification Bell: full dropdown panel with history, clickable resume | This story benefits from it (Step 3 notify on completion) |
+| PROD-4391 | Wizard Edit Mode: re-enter wizard for launched ASINs | This story provides the base wizard flow |
+| TBD | Wizard Advanced Campaign Features: Auto Budget toggle, ASIN-Level Defaults grouping, bulk campaign select/enable/pause, per-campaign negative keywords, Pacing badges | PROD-4120 must ship first |
+| TBD | Wizard UX Enhancements: rich competitor tiles (price, velocity, rating, reviews), "Review Fetched Keywords" link between phases, 3 post-wizard navigation cards, ads toggle tip | PROD-4120 must ship first |
 
 ## Test Cases
 
