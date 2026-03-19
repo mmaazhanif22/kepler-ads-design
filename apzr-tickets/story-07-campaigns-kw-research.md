@@ -40,6 +40,7 @@ As a seller, I want a campaign list with performance context and a config table 
 - Campaign list enhancement columns (Pacing, Spend, Sales, ACOS, Impressions, Clicks) require joining campaign data with performance metrics from `GET /amazon-ads/bidding/analytics/campaigns/top/`.
 - Campaign Config bulk import template must match the portal's 9-column format exactly. Template: `GET /amazon-ads/download-campaign-config-file`. Export: `GET /amazon-ads/ad-campaign/export/`.
 - Bulk status toggle: `AdvertisingCampaignConfigService.bulk_update()` with validation and duplicate detection.
+- Campaign API response (GET /api/amazon-ads/ad-campaign/): id, name, state, targeting_type, budget, budget_type, bidding_strategy, default_bid_manual, target_acos_threshold, match_type, optimize_bid, last_sync_on, last_sync_off, currency, modified. Paginated: {count, next, results[]}.
 
 # Test Cases
 

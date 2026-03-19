@@ -46,6 +46,8 @@ As a seller, I want one page showing all my ASINs with their advertising status 
 - Ad status field: `AdvertisingAsinConfig.ad_status` at `apps/amazon_ads/models/config.py`. Values: ENABLED=1, PAUSED=2, MANUAL_EDIT=4. Update triggers campaign sync via `AdvertisingCampaignConfigService.bulk_update()`.
 - Setup status computation: no existing endpoint. Add a computed property to the `AdvertisingAsinConfig` serializer combining `kw_research_status`, `competitor_asins` (empty or populated), and campaign count.
 - Sidebar navigation: defined in `client/src/app/core/layout/pages-menu.ts`. Change Campaign Management entry to flat "Manage Ads" with no children.
+- API response fields (GET /api/amazon-ads/config/asin-config/): asin, competitor_asins, target_acos, ad_status, daily_budget, previous_daily_budget, auto_budget, asin_extra_attributes, sp_overall_status. Paginated: {count, next, previous, results[]}.
+- Table column mapping: ASIN (`asin`), Product Name (from `asin_extra_attributes` or joined Asin model), Launch Status (computed from campaign count + `kw_research_status`), Ads Toggle (`ad_status`), Campaign Count (computed), Actions (dropdown).
 
 # Test Cases
 

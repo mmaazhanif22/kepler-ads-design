@@ -45,6 +45,7 @@ As a seller, I want a comprehensive Keyword Settings view with all 72 portal col
 - Import: `POST /amazon-ads/upload-file` type=k-config. Export: `GET /amazon-ads/keywords-config/export/`.
 - Time-series data aggregated from Amazon Advertising API over 7 periods. Bid Sync Status reflects whether last bid change pushed to Amazon. Applied metrics show values from last bid optimization cycle.
 - Two-row header: group name (top), column names (bottom). All 72+ columns present even if some hidden by default.
+- API response fields (GET /api/amazon-ads/keywords-config/): Returns all AdvertisingKeyword fields plus nested campaign data. Key fields: keyword, match_type, bid, final_bid, ceiling_bid, floor_bid, target_acos, state, campaign name/id. Includes time-series metrics (ad_cost_1d through ad_cost_180d, ad_sales, clicks, impressions per period). Paginated: {count, next, results[]}.
 
 # Test Cases
 

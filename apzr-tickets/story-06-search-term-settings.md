@@ -41,6 +41,7 @@ As a seller, I want an Active Search Terms table with all 105 portal columns org
 - Organic Rank split: "Avg Organic Rank" and "Median Organic Rank" as separate columns (not combined).
 - Sub-tab shell must render tab slots for PROD-4408 tabs even before that ticket ships.
 - Time-series data from same pipeline as Keyword Settings.
+- API response fields (GET /api/amazon-ads/config/search-term-config/): search_term, asin (computed), price (computed), campaign_name (computed), relevancy_tag (computed), negative_status_manual, negative_status, system_remarks, user_remarks, is_harvested, nested keyword object. Paginated: {count, next, results: {rows[], summary{}}}.
 
 # Test Cases
 

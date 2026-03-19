@@ -70,6 +70,7 @@ As a seller, I want a guided 5-step wizard for setting up ASIN advertising so th
 - Wizard state: store in Angular service, persist draft to localStorage on each step transition. Clear on "Complete Setup".
 - Stage Status Enum: PENDING(0), IN_QUEUE(1), RECEIVED(2), APPROVED(3), FAILED(4). Prompt Types: BRANDING_SCOPE=1, ATTRIBUTES_RANKING=2, GROUPING_RANKING=3.
 - KW Research async: frontend polls every 10s via `GET /api/amazon-ads/config/asin-config/{id}/` checking `kw_research_status`. When status=4, Phase 1 complete. Auto-trigger Phase 2.
+- Campaign Config API response (GET /api/amazon-ads/config/ad-campaign-config/?asin_id=X): id, asin, relevancy_tag, match_type, target_acos, daily_budget, ad_status, campaign_name (computed), campaign_strategy, custom_negative_keywords, target_spec, brand_group_name, nested asin_config object. Paginated: {count, next, results[]}.
 
 # Out of Scope
 
