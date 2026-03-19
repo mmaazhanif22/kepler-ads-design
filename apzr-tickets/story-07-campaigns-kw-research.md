@@ -1,92 +1,97 @@
-# Campaign Management, Keyword Research & Branding Scope
+# Campaign List & Config (Story 7A)
 
 ## User Story
 
-As a seller, I want to view and manage my campaigns, research new keywords, and classify keyword brand relationships, so that I can maintain full control over campaign structure, discover growth opportunities, and ensure proper brand targeting.
+As a seller, I want a campaign list view with performance context and a campaign config table with inline editing and bulk operations, so that I can assess campaign health at a glance and make configuration changes efficiently.
 
 ## Problem / Context
 
-- Sellers need a campaign list view that goes beyond basic portal columns to include performance context (pacing, spend, sales, ACOS) so they can assess campaign health at a glance
-- Keyword research tools need to surface competitive intelligence data (from sources like Jungle Scout) alongside Amazon's native data
-- The Branding Scope feature (NB/OB/CB classification) is essential for the Kepler campaign naming convention but lacks a dedicated management interface
-- Campaign configuration (budgets, bid strategies, status) needs a clear table view with bulk editing capabilities
+- Sellers need a campaign list view that goes beyond basic portal columns to include performance context (pacing, spend, sales, ACOS) so they can assess campaign health at a glance.
+- Campaign configuration (budgets, bid strategies, status) needs a clear table view with bulk editing capabilities.
+- The current portal has separate campaign list and config views. Both need enhancement with additional columns and inline editing.
+
+## Existing vs. Net-New
+
+| Area | Status | Notes |
+|------|--------|-------|
+| Campaign List (13 portal columns) | EXISTS (rebuild) | Current portal has 13 campaign columns. Rebuild with 7 enhancement columns (Pacing, Spend, Sales, ACOS, Impressions, Clicks, Match Type filter). |
+| Campaign Config (10 columns) | EXISTS (rebuild) | Current portal has campaign config table. Rebuild with inline editing and bulk import/export. |
+| Enhancement columns (7 new) | NEW | Pacing Status, Spend (period), Sales (period), ACOS (period), Impressions, Clicks, Match Type filter are new additions. |
+| Bulk status toggle | NEW | No bulk enable/pause for campaigns today. |
 
 ## Solution Outline
 
-**Campaign List Table (20 columns — 13 portal + 7 enhancements):**
-- Portal columns: Campaign Name, ASIN, Type, Match Type, Status, Daily Budget, Target ACOS, Bid Strategy, Start Date, End Date, Keywords Count, Ad Group Count, Portfolio
-- Enhancement columns: Pacing Status, Spend (period), Sales (period), ACOS (period), Impressions, Clicks, Match Type filter
-- Sortable, filterable, paginated
-- Bulk status toggle (enable/pause campaigns)
+**Campaign List Table (20 columns: 13 portal + 7 enhancements):**
+- Portal columns: Campaign Name, ASIN, Type, Match Type, Status, Daily Budget, Target ACOS, Bid Strategy, Start Date, End Date, Keywords Count, Ad Group Count, Portfolio.
+- Enhancement columns: Pacing Status, Spend (period), Sales (period), ACOS (period), Impressions, Clicks, Match Type filter.
+- Sortable, filterable, paginated.
+- Bulk status toggle (enable/pause campaigns).
 
 **Campaign Config Table (10 columns matching portal):**
-- Campaign, ASIN, Budget, Target ACOS, Bid Strategy, Placement Adjustments, Negative Keywords, Status, Created Date, Modified Date
-- Inline editable for budget, ACOS, and bid strategy
-- Bulk import/export with template matching portal format (9 columns)
-
-**Keyword Research (16 visible + 10 hidden columns):**
-- Visible: Keyword, Search Volume (Exact), Organic Rank, Sponsored Rank, Competition Level, CPR, Bid Suggestion, Relevancy, Word Count, Title Density, plus 6 more
-- Hidden (toggle-able): JS Search Volume (Broad), JS Organic ASIN Count, JS Sponsored ASIN Count, JS Ease of Ranking, JS Relevancy Score, JS PPC Bid (Exact/Broad), JS SP Brand Ad Bid, JS Recommended Promotions, JS Last Updated
-- "Columns" toggle button to show/hide the Jungle Scout data columns
-- Bulk import (3-column template: ASIN, Keyword, Source) and export
-- "Run KW Research" requires completed ASIN setup (prerequisites shown if not met)
-
-**Branding Scope:**
-- Table columns: Keyword, Branding Scope (NB/OB/CB), Relationship (N/R/S/C), Logs, Actions
-- Branding Scope dropdown values: NB (Non-Branded), OB (Own Brand), CB (Competitor Branded)
-- Relationship dropdown values: N (Neutral), R (Related), S (Substitute), C (Complementary)
-- Inline editable dropdowns
-- Branding classification drives which campaign type (NB/OBH/CB) a keyword belongs to
+- Campaign, ASIN, Budget, Target ACOS, Bid Strategy, Placement Adjustments, Negative Keywords, Status, Created Date, Modified Date.
+- Inline editable for budget, ACOS, and bid strategy.
+- Bulk import/export with template matching portal format (9 columns).
 
 **UI Requirements:**
-- Mockup: [Prototype](http://localhost:8765/Advertising%20Portal%20UI%20Design.html) — Campaign views accessible from Ads Management
-- KW Research hidden columns toggle is a button similar to Keyword Settings column visibility
-- Branding Scope dropdowns match portal values exactly
-- Campaign list enhancements (pacing, spend, sales, ACOS) visible alongside standard columns
+- Mockup: [Prototype](https://mmaazhanif22.github.io/kepler-ads-design/ads-only.html) | Campaign views accessible from Manage Ads
+- Campaign list enhancements (pacing, spend, sales, ACOS) visible alongside standard columns.
+
+## Sub-Tasks
+
+| # | Sub-Task | Exists / New | Backend Reference |
+|---|----------|-------------|-------------------|
+| 1 | **Campaign List table** with 13 portal columns + 7 enhancement columns, sortable/filterable/paginated | EXISTS (rebuild) | `GET /amazon-ads/ad-campaign/` for campaign list. Performance data joined from metrics endpoints. |
+| 2 | **Campaign Config table** with 10 columns, inline editing for budget/ACOS/bid strategy | EXISTS (rebuild) | `GET /amazon-ads/ad-campaign-config/` for config data. `PUT /amazon-ads/ad-campaign-config/` for updates. |
+| 3 | **Bulk status toggle** for enable/pause multiple campaigns at once | NEW | `AdvertisingCampaignConfigService.bulk_update()` for batch status changes. |
+| 4 | **Campaign Config bulk import/export** with 9-column template matching portal format | EXISTS (rebuild) | Import: `POST /amazon-ads/upload-file` type=ad-campaign-config. Export: `GET /amazon-ads/ad-campaign/export/`. Template: `GET /amazon-ads/download-campaign-config-file`. |
+
+## Backend References
+
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| `/amazon-ads/ad-campaign/` | GET | Campaign list with base 13 columns |
+| `/amazon-ads/ad-campaign/export/` | GET | Campaign list CSV export |
+| `/amazon-ads/ad-campaign-config/` | GET | Campaign config data (10 columns) |
+| `/amazon-ads/ad-campaign-config/` | PUT | Update campaign config (budget, ACOS, bid strategy) |
+| `/amazon-ads/upload-file` (type=ad-campaign-config) | POST | Import campaign config CSV |
+| `/amazon-ads/download-campaign-config-file` | GET | Campaign config template download |
+| `AdvertisingCampaignConfigService.bulk_update()` | Service | Bulk campaign updates with validation and duplicate detection |
+| `/amazon-ads/bidding/analytics/campaigns/top/` | GET | Campaign performance metrics for enhancement columns |
 
 ## Connected Work Items
 
-**Blocks:** None
-**Is Blocked By:** Story 1 (Wizard) — campaigns and keywords are created via wizard; Story 3 (ASIN Overview) — provides navigation entry point
-**Relates To:** Story 5 (KW Settings) — manages keywords post-research; Story 2 (IBO) — creates campaigns in bulk
-
-✅ Campaign Management and Keyword Research depend on campaign/keyword data existing from the wizard or IBO setup flows.
+**Blocks:** None.
+**Is Blocked By:** Story 1 (Wizard), campaigns are created via wizard. Story 3 (Manage Ads), provides navigation entry point.
+**Relates To:** Story 7B (Keyword Research), Story 7C (Branding Scope). Story 5 (KW Settings), manages keywords post-research. Story 2 (IBO), creates campaigns in bulk.
 
 ## Implementation Notes
 
-- Campaign list enhancement columns (Pacing, Spend, Sales, ACOS, Impressions, Clicks) require joining campaign data with performance metrics
-- Jungle Scout (JS) columns in Keyword Research come from a third-party data integration
-- Branding Scope classifications feed into the campaign naming convention (NB/OBH/CB prefix)
-- Campaign Config bulk import template must match the portal's 9-column format exactly
-- "Run KW Research" button should be disabled with a prerequisite message if ASIN setup is incomplete
+- Campaign list enhancement columns (Pacing, Spend, Sales, ACOS, Impressions, Clicks) require joining campaign data with performance metrics.
+- Campaign Config bulk import template must match the portal's 9-column format exactly.
 
 ## Out of Scope
 
+- Keyword research and discovery (covered by Story 7B)
+- Branding Scope management (covered by Story 7C)
 - Keyword bid management (covered by Story 5)
 - Search term analysis (covered by Story 6)
 - Campaign creation flow (covered by Stories 1 and 2)
-- Third-party data provider integration setup (backend concern)
 
 ## Test Cases
 
-- Seller views Campaign List — sees 20 columns including Pacing, Spend, Sales, ACOS enhancements
-- Seller filters by Match Type "Exact" — only exact match campaigns shown
-- Seller opens Campaign Config — inline edits budget from $20 to $30 — change saves
-- Seller imports Campaign Config CSV — system validates 9 columns and applies changes
-- Seller opens Keyword Research — sees 16 visible columns, clicks "Columns" to reveal 10 JS columns
-- Seller clicks "Run KW Research" without ASIN setup — sees prerequisite message, button disabled
-- Seller opens Branding Scope — sets keyword "lavender oil" to NB, Relationship N — saves
-- Seller exports Keyword Research — CSV includes visible columns only
+- Seller views Campaign List. Sees 20 columns including Pacing, Spend, Sales, ACOS enhancements.
+- Seller filters by Match Type "Exact". Only exact match campaigns shown.
+- Seller opens Campaign Config. Inline edits budget from $20 to $30. Change saves.
+- Seller imports Campaign Config CSV. System validates 9 columns and applies changes.
+- Seller bulk-selects 5 campaigns and toggles status to Paused. All 5 pause with confirmation.
+- Seller exports Campaign List. CSV includes all visible columns.
 
 ## Acceptance Criteria
 
 - [ ] Campaign List displays 20 columns (13 portal + 7 enhancement columns)
 - [ ] Campaign Config supports inline editing of budget, ACOS, and bid strategy
 - [ ] Campaign Config bulk import/export matches portal 9-column template format
-- [ ] Keyword Research shows 16 visible columns with toggle to reveal 10 additional Jungle Scout columns
-- [ ] "Run KW Research" disabled with prerequisite message when ASIN setup is incomplete
-- [ ] Branding Scope table supports NB/OB/CB and N/R/S/C dropdown values matching portal
-- [ ] Branding classifications feed into campaign naming convention
+- [ ] Bulk status toggle allows enabling/pausing multiple campaigns at once
 - [ ] All tables support sorting, filtering, pagination, and export
 - [ ] Tests passed (unit + integration)
 - [ ] UI matches approved mockup
