@@ -32,7 +32,7 @@ As a seller, I want a campaign list with performance context and a config table 
 
 # Connected Work Items
 
-**Blocked By:** [PROD-4120](https://keplercommerce.atlassian.net/browse/PROD-4120) (campaigns created via wizard), [PROD-4122](https://keplercommerce.atlassian.net/browse/PROD-4122) (navigation entry point)
+**Blocked By:** [PROD-4120](https://keplercommerce.atlassian.net/browse/PROD-4120) (campaigns created via wizard), [PROD-4128](https://keplercommerce.atlassian.net/browse/PROD-4128) (table component patterns), [PROD-4122](https://keplercommerce.atlassian.net/browse/PROD-4122) (navigation entry point)
 **Relates To:** [PROD-4409](https://keplercommerce.atlassian.net/browse/PROD-4409) (KW Research), [PROD-4410](https://keplercommerce.atlassian.net/browse/PROD-4410) (Branding Scope)
 
 # Implementation Notes

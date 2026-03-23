@@ -10222,10 +10222,12 @@ input[type="date"] { color-scheme: dark; }
             <p class="text-sm text-muted">Kepler fetches keyword data, then uses AI to group keywords into ranked segments, each representing a unique branding scope and customers' search intent combination.</p>
           </div>
 
-          <!-- Phase indicator toggle -->
-          <div id="kwPhaseIndicator" style="display:flex;gap:0;margin-bottom:16px;border-bottom:2px solid var(--border)">
-            <button id="kwPhase1Btn" onclick="switchKwPhase(1)" style="padding:8px 16px;border:none;background:none;cursor:pointer;font-size:12px;font-weight:700;color:var(--primary);border-bottom:2px solid var(--primary);margin-bottom:-2px">Phase 1: Keyword Fetching</button>
-            <button id="kwPhase2Btn" onclick="switchKwPhase(2)" disabled style="padding:8px 16px;border:none;background:none;cursor:not-allowed;font-size:12px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px;opacity:0.4">Phase 2: Analysis &amp; Grouping <span style="font-size:9px;color:var(--muted)">(complete Phase 1 first)</span></button>
+          <!-- R-3.9: Phase tabs removed. KW Research is now a single continuous flow.
+               Fetching completes → AI Analysis auto-triggers → 3-tab review appears.
+               Phase indicator hidden, both content areas show sequentially in same view. -->
+          <div id="kwPhaseIndicator" style="display:none">
+            <button id="kwPhase1Btn" onclick="switchKwPhase(1)">Phase 1: Keyword Fetching</button>
+            <button id="kwPhase2Btn" onclick="switchKwPhase(2)" disabled>Phase 2: Analysis &amp; Grouping</button>
           </div>
 
           <!-- ========== PHASE 1: Keyword Fetching (old wizStep2 KW Research content) ========== -->
@@ -10401,7 +10403,7 @@ input[type="date"] { color-scheme: dark; }
 
           </div><!-- /kwPhase1 -->
 
-          <!-- ========== PHASE 2: Analysis & Grouping (old wizStep3 KW Automation content) ========== -->
+          <!-- ========== PHASE 2: Analysis & Grouping (shows inline after Phase 1 completes, R-3.9) ========== -->
           <div id="kwPhase2" style="display:none">
 
           <!-- Time estimate callout -->
@@ -12299,7 +12301,7 @@ function updateWizFooter(n) {
       // Phase 1 is showing, check KW Research status
       next.disabled = !kwResearchDone;
       next.className = kwResearchDone ? 'btn btn-primary' : 'btn btn-secondary';
-      info.textContent = kwResearchDone ? 'Research complete ✓, switch to Phase 2' : 'Run keyword research to continue';
+      info.textContent = kwResearchDone ? 'Research complete ✓, AI analysis starting...' : 'Run keyword research to continue';
     }
   } else if (n === 4) {
     // Validate all campaign ACOS + budget fields are filled
@@ -13127,7 +13129,7 @@ function completeKwResearch() {
   showOverlapFlash();
   // Notify via bell
   var kwCount = _userKeywordsConfirmed ? '156 + ' + _userKeywords.length + ' user' : '156';
-  addNotification('Keyword Research complete for ' + (selectedAsin || 'ASIN') + ', ' + kwCount + ' keywords found. Ready for Phase 2: Analysis & Grouping.', 'success', 'open-wizard-step3');
+  addNotification('Keyword Research complete for ' + (selectedAsin || 'ASIN') + ', ' + kwCount + ' keywords found. AI analysis starting automatically.', 'success', 'open-wizard-step3');
   showToast('Keyword Research complete, ' + kwCount + ' keywords found', 'success');
 }
 
@@ -13236,19 +13238,15 @@ function unlockKwPhase2() {
   if (b2) { b2.disabled = false; b2.style.cursor = 'pointer'; b2.style.opacity = '1'; b2.innerHTML = 'Phase 2: Analysis &amp; Grouping'; }
 }
 function switchKwPhase(phase) {
+  // R-3.9: No more tab switching. Phase 2 shows BELOW Phase 1 in same view.
+  // This function now just makes Phase 2 visible inline (never hides Phase 1).
   var p1 = document.getElementById('kwPhase1');
   var p2 = document.getElementById('kwPhase2');
-  var b1 = document.getElementById('kwPhase1Btn');
-  var b2 = document.getElementById('kwPhase2Btn');
-  if (phase === 2 && b2 && b2.disabled) return; // Block if Phase 2 still locked
-  if (phase === 1) {
-    if (p1) p1.style.display = ''; if (p2) p2.style.display = 'none';
-    if (b1) { b1.style.color = 'var(--primary)'; b1.style.borderBottomColor = 'var(--primary)'; b1.style.fontWeight = '700'; }
-    if (b2) { b2.style.color = 'var(--muted)'; b2.style.borderBottomColor = 'transparent'; b2.style.fontWeight = '600'; }
-  } else {
-    if (p1) p1.style.display = 'none'; if (p2) p2.style.display = '';
-    if (b2) { b2.style.color = 'var(--primary)'; b2.style.borderBottomColor = 'var(--primary)'; b2.style.fontWeight = '700'; }
-    if (b1) { b1.style.color = 'var(--muted)'; b1.style.borderBottomColor = 'transparent'; b1.style.fontWeight = '600'; }
+  if (phase === 2) {
+    // Show Phase 2 below Phase 1 (both visible)
+    if (p2) p2.style.display = '';
+    // Scroll Phase 2 into view
+    if (p2) p2.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
   updateWizFooter(3);
 }

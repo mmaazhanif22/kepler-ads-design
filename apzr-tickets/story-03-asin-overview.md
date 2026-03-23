@@ -21,7 +21,7 @@ As a seller, I want one page showing all my ASINs with their advertising status 
 
 **Actions dropdown per ASIN row:**
 - Wizard Steps: Competitor Research (opens wizard Step 2), KW Research (Step 3), Campaign Config (Step 4), Activate (Step 5).
-- Post-Launch Settings: Keyword Research List, KW Config, SearchTerm Config.
+- Post-Launch Settings: Keyword Research List, Keyword Settings, Search Term Settings.
 - All wizard links call `openWizardForAsin(asin, stepNumber)`.
 
 **Sidebar restructure:**
@@ -46,6 +46,7 @@ As a seller, I want one page showing all my ASINs with their advertising status 
 - Ad status field: `AdvertisingAsinConfig.ad_status` at `apps/amazon_ads/models/config.py`. Values: ENABLED=1, PAUSED=2, MANUAL_EDIT=4. Update triggers campaign sync via `AdvertisingCampaignConfigService.bulk_update()`.
 - Setup status computation: no existing endpoint. Add a computed property to the `AdvertisingAsinConfig` serializer combining `kw_research_status`, `competitor_asins` (empty or populated), and campaign count.
 - Sidebar navigation: defined in `client/src/app/core/layout/pages-menu.ts`. Change Campaign Management entry to flat "Manage Ads" with no children.
+- **Section naming changes:** "KWs Config" renamed to "Keyword Settings". "SearchTerm Config" renamed to "Search Term Settings". "Campaign Management" renamed to "Manage Ads". These names must be updated in all navigation labels, breadcrumbs, tab headers, and page titles.
 - API response fields (GET /api/amazon-ads/config/asin-config/): asin, competitor_asins, target_acos, ad_status, daily_budget, previous_daily_budget, auto_budget, asin_extra_attributes, sp_overall_status. Paginated: {count, next, previous, results[]}.
 - Table column mapping: ASIN (`asin`), Product Name (from `asin_extra_attributes` or joined Asin model), Launch Status (computed from campaign count + `kw_research_status`), Ads Toggle (`ad_status`), Campaign Count (computed), Actions (dropdown).
 
@@ -55,7 +56,7 @@ As a seller, I want one page showing all my ASINs with their advertising status 
 2. Seller toggles Ads OFF. Campaigns sync to PAUSED on Amazon. Toggle state updates.
 3. Seller toggles Ads ON. Campaigns resume (may take up to 1 hour for Amazon sync).
 4. Seller clicks Actions > Campaign Config. Wizard opens at Step 4 for that ASIN.
-5. Seller navigates to KW Config from Actions dropdown. KW Config tab loads with that ASIN's data.
+5. Seller navigates to Keyword Settings from Actions dropdown. Keyword Settings tab loads with that ASIN's data.
 
 # Acceptance Criteria
 

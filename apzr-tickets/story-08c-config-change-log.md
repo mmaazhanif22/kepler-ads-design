@@ -33,10 +33,9 @@ As a seller, I want a human-readable change log of all advertising configuration
 # Implementation Notes
 
 - Bid changes: `GET /amazon-ads/bid-strategy-logs/`. Export: `GET /amazon-ads/bid-strategy-logs/export/`.
-- A unified change log endpoint aggregating bid changes, keyword harvests, negative KW additions, budget updates, and status changes does not exist today. Options: new backend endpoint or client-side aggregation from multiple sources (bid-strategy-logs + other update responses).
+- A unified change log endpoint does not exist today. Phase 1 approach: client-side aggregation from `bid-strategy-logs` endpoint combined with bulk_update response data and frontend action tracking. Phase 2 (future backend ticket): dedicated ChangeLog model and API endpoint for server-side event aggregation.
 - Events must be aggregated, not raw. Multiple bid changes in one optimization run become a single event.
 - Source distinction: "Manual" (seller action) vs. "Automated" (system optimization).
-- Analytics sub-views (ASIN-level, targeting, search term performance) share the same charting library and theme system as dashboards (PROD-4123). Data from: `GET /amazon-ads/bidding/analytics/dashboard/summary/`, `GET /amazon-ads/bidding/analytics/campaigns/top/`, `GET /amazon-ads/top-down-performance-analysis/`.
 
 # Test Cases
 

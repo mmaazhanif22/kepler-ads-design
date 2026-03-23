@@ -18,13 +18,17 @@ As a seller with a large catalog, I want to launch advertising for multiple ASIN
 **6-stage progressive workflow accessible from sidebar "Launch Ads > Bulk Launch (IBO)".**
 
 **Stage 1 - Mission Setup and AI Grouping:**
-- Seller enters mission name, selects marketplace, pastes ASINs or imports CSV via drag-and-drop upload (`POST /api/amazon-ads/upload-file` type=asin-config).
-- System validates ASINs and auto-groups by product type, brand relationship, price band. Price band splits when gap exceeds 2x group median. Singletons merged into nearest group.
-- Each group card shows: name, ASIN count, product type, price range, plain-language grouping reason.
+- Mission Details: mission name, target marketplace dropdown (US/UK/DE/CA), Bid Ceiling (default $3.00).
+- ASIN Batch Input: textarea (one per line) with Validate button, or Bulk Import Config via CSV upload (columns: ASIN, Target ACOS, Daily Budget, Ad Status, Competitors, Auto Pacing Status). Template download available.
+- Per-ASIN input fields: Target ACOS %, Competitor ASINs, Daily Budget (min $5), Ad Status (ENABLED/PAUSED), Auto Pacing toggle (ON by default).
+- Campaign Structure Defaults: Match Types (Exact/Phrase/Broad checkboxes), Campaign Types (NB/OBH/CB checkboxes), Bid Strategy (display only: "Dynamic - Down Only"). Note: NB/OBH/CB are keyword relevancy classifications (Non-Branded, Own Brand, Competitor Branded) that determine campaign name prefixes. Campaign strategy types in the UI are SPKW/SPAU/HP/HV/SPAS. Both systems are used: NB/OBH/CB as relevancy tags, SPKW/SPAU/HP/HV/SPAS as campaign strategy types.
+- On "Validate & Group ASINs": system auto-groups by product type, brand relationship, price band. Price band splits when gap exceeds 2x group median. Singletons merged into nearest group. Each group card shows: name, ASIN count, product type, price range, plain-language grouping reason.
 
 **Stage 2 - Per-Group Configuration:**
-- Tab selector per group. Tier 1 auto-suggested category competitors pre-populated per group from `GET /analytics/search_terms/competitor_asins`. Tier 2 per-ASIN variant competitors auto-suggested (2-5 per ASIN). Seller reviews and overrides, not enters from scratch.
-- Auto Pacing and Budget toggles at group level. KW Research Approval Mode toggle (Auto-Approve skips Stage 4, Manual Review sends to Stage 4).
+- Bulk Import CSV with 11 columns (ASIN, Relevancy/Group, Match Type, Target Spec, Target Brand, Target ACOS, Daily Budget, Ad Status, Custom Negative Keywords, Auto Pacing, Auto Budget).
+- Tab selector per group. Tier 1 auto-suggested category competitors pre-populated per group from `GET /analytics/search_terms/competitor_asins`. Tier 2 per-ASIN variant competitors with per-ASIN overrides table (Target ACOS, Bid Ceiling, Status).
+- Campaign Skeleton per group: Target ACOS % override, Daily Budget Override, Auto Pacing toggle (ON by default), Auto Budget toggle (ON by default).
+- KW Research Approval Mode toggle (Auto-Approve skips Stage 4, Manual Review sends to Stage 4).
 
 **Stage 3 - Async Parallel Processing:**
 - Up to 3 ASINs processed concurrently via RabbitMQ. Per-ASIN progress cards: Queued > Researching > Grouping > Building Campaigns > Done.
@@ -35,11 +39,16 @@ As a seller with a large catalog, I want to launch advertising for multiple ASIN
 - Still-processing ASINs shown with "Processing..." badge, update as they complete.
 
 **Stage 5 - Campaign Configuration:**
-- NB/OBH/CB color-coded campaign rows. Bid Optimization + Pacing in "Apply to All" section. Group filtering. Per-campaign negative keywords.
-- Campaign names follow Kepler convention, locked/not editable. Bulk Edit and Export CSV controls.
+- Campaign strategy legend: SPKW, SPAU, HP, HV, SPAS. Campaign table with per-campaign Target ACOS, Daily Budget, Status, Negative Keywords, Optimize Bid toggle. Simple/Advanced view toggle.
+- "Apply to All" toolbar: Target ACOS %, Daily Budget $, Bid Optimization master toggle, Auto Pacing master toggle.
+- Filter buttons: by Type (SPKW/SPAU/HP/HV/SPAS), Status (ENABLED/PAUSED), Group (NB Highly Relevant/NB Moderate/Own Brand/Competitor/Auto).
+- Campaign Skeleton summary: Bid Strategy, Match Types, Default Target ACOS, Default Budget.
+- Campaign names follow Kepler convention, locked/not editable. Negative Keywords textarea applied to all ASINs in batch.
 
 **Stage 6 - Launch Confirmation:**
-- Summary stats: Total ASINs, Campaigns, Daily Budget, Average Target ACOS. Pre-launch checklist. Single "Launch All Campaigns" button with confirmation. Launch date picker.
+- Launch summary stats: Total ASINs, Total Campaigns, Total Daily Budget, Average Target ACOS, Bid Strategy. Strategy breakdown by type (SPKW/SPAU/HP/HV/SPAS counts).
+- Per-ASIN launch summary table: ASIN, Product, Group, campaign counts per type, Total, Budget/day, Status.
+- Launch Date picker. Export Launch Plan button. Single "Launch All Campaigns" button with confirmation.
 
 **Batch History and Resume:**
 - Auto-saves after each stage transition. Saved Batches section with stage progress dots and resume buttons.
@@ -65,8 +74,8 @@ As a seller with a large catalog, I want to launch advertising for multiple ASIN
 - Competitor discovery: `apps/analytics/api/urls.py:78-80`. GET `/analytics/search_terms/competitor_asins` returns `{asin, clickShare, conversionShare, searchFrequencyRank}`.
 - Stage 3 parallel: process up to 3 ASINs concurrently via separate RabbitMQ messages. Each goes through: trigger research > wait > approve branding > approve attributes > approve grouping. Estimated: 20-30 min for 12 ASINs.
 - Batch persistence: no backend endpoint exists. Use localStorage for prototype phase. Structure: `{batchId, missionName, currentStage, asins, groupConfig, createdAt}`. If dedicated backend needed later, propose `BatchLaunchState` model.
-- Campaign naming: same Kepler convention as wizard. NB=`NBH1-SPKW-PB01-{Country}-S-{ASIN}-{Match}-KW`, OBH=`OBH1-...`, CB=`CBR1-...`.
-- Bulk import CSV columns: ASIN, TargetACOS, CompetitorASINs(comma-separated), DailyBudget, AutoBudgetStatus, AdStatus, AutoPacingStatus.
+- Campaign naming: same Kepler convention as wizard. Pattern: `{relevancy_tag}-{strategy_type}-{brand_code}-{Country}-S-{ASIN}-{Match}-KW`. Relevancy tags (NB/OBH/CB) combine with strategy types (SPKW/SPAU/HP/HV/SPAS) to produce names like `NBH1-SPKW-PB01-US-S-{ASIN}-E-KW`.
+- Stage 1 Bulk Import CSV columns: ASIN, Target ACOS, Daily Budget, Ad Status, Competitors, Auto Pacing Status. Stage 2 Bulk Import: ASIN, Relevancy/Group, Match Type, Target Spec, Target Brand, Target ACOS, Daily Budget, Ad Status, Custom Negative Keywords, Auto Pacing, Auto Budget.
 
 # Out of Scope
 
