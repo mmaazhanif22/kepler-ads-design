@@ -9857,9 +9857,9 @@ input[type="date"] { color-scheme: dark; }
       <!-- ── STAGE 6: Launch Confirmation ── -->
       <div class="ibo-panel" id="ibo-panel-6">
         <div class="ibo-section-title">Launch Confirmation</div>
-        <div class="ibo-section-sub">Review the final summary before submitting campaigns to CampaignCreationOrchestrator. Campaigns are created in batch via RabbitMQ and set to ENABLED on Amazon.</div>
+        <div class="ibo-section-sub">Review the final summary before launching campaigns. All campaigns are created in batch and set to ENABLED on Amazon.</div>
         <div style="background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.2);border-radius:8px;padding:10px 16px;margin-bottom:14px;font-size:12px;line-height:1.5;color:var(--text)">
-          <strong style="color:var(--error)">⚠ Live launch warning</strong>, Clicking "Launch All Campaigns" will submit all campaigns to <code style="font-size:11px">CampaignCreationOrchestrator</code> via <code style="font-size:11px">POST /api/amazon-ads/products/save-selection/</code>. Campaigns are created in batch via RabbitMQ (<code style="font-size:11px">advertising_create_campaign</code> consumer) and set to ENABLED status. They will start spending against their daily budgets once created on Amazon. Ensure all settings are correct before proceeding.
+          <strong style="color:var(--error)">⚠ Live launch warning</strong>: Clicking "Launch All Campaigns" will create and activate all campaigns on Amazon Advertising. Campaigns will start spending against their daily budgets immediately. Ensure all settings are correct before proceeding.
         </div>
 
         <!-- Launch summary stats, dynamically updated by iboUpdateLaunchStats() -->
@@ -17005,7 +17005,7 @@ function iboLaunchAll() {
   var budgetText = document.getElementById('ibo-s6-budget')?.textContent || '—';
   showConfirmModal({
     title: 'Launch All Campaigns (' + asinCount + ' ASINs, ' + campCount + ' campaigns)?',
-    message: 'This will submit all ' + campCount + ' campaigns across ' + asinCount + ' ASINs to CampaignCreationOrchestrator via POST /api/amazon-ads/products/save-selection/. Campaigns are queued via RabbitMQ (advertising_create_campaign) and created in batch. Total daily budget: ' + budgetText + '. Campaigns will be set to ENABLED and start spending once created on Amazon.',
+    message: 'This will create and activate all ' + campCount + ' campaigns across ' + asinCount + ' ASINs on Amazon Advertising. Total daily budget: ' + budgetText + '. Campaigns will be set to ENABLED and start spending immediately once created.',
     confirmLabel: 'Confirm Launch',
     variant: 'danger'
   }).then(confirmed => {
